@@ -68,6 +68,7 @@ body {
 }
 #sel {
 	margin-top: 5px;
+	font-size: 12px;
 }
 #sel > div {
 	display: inline-block;
