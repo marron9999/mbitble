@@ -11,12 +11,12 @@ var SOUND = {
 			["ソ#", 831], ["ラ", 880], ["ラ#", 932], ["シ", 988]],
 	],
 	note2: [
-		["A", 440], ["A3", 220], ["A4", 440], ["A5", 880], [],
+		["A", 440], ["A3", 220], ["A4", 440], ["A5", 880],
 		["B", 494], ["Bb", 466], ["B3", 247], ["Bb3", 233], 
 			["B4", 494], ["Bb4", 466], ["B5", 988], ["Bb5", 932],
 		["C", 262], ["C#", 277], ["C3", 131], ["C#3", 139],
 			["C4", 262], ["C#4", 277], ["C5", 523], ["C#5", 555],
-		["D", 294], ["D3", 147], ["D4", 294], ["D5", 587], [],
+		["D", 294], ["D3", 147], ["D4", 294], ["D5", 587],
 		["E", 330],	["Eb", 311], ["E3", 165], ["Eb3", 156],
 			["E4", 330],["Eb4", 311], ["E5", 659], ["Eb5", 622],
 		["F", 349], ["F#", 370], ["F3", 175], ["F#3", 185],
@@ -156,22 +156,13 @@ function device_note1() {
 
 function device_note2() {
 	let v = "";
-	v += "<div><div class=key3>";
-	for (let k = 0; k < SOUND.note2.length; k++) {
-		for (let i = 0; i < 8; i++, k++) {
-			if(k == SOUND.note2.length) break;
-			if(SOUND.note2[k].length > 0) {
-				v += "<span class='key' onclick='device_key2(this)' id=k"
-					+ k + "><b>" + SOUND.note2[k][0] + "</b></span>";
-				if(i == 7) break;
-			} else {
-				break;
-			}
+	for (let k = 0; k < SOUND.note2.length; ) {
+		v += "<div><div class=key3>";
+		for (let i = 0; i < 4; i++, k++) {
+			v += "<span class='key' onclick='device_key2(this)' id=k"
+				+ k + "><b>" + SOUND.note2[k][0] + "</b></span>";
 		}
 		v += "</div></div>";
-		if(k + 1 < SOUND.note2.length) {
-			v += "<div><div class=key3>";
-		}
 	}
 	E("key2").innerHTML = v;
 }
