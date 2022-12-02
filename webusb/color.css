@@ -1,20 +1,21 @@
 #ope {
 	position: absolute;
 	top: 5px;
-	left: 5px;
+	left: 2px;
 }
 
 #op2 {
 	position: absolute;
 	top: 5px;
-	left: 5px;
+	left: 2px;
 	width: 215px;
 }
 
 #op2 > table {
  	display: inline-table;
-	width: calc(100%);
+	width: calc(100% - 18px);
 	border: 0;
+	border-spacing: 0px;
 }
 #op2 > table td {
 	font-size: 11px;
@@ -23,8 +24,8 @@
 #ope > span {
 	display: inline-block;
 	border: 2px solid #cccccc;
-	width: 30px;
-	height: 30px;
+	width: 26px;
+	height: 26px;
 	margin-top: 2px;
 	margin-left: 2px;
 	cursor:pointer;
@@ -36,7 +37,7 @@
 	-webkit-appearance: none;
 	height: 38px;
 	border: 1px solid gray;
-	width:calc(100% - 5px);
+	width:calc(100% - 10px);
 	cursor: pointer;
 }
 

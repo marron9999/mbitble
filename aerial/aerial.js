@@ -25,7 +25,7 @@ var SIDE = 0;
 var HSL = [0, 0, 0];
 var RGB = [0, 0, 0];
 var MBIT= [0, 0, 0, 0];
-var SIZE = [];
+var SIZE = [615, 630];
 
 async function connectLED(msg) {
 	if(online == null) {
@@ -147,8 +147,8 @@ function showSide(sw) {
 	let i = E((SIDE>0)? "backi" : "fronti");
 	e.width  = SIZE[0];
 	e.height = SIZE[1];
-	e.style.width  = parseInt(SIZE[0] * 0.7) + "px";
-	e.style.height = parseInt(SIZE[1] * 0.7) + "px";
+	e.style.width  = parseInt(SIZE[0] * 0.55) + "px";
+	e.style.height = parseInt(SIZE[1] * 0.55) + "px";
 	let cc = e.getContext("2d");
 	cc.fillStyle = "#00000000";
 	cc.fillRect(0, 0, SIZE[0], SIZE[1]);
@@ -193,15 +193,15 @@ function initAerial() {
 				+ "<td><div class=i id=i" + n + "></div></td></tr>";
 	}
 	E("list").innerHTML = ls + "</table>";
-	f = E("fronti");
-	SIZE = [f.width, f.height];
-	f = function(e) {
-		e.style.width  = parseInt(SIZE[0] * 1.0) + "px";
-		e.style.height = parseInt(SIZE[1] * 1.0) + "px";
+	let f = function(e) {
+		e.style.width  = parseInt(SIZE[0] * 0.55) + "px";
+		e.style.height = parseInt(SIZE[1] * 0.55) + "px";
 	};
 	f(E("body"));
 	f(E("front"));
 	f(E("back"));
+	f(E("fronti"));
+	f(E("backi"));
 	clickRGB(0, 0, 0);
 	setTimeout(function() {
 		showSide(SIDE);

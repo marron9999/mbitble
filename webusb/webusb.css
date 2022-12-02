@@ -9,9 +9,9 @@ body {
 }
 #body {
 	position: absolute;
-	left: 20px;
-	top: 10px;
-	width: calc(100% - 40px);
+	left: 5px;
+	top: 5px;
+	width: calc(100% - 25px);
 	height: calc(100% - 30px);
 	display: block;
 }
@@ -29,15 +29,14 @@ body {
 #right {
 	float:left;
 	padding: 2px 5px;
-	margin-left: 10px;
 	height: calc(100%);
-	width: calc(100% - 265px);
+	width: calc(100% - 225px);
 }
 #logs {
 	margin-top: 10px;
 	border: 1px solid gray;
 	width: calc(100%);
-	height: calc(100% - 40px);
+	height: 483px;
 	position: relative;
 }
 #log {
@@ -61,7 +60,7 @@ body {
 #left2 {
 	float:left;
 	padding: 2px 5px;
-	width: 232px;
+	width: 205px;
 	position: relative;
 }
 #left2 {
@@ -102,7 +101,7 @@ body {
 	border: 1px solid gray;
 	border-top: 0;
 	position: relative;
-	width: 230px;
+	width: 198px;
 	height: 210px;
 }
 
