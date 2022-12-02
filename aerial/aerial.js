@@ -196,8 +196,8 @@ function initAerial() {
 	f = E("fronti");
 	SIZE = [f.width, f.height];
 	f = function(e) {
-		e.style.width  = parseInt(SIZE[0] * 0.7) + "px";
-		e.style.height = parseInt(SIZE[1] * 0.7) + "px";
+		e.style.width  = parseInt(SIZE[0] * 1.0) + "px";
+		e.style.height = parseInt(SIZE[1] * 1.0) + "px";
 	};
 	f(E("body"));
 	f(E("front"));
