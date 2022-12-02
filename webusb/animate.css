@@ -1,0 +1,14 @@
+#ani {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+#ani > div {
+	display: inline-block;
+	padding: 3px 3px;
+	margin: 3px 3px;
+	border: 1px solid gray;
+}
+#ani > div.b {
+	cursor: pointer;
+}

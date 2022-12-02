@@ -1,0 +1,143 @@
+#body {
+	position: relative;
+	/*display: inline-block;*/
+	padding: 1px 1px;
+	border: 1px solid gray;
+	/*float: left;*/
+}
+#tool {
+	float: left;
+	display: inline-block;
+	margin-left: 20px;
+	margin-top: 10px;
+	width: 190px;
+}
+#list {
+	border: 1px solid gray;
+	min-height: 205px;
+	height: auto;
+	margin-top: 5px;
+}
+#list td {
+	padding: 0;
+}
+#list td > div.i {
+	position: relative;
+	display: inline-block;
+	width: 30px;
+	height: 18px;
+	overflow: hidden;
+	margin-left: 5px;
+	margin-right: 3px;
+}
+#list td > div.i > img {
+	position: absolute;
+	left: 0;
+	top: -9px;
+}
+#list td > span.t {
+	display: inline-block;
+	width: calc(100% - 10px);
+	border: 1px solid gray;
+	margin-left: 5px;
+	padding-left: 5px;
+	cursor:pointer;
+}
+#list td > span.c {
+	display: inline-block;
+	width: 30px;
+	height: 18px;
+	border: 1px solid gray;
+	margin-left: 10px;
+	vertical-align: middle;
+}
+#_front, #_back, #_right {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px solid #00000000;
+	cursor: pointer;
+	margin-top: 2px;
+	z-index: 2;
+}
+#_front {
+	margin-left: 5px;
+	border-color: gray;
+}
+#_right {
+	text-align: right;
+	position: absolute;
+	right: 5px;
+}
+#front, #back {
+	display: inline-block;
+	border: 1px solid #c0c0c0;
+	position: absolute;
+	top: 0px;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 1;
+}
+#fronti,
+#backi {
+	margin: 0;
+	padding: 0;
+	width: calc(100%);
+	height: calc(100%);
+}
+#back {
+	display: none;
+}
+#front canvas,
+#back  canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#sel {
+	display: inline-block;
+}
+#sel span {
+	display: inline-block;
+	cursor: pointer;
+	border-bottom: 1px solid gray;
+	margin-top: 1px;
+}
+#tab {
+	margin-left: 10px;
+	width: 230px;
+	cursor: pointer;
+}
+#tabx {
+	margin-left: 10px;
+	width: 230px;
+}
+
+#tabs {
+	float: left;
+	margin-top: 10px;
+}
+#logs {
+	margin-top: 0px;
+	border: 0;
+	width: calc(100% - 10px);
+	height: calc(100% - 30px);
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	z-index: 2;
+}
+#log {
+	width: auto;
+	text-align: right;
+	right: 0;
+	left: auto;
+	color: black;
+}
+#que {
+	width: auto;
+	text-align: right;
+	bottom: 0;
+	top: auto;
+}

@@ -1,0 +1,25 @@
+#icon {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+#icon > div {
+	display: inline-block;
+	width: 31px;
+	line-height: 1px;
+	margin: 3px 3px;
+	cursor: pointer;
+}
+#icon > div > span {
+	display: inline-block;
+	width:3px; height: 3px;
+	border: 1px solid #aaa;
+	margin-top: 1px;
+	margin-left: 1px;
+}
+#icon > div > span.C0 {
+	background: white;
+}
+#icon > div > span.C1 {
+	background: black;
+}

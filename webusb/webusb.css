@@ -1,0 +1,108 @@
+* {
+	user-select: none;
+}
+body {
+	padding: 5px;
+	margin: 0px;
+	font-family: "Meiryo UI";
+	font-size: 14px;
+}
+#body {
+	position: absolute;
+	left: 20px;
+	top: 10px;
+	width: calc(100% - 40px);
+	height: calc(100% - 30px);
+	display: block;
+}
+#connect {
+	cursor: pointer;
+	border-bottom: 1px solid gray;
+	padding: 0px 2px;
+}
+#disconnect {
+	display: none;
+	cursor: pointer;
+	border-bottom: 1px solid gray;
+	padding: 0px 2px;
+}
+#right {
+	float:left;
+	padding: 2px 5px;
+	margin-left: 10px;
+	height: calc(100%);
+	width: calc(100% - 265px);
+}
+#logs {
+	margin-top: 10px;
+	border: 1px solid gray;
+	width: calc(100%);
+	height: calc(100% - 40px);
+	position: relative;
+}
+#log {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: calc(100%);
+	height: calc(100%);
+	font-size: 12px;
+}
+#que {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
+	color:gray;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+#left,
+#left2 {
+	float:left;
+	padding: 2px 5px;
+	width: 232px;
+	position: relative;
+}
+#left2 {
+	display: none;
+}
+#sel {
+	margin-top: 5px;
+}
+#sel > div {
+	display: inline-block;
+	vertical-align:top;
+}
+#sel > div > span {
+	display: inline-block;
+	border-bottom: 1px solid gray;
+	margin-bottom: 2px;
+	cursor: pointer;
+}
+
+#tab {
+	margin-top: 10px;
+	border-bottom: 1px solid gray;
+	position: relative;
+	height:20px;
+}
+#tab > span {
+	border: 1px solid gray;
+	border-top-left-radius: 10px;
+	height:19px;
+	padding: 0 10px;
+	display: inline-block;
+	margin-right: 1px;
+}
+#tab1 {
+	border-bottom-color: white;
+}
+#tabx {
+	border: 1px solid gray;
+	border-top: 0;
+	position: relative;
+	width: 230px;
+	height: 210px;
+}
+

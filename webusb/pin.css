@@ -1,0 +1,81 @@
+#pin {
+	width: 220px;
+	margin-top: 10px;
+	padding: 5px 5px;
+	border: 1px solid gray;
+}
+
+#pin > table {
+ 	display: inline-table;
+	width: calc(100%);
+	border: 0;
+}
+#pin > table td {
+}
+#pin > table td img {
+	position: absolute;
+	top: -9px;
+	left: 0;
+}
+#pin > table td {
+}
+#p0, #p1, #p2, #p3,
+#p4, #p5, #p6, #p7 {
+	display:inline-block;
+	border: 1px solid gray;
+	width: 116px;
+	height: 18px;
+	position: relative;
+}
+#n0, #n1, #n2, #n3,
+#n4, #n5, #n6, #n7 {
+	display:inline-block;
+	width:16px;
+	height: 18px;
+	position: absolute;
+	top:0;
+	left:0;
+	z-index:1;
+}
+#b0, #b1, #b2, #b3,
+#b4, #b5, #b6, #b7 {
+	display:inline-block;
+	height: 5px;
+	background: orange;
+	position: absolute;
+	left:0;
+	top:13px;
+}
+#t0, #t1, #t2, #t3,
+#t4, #t5, #t6, #t7 {
+	display:inline-block;
+	width: 50px;
+	text-align: right;
+}
+#i0, #i1, #i2, #i3,
+#i4, #i5, #i6, #i7 {
+	position: relative;
+	display:inline-block;
+	width: 30px;
+	height: 18px;
+	overflow: hidden;
+	margin-left: 10px;
+}
+
+#vol{
+  appearance: none;
+  -webkit-appearance: none;
+  height: 10px;
+  border: 1px solid gray;
+  width:calc(100% - 5px);
+}
+
+#vol::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 18px;
+  width: 14px;
+  /*border-radius: 16px;*/
+  cursor: pointer;
+  border: 2px solid gray;
+}

@@ -1,0 +1,102 @@
+#key1,
+#key2 {
+	white-space: nowrap;
+	overflow: hidden;
+	padding-left: 8px;
+	padding-top: 8px;
+	display: inline-block;
+	border: 1px solid gray;
+	width: calc(100%);
+	height: 215px;
+}
+#key2 {
+	display: none;
+}
+#keys {
+	margin-top: 10px;
+}
+#keyt {
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+#keyt > span {
+	margin-right: 10px;
+	border-bottom: 1px solid gray;
+	cursor: pointer;
+}
+.key {
+	width: 29px;
+	height: 29px;
+	text-align: center;
+	border: 1px solid green;
+	border-radius: 2px;
+	z-index: 10;
+	cursor: pointer;
+	display: inline-block;
+	margin-right: 1px;
+	text-align: center;
+	color: green;
+	position: relative;
+	background: white;
+}
+.key.null {
+	border-color: white;
+	cursor: unset;
+}
+.key b {
+	font-weight: bold;
+	vertical-align: bottom;
+	position: absolute;
+	left: 0;
+	top: 6px;
+	width: 24px;
+}
+.key1 .key {
+	background: #ddd;
+}
+.key1 .key.null {
+	background: transparent;
+}
+.key2 .key b {
+	font-size: 16px;
+}
+.key3 .key b {
+	font-size: 10px;
+}
+.key1 .key b {
+	font-size: 16px;
+}
+.key1 {
+	margin-left: 21px;
+}
+.key2 {
+	margin-bottom: 3px;
+}
+.key3 .key {
+	width: 24px;
+	height: 24px;
+	margin-right: 2px;
+}
+
+#play {
+	margin-top: 10px;
+	white-space: normal;
+	padding: 0;
+}
+#play > button,
+#play2 > button  {
+	margin-bottom: 5px;
+}
+#play2 {
+	/*display: none;*/
+}
+
+#plaing {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	/*font-size: 24px;*/
+	color:red;
+	font-weight: bold;
+}
+

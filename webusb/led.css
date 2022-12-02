@@ -1,0 +1,21 @@
+#led {
+	margin-top: 10px;
+	padding: 5px 5px;
+	border: 1px solid gray;
+}
+
+#led > div {
+	display: inline-block;
+	border: 2px solid #cccccc;
+	background: black;
+	width: 30px;
+	height: 30px;
+	margin: 5px 5px;
+	position: relative;
+}
+
+#led > div > img {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
