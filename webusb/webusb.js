@@ -129,3 +129,22 @@ function clickTab(e) {
 	}
 }
 
+
+function savedata(name, data) {
+	try {
+		let json = JSON.stringify(data);
+		if(json != null)
+			localStorage.setItem(name, json);
+	} catch(e) {
+		//
+	}
+}
+function loaddata(name) {
+	try {
+		let json = localStorage.getItem(name);
+		return JSON.parse(json);
+	} catch(e) {
+		//
+	}
+	return null;
+}

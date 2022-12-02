@@ -89,9 +89,15 @@ function initLED() {
 		LED_ANI.push(za);
 		LED_XY.push(zs);
 	}
-	LED_XY[0][0] = 1;
+	//LED_XY[0][0] = 1;
 	let p = E("led");
 	p.innerHTML = h;
+	h = loaddata("LED25_RGB");
+	if(h != null) {
+		LED_RGB = h;
+		h = loaddata("LED25_ANI");
+		LED_ANI = h;
+	}
 }
 
 async function clickLED(e) {
@@ -122,9 +128,9 @@ async function setLED() {
 	OP("#," + RGB[0] + "," + RGB[1] + "," + RGB[2] + "," + ANIs[ANI][0]);
 	let n = "";
 	let m = 0;
+	let u = false;
 	for(let y = 0; y < 5; y++) {
 		for(let x = 0; x < 5; x++) {
-			let u = false;
 			if(LED_XY[y][x] > 0) {
 				if(LED_RGB[y][x][0] != RGB[0]) {
 					LED_RGB[y][x][0] = RGB[0];
@@ -171,6 +177,10 @@ async function setLED() {
 			}
 		}
 	}
+	if(u) {
+		savedata("LED25_RGB", LED_RGB);
+		savedata("LED25_ANI", LED_ANI);
+	}
 	if(online != null) {
 		if(n != "") {
 			OP("=" + n);
@@ -209,11 +219,11 @@ async function _setLED() {
 				p.style.borderColor = "";
 			} else {
 				p.style.borderColor = "red";
-				p.style.backgroundColor =
-					"rgb(" + RGB[0] + "," + RGB[1] + "," + RGB[2] + ")";
-				if(ANI == 0) p.innerHTML = "";
-				else p.innerHTML = "<img src=webusb/" + ANIs[ANI][1] + ".png>";
 			}
+			p.style.backgroundColor =
+				"rgb(" + LED_RGB[y][x][0] + "," + LED_RGB[y][x][1] + "," + LED_RGB[y][x][2] + ")";
+			if(LED_ANI[y][x] == 0) p.innerHTML = "";
+			else p.innerHTML = "<img src=webusb/" + ANIs[LED_ANI[y][x]][1] + ".png>";
 		}
 	}
 }

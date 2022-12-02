@@ -91,10 +91,24 @@ async function clickLED( n) {
 
 async function setLED() {
 	setRGB();
+	let u = false;
 	for(let n=0; n<LED.length; n++) {
 		if(LED[n].s > 0) {
-			LED[n].c = [RGB[0], RGB[1], RGB[2], ANI];
+			if(LED[n].c[0] != RGB[0]
+			|| LED[n].c[1] != RGB[1]
+			|| LED[n].c[2] != RGB[2]
+			|| LED[n].c[3] != ANI) {
+				u = true;
+				LED[n].c = [RGB[0], RGB[1], RGB[2], ANI];
+			}
 		}
+	}
+	if(u) {
+		u = [];
+		for(let n=0; n<LED.length; n++) {
+			u[n] = LED[n].c;
+		}
+		savedata("AERIAL", u);
 	}
 	selectLED();
 	showSide(SIDE);
@@ -203,6 +217,12 @@ function initAerial() {
 	f(E("fronti"));
 	f(E("backi"));
 	clickRGB(0, 0, 0);
+	h = loaddata("AERIAL");
+	if(h != null) {
+		for(let n=0; n<LED.length; n++) {
+			LED[n].c = h[n];
+		}
+	}
 	setTimeout(function() {
 		showSide(SIDE);
 	}, 500);
