@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>MBITBLE</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+</head>
+<body>
+<h3>micro:bitのWeb Bluetoothでneopixel(LED)をリモートで制御</h3>
+<p>以下のHTMLを使ってWeb Bluetooth経由でneopixel 25個を制御します。</p>
+<p><a href=led25.html>led25.html</a></p>
+<hr>
+<p>２台のmicro:bitを使います。</p>
+<li>それそれのP1、P2、3V、GNDを配線します</li>
+<li>どちらかのmicrobitに電源を供給します。</li>
+<li>neopixelへの電源は、必ず個別に供給してください。micro:bitからの直接供給はできません。</li>
+
+<p><img src=mbitble.png width=50% height=auto>
+
+<p>(1) neopixelを制御するmicro:bit</p>
+<li>P0 neopixelのDIへ信号を送信するためにつかいます</li>
+<li>P1 (2)から信号を受信するためにつかいます</li>
+<li>P2 (2)へ信号を送信するためにつかいます（予約）</li>
+<p><a href=microbit-COLOR5.hex>microbit-COLOR5.hex</a><br>
+<img src=microbit-COLOR5.png width=50% height=auto></p>
+<p>(2) Bluetooth UARTで受信するmicro:bit</p>
+<li>P0 本体スピーカーを鳴らすためにつかいます</li>
+<li>P1 (1)へ信号を送信するためにつかいます</li>
+<li>P2 (1)から信号を受信するためにつかいます（予約）</li>
+<p><a href=microbit-BLE2.hex>microbit-BLE2.hex</a><br>
+<img src=microbit-BLE2.png width=50% height=auto></p>
+</body>
+</html>
