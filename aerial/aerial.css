@@ -17,6 +17,11 @@
 	min-height: 205px;
 	height: auto;
 	margin-top: 5px;
+	font-size: 11px;
+	padding: 2px 2px;
+}
+#list table {
+	border-spacing: 0;
 }
 #list td {
 	padding: 0;
