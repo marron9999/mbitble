@@ -212,6 +212,11 @@ async function setLED() {
 }
 
 async function _setLED() {
+	let p = E("seli");
+	p.innerHTML = "<img src=webusb/" + ANIs[ANI][1] + ".png>";
+	p = E("selc");
+	p.style.backgroundColor =
+		"rgb(" + RGB[0] + "," + RGB[1] + "," + RGB[2] + ")";
 	for(let y = 0; y < 5; y++) {
 		for(let x = 0; x < 5; x++) {
 			p = E("" + y + x);

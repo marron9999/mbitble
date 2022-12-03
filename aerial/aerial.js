@@ -125,6 +125,11 @@ function showLog() {
 
 function showSide(sw) {
 	SIDE = sw;
+	let p = E("seli");
+	p.innerHTML = "<img src=webusb/" + ANIs[ANI][1] + ".png>";
+	p = E("selc");
+	p.style.backgroundColor =
+		"rgb(" + RGB[0] + "," + RGB[1] + "," + RGB[2] + ")";
 	for(let n=0; n<LED.length; n++) {
 		let e = E("t" + n);
 		if(LED[n].s > 0) {

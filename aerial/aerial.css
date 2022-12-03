@@ -14,7 +14,7 @@
 }
 #list {
 	border: 1px solid gray;
-	min-height: 205px;
+	min-height: 190px;
 	height: auto;
 	margin-top: 5px;
 	font-size: 11px;
@@ -29,8 +29,8 @@
 #list td > div.i {
 	position: relative;
 	display: inline-block;
-	width: 30px;
-	height: 18px;
+	width: 20px;
+	height: 16px;
 	overflow: hidden;
 	margin-left: 1px;
 	margin-right: 1px;
@@ -38,7 +38,8 @@
 #list td > div.i > img {
 	position: absolute;
 	left: 0;
-	top: -9px;
+	top: -2px;
+	width: 20px;
 }
 #list td > span.t {
 	display: inline-block;
@@ -47,11 +48,12 @@
 	margin-left: 2px;
 	padding-left: 3px;
 	cursor:pointer;
+	line-height: 16px;
 }
 #list td > span.c {
 	display: inline-block;
 	width: 20px;
-	height: 18px;
+	height: 14px;
 	border: 1px solid gray;
 	margin-left: 2px;
 	vertical-align: middle;
