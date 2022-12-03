@@ -6,20 +6,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 </head>
 <body>
-<h3>micro:bitのWeb Bluetoothでneopixel(LED)をリモートで制御</h3>
-<p>以下のHTMLを使ってWeb Bluetooth経由でneopixel 25個を制御します。</p>
-<p><a href=led25.html>led25.html</a></p>
+<h3>micro:bitでneopixel(LED)をリモート制御</h3>
+<p>以下のHTMLを使い、Web Bluetoothを介してmicro:bitでneopixel 25個を制御します。</p>
+<p><a href=led25.html>https://marron9999.github.io/mbitble/led25.html</a></p>
 
 <p>HTML5、Web Bluetoothがつかえるブラウザを利用してください。<br>
-Windows 10：Chrome、Chromebook：Chome、SONYスマ-トフォン：Chromeで使えることは確認できています。</p>
+Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで使えることは確認できています。</p>
 
 <hr>
 <p>２台のmicro:bit V2を使います。</p>
 <li>それそれのP1、P2、3V、GNDを下図のように配線します</li>
-<li>どちらかのmicrobitに電源を供給してください。</li>
-<li>neopixelへの電源は、必ず個別に供給してください。<br>&nbsp;&nbsp;&nbsp;&nbsp;micro:bitからの直接供給はできません。</li>
+<li>どちらかのmicrobitに電源を供給してください。<br
+>&nbsp;&nbsp;&nbsp;&nbsp;PC USBケーブルによる電源供給でもOKです。</li>
+<li>neopixelへの電源は、必ず個別に供給してください。<br
+>&nbsp;&nbsp;&nbsp;&nbsp;micro:bitからの直接供給はできません。</li>
 
-<p><img src=mbitble.png width=50% height=auto>
+<p><img src=mbitble.png width=55% height=auto>
 
 <p>(1) neopixelを制御するmicro:bit</p>
 <li>P0 neopixelのDIへ信号を送信するためにつかいます</li>
@@ -35,13 +37,16 @@ Windows 10：Chrome、Chromebook：Chome、SONYスマ-トフォン：Chromeで�
 <p>プログラム：<a href=microbit-BLE2.hex>microbit-BLE2.hex</a><br>
 <!-- <img src=microbit-BLE2.png width=50% height=auto>
 --></p> 
-<p>(3) neopixel 25個の識別番号</p>
-<table border=1>
-<tr><td >0</td><td >1</td><td >2</td><td >3</td><td >4</td></tr>
-<tr><td >5</td><td >6</td><td >7</td><td >8</td><td >9</td></tr>
-<tr><td >10</td><td >11</td><td >12</td><td >13</td><td >14</td></tr>
-<tr><td >15</td><td >16</td><td >17</td><td >18</td><td >19</td></tr>
-<tr><td >20</td><td >21</td><td >22</td><td >23</td><td >24</td></tr>
-</table> 
+<p>(3) neopixel 識別番号と配線(例)</p>
+<p>neopixelは、上段から下段へ、左から右へ順に並ぶように配線してください。</p>
+<table border=0>
+<tr><td valign=top><table border=1>
+<tr align=center><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr align=center><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+<tr align=center><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+<tr align=center><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+<tr align=center><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
+</table></td><td> &nbsp; </td>
+<td><img src=neopixel.png width=80% height=auto></td></tr></table>
 </body>
 </html>
