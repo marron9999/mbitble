@@ -138,11 +138,7 @@ function showSide(sw) {
 			e.style.borderColor = null;
 		}
 		e = E("i" + n);
-		if(LED[n].c[3] > 0) {
-			e.innerHTML = "<img src=webusb/" + ANIs[LED[n].c[3]][1] + ".png>";
-		} else {
-			e.innerHTML = "";
-		}
+		e.innerHTML = "<img src=webusb/" + ANIs[LED[n].c[3]][1] + ".png>";
 		e = E("c" + n);
 		e.style.background = "rgb(" + LED[n].c[0] + "," + LED[n].c[1] + ","+ LED[n].c[2] + ")";
 	}
