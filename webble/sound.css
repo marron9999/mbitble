@@ -1,11 +1,14 @@
 #key1,
 #key2 {
-	white-space: nowrap;
 	overflow: hidden;
 	display: inline-block;
 }
+#key1 {
+	white-space: nowrap;
+}
 #key2 {
 	display: none;
+	width: 170px;
 }
 #keys {
 	margin-top: 10px;
@@ -17,14 +20,14 @@
 #keyt {
 	padding-top: 10px;
 }
-#keyt > span {
+#keyt span {
 	margin-left: 10px;
 	border-bottom: 1px solid gray;
 	cursor: pointer;
 }
 .key {
 	width: 24px;
-	height: 30px;
+	height: 46px;
 	text-align: center;
 	border: 1px solid gray;
 	border-radius: 2px;
@@ -71,7 +74,7 @@
 	margin-bottom: 3px;
 }
 .key3 .key {
-	width: 32px;
+	width: 38px;
 	height: 24px;
 	margin-left: 2px;
 }
@@ -84,6 +87,7 @@
 #play > button,
 #play2 > button  {
 	margin-bottom: 5px;
+	cursor: pointer;
 }
 #play2 {
 	/*display: none;*/
@@ -91,6 +95,7 @@
 
 #plaing {
 	position: absolute;
+	display: inline-block;
 	top: 0px;
 	right: 0px;
 	/*font-size: 24px;*/

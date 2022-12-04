@@ -144,3 +144,33 @@
 	bottom: 0;
 	top: auto;
 }
+
+#keys {
+	position: absolute;
+	top: 20px;
+	left: 0;
+	border:0;
+	display: none;
+}
+#plaing {
+ 	top: 2px;
+	right: 2px;
+}
+#key2 {
+	width: 325px;
+}
+.key {
+	width: 42px;
+	height: 40px;
+}
+.key1 {
+	margin-left: 22px;
+}
+.key3 .key {
+	width: 36px;
+	height: 34px;
+}
+#play {
+	width: calc(100% - 15px);
+	margin-left: 10px;
+}

@@ -82,6 +82,8 @@ var disconnect = async function () {
 	E("disconnect").style.display = "none";
 };
 
+var _clickTab = function(n) {
+}
 function clickTab(e) {
 	let p;
 	p = E("tab1");
@@ -108,21 +110,25 @@ function clickTab(e) {
 		p.style.visibility = "hidden";
 	}
 	if(e.id == "tab1") {
+		_clickTab(0);
 		p = x.children[0];
 		p.style.visibility = "visible";
 		return;
 	}
 	if(e.id == "tab2") {
+		_clickTab(1);
 		p = x.children[1];
 		p.style.visibility = "visible";
 		return;
 	}
 	if(e.id == "tab3") {
+		_clickTab(2);
 		p = x.children[2];
 		p.style.visibility = "visible";
 		return;
 	}
 	if(e.id == "tab4") {
+		_clickTab(3);
 		p = x.children[3];
 		p.style.visibility = "visible";
 		return;

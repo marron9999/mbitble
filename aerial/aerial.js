@@ -228,3 +228,22 @@ function initAerial() {
 		showSide(SIDE);
 	}, 500);
 }
+
+_clickTab = function(n) {
+	let s = function(x, m) {
+		E(x).style.display = m;
+	}
+	if(n == 3) {
+		s("front", "none");
+		s("back", "none");
+		s("_front", "none");
+		s("_back", "none");
+		s("keys", "inline-block");
+	} else {
+		s("keys", "none");
+		s("front", (SIDE)? "none" : "inline-block");
+		s("back", (SIDE)? "inline-block" : "none");
+		s("_front", "inline-block");
+		s("_back", "inline-block");
+	}
+}

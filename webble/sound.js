@@ -155,15 +155,23 @@ function device_note1() {
 }
 
 function device_note2() {
+	let br = "<div><div class=key3>";
+	let b = "";
 	let v = "";
-	for (let k = 0; k < SOUND.note2.length; ) {
-		v += "<div><div class=key3>";
-		for (let i = 0; i < 4; i++, k++) {
-			v += "<span class='key' onclick='device_key2(this)' id=k"
-				+ k + "><b>" + SOUND.note2[k][0] + "</b></span>";
+	for (let k = 0; k < SOUND.note2.length; k++) {
+		let c = SOUND.note2[k][0].charAt(0);
+		if(b != c) {
+			b = c;
+			v += br;
+			br = "</div></div>";
+			if(k + 1 != SOUND.note2.length) {
+				br += "<div><div class=key3>";
+			}
 		}
-		v += "</div></div>";
+		v += "<span class='key' onclick='device_key2(this)' id=k"
+			+ k + "><b>" + SOUND.note2[k][0] + "</b></span>";
 	}
+	v += "</div></div>";
 	E("key2").innerHTML = v;
 }
 
