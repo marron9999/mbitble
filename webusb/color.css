@@ -1,6 +1,6 @@
 #ope {
 	position: absolute;
-	top: 3px;
+	top: 5px;
 	left: 2px;
 }
 
@@ -24,18 +24,19 @@
 #ope > span {
 	display: inline-block;
 	border: 2px solid #cccccc;
-	width: 26px;
-	height: 26px;
-	margin-top: 2px;
+	width: 30px;
+	height: 30px;
+	margin-top: 0px;
 	margin-left: 2px;
 	cursor:pointer;
 }
 
 #op2 input[type=range]{
-	margin-top: 5px;
+	margin-left: 3px;
+	margin-top: 10px;
 	appearance: none;
 	-webkit-appearance: none;
-	height: 34px;
+	height: 30px;
 	border: 1px solid gray;
 	width:calc(100% - 10px);
 	cursor: pointer;
@@ -44,7 +45,7 @@
 #op2 input[type=range]::-webkit-slider-thumb {
 	appearance: none;
 	-webkit-appearance: none;
-	height: 46px;
+	height: 40px;
 	width: 14px;
 	/*border-radius: 16px;*/
 	cursor: pointer;

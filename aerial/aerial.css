@@ -9,22 +9,26 @@
 	float: left;
 	display: inline-block;
 	margin-left: 5px;
-	margin-top: 10px;
-	width: 140px;
+	margin-top: 11px;
+	width: 135px;
 }
 #list {
 	border: 1px solid gray;
-	min-height: 190px;
 	height: auto;
 	margin-top: 5px;
 	font-size: 11px;
 	padding: 2px 2px;
+	padding-bottom: 4px;
 }
 #list table {
 	border-spacing: 0;
 }
+#list table * {
+	line-height: 1em;
+}
 #list td {
 	padding: 0;
+	padding-top: 2px;
 }
 #list td > div.i {
 	position: relative;
@@ -109,17 +113,11 @@
 	border-bottom: 1px solid gray;
 	margin-top: 1px;
 }
-#tab {
-	margin-left: 5px;
-	cursor: pointer;
-}
-#tabx {
-	margin-left: 5px;
-}
 
 #tabs {
 	float: left;
 	margin-top: 10px;
+	margin-left: 5px;
 }
 #logs {
 	margin-top: 0px;
@@ -174,3 +172,4 @@
 	width: calc(100% - 15px);
 	margin-left: 10px;
 }
+

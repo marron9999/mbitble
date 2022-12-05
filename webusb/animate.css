@@ -8,6 +8,7 @@
 	padding: 1px 1px;
 	margin: 2px 2px;
 	border: 1px solid gray;
+	padding-bottom: 3px;
 }
 #ani > div.b {
 	cursor: pointer;

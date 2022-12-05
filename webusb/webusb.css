@@ -29,14 +29,15 @@ body {
 #right {
 	float:left;
 	padding: 2px 5px;
+	padding-right: 0;
 	height: calc(100%);
-	width: calc(100% - 225px);
+	width: calc(100% - 210px);
 }
 #logs {
 	margin-top: 10px;
 	border: 1px solid gray;
 	width: calc(100%);
-	height: 480px;
+	height: 479px;
 	position: relative;
 }
 #log {
@@ -60,7 +61,7 @@ body {
 #left2 {
 	float:left;
 	padding: 2px 5px;
-	width: 202px;
+	width: 210px;
 	position: relative;
 }
 #left2 {
@@ -116,11 +117,12 @@ body {
 	position: relative;
 	height:20px;
 	width: 200px;
+	cursor: pointer;
 }
 #tab > span {
 	border: 1px solid gray;
 	border-top-left-radius: 10px;
-	height:19px;
+	height:20px;
 	padding: 0 5px;
 	display: inline-block;
 	margin-right: 1px;
@@ -132,7 +134,7 @@ body {
 	border: 1px solid gray;
 	border-top: 0;
 	position: relative;
-	width: 198px;
-	height: 193px;
+	width: 200px;
+	height: 190px;
 }
 
