@@ -2,7 +2,6 @@
 	position: relative;
 	/*display: inline-block;*/
 	padding: 1px 1px;
-	border: 1px solid gray;
 	/*float: left;*/
 }
 #tool {
@@ -81,7 +80,6 @@
 }
 #front, #back {
 	display: inline-block;
-	border: 1px solid #c0c0c0;
 	position: absolute;
 	top: 0px;
 	left: 0;
@@ -93,6 +91,7 @@
 #backi {
 	margin: 0;
 	padding: 0;
+	border: 1px solid gray;
 }
 #back {
 	display: none;
