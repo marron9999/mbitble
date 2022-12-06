@@ -22,6 +22,7 @@ var LED = [
 ];
 
 var SIDE = 0;
+var SIDE2 = 0;
 var HSL = [0, 0, 0];
 var RGB = [0, 0, 0];
 var MBIT= [0, 0, 0, 0];
@@ -142,20 +143,22 @@ function showSide(sw) {
 		e = E("c" + n);
 		e.style.background = "rgb(" + LED[n].c[0] + "," + LED[n].c[1] + ","+ LED[n].c[2] + ")";
 	}
-	let fc = E("front");
-	let bc = E("back");
-	let fs = E("_front");
-	let bs = E("_back");
-	if(sw) {
-		fc.style.display = "none";
-		bc.style.display = "inline-block";
-		fs.style.borderColor = "#00000000";
-		bs.style.borderColor = "gray";
-	} else {
-		bc.style.display = "none";
-		fc.style.display = "inline-block";
-		bs.style.borderColor = "#00000000";
-		fs.style.borderColor = "gray";
+	if(SIDE2 == 0) {
+		let fc = E("front");
+		let bc = E("back");
+		let fs = E("_front");
+		let bs = E("_back");
+		if(sw) {
+			fc.style.display = "none";
+			bc.style.display = "inline-block";
+			fs.style.borderColor = "#00000000";
+			bs.style.borderColor = "gray";
+		} else {
+			bc.style.display = "none";
+			fc.style.display = "inline-block";
+			bs.style.borderColor = "#00000000";
+			fs.style.borderColor = "gray";
+		}
 	}
 	let d = (SIDE>0)? AERIAL_R : AERIAL_F;
 	let e = E((SIDE>0)? "backc" : "frontc");
@@ -234,12 +237,14 @@ _clickTab = function(n) {
 		E(x).style.display = m;
 	}
 	if(n == 3) {
+		SIDE2 = 1;
 		s("front", "none");
 		s("back", "none");
 		s("_front", "none");
 		s("_back", "none");
 		s("keys", "inline-block");
 	} else {
+		SIDE2 = 0;
 		s("keys", "none");
 		s("front", (SIDE)? "none" : "inline-block");
 		s("back", (SIDE)? "inline-block" : "none");
