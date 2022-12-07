@@ -142,6 +142,11 @@
 	top: auto;
 }
 
+#keyt span {
+	margin-left: 10px;
+	margin-right: 0px;
+}
+
 #keys {
 	position: absolute;
 	top: 20px;
