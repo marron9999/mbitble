@@ -261,7 +261,7 @@ async function device_play_() {
 	}
 	_device_play.j++;
 	OP("!," + val + "," + s);
-	setTimeout(device_play_, s+50);
+	setTimeout(device_play_, s+100);
 }
 
 function initSND() {
