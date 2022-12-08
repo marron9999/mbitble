@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>LED COLOR コントローラー</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<script src="version.js" type="text/javascript"></script>
 <link  href="webusb/reset.css" type="text/css" rel="stylesheet">
 <script src="webble/mbitble.js" type="text/javascript"></script>
 <link  href="webusb/color.css" type="text/css" rel="stylesheet">
@@ -23,6 +24,7 @@
 </style>
 <script>
 window.onload = function() {
+	initVER();
 	setANI = setLED;
 	clickICON = _clickICON;
 	connected = connectLED;
