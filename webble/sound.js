@@ -250,22 +250,18 @@ async function device_play_() {
 		setTimeout(device_play_, 1);
 		return;
 	}
-	if (val == 0) {
-		_device_play.j++;
-		if (len == 2) {
-			setTimeout(device_play_, parseInt(1000 / 8));
-			return;
-		}
-		setTimeout(device_play_, parseInt(1000 / 4));
-		return;
-	}
-	_device_play.j++;
 	let s = parseInt(1000 / 4);
 	if (len == 1) s = parseInt(1000 / 16);
 	else if (len == 2) s = parseInt(1000 / 8);
 	else if (len == 8) s = parseInt(1000 / 2);
+	if (val == 0) {
+		_device_play.j++;
+		setTimeout(device_play_, s);
+		return;
+	}
+	_device_play.j++;
 	OP("!," + val + "," + s);
-	setTimeout(device_play_, s);
+	setTimeout(device_play_, s+50);
 }
 
 function initSND() {
