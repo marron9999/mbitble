@@ -121,15 +121,15 @@ function initFELO() {
 	}
 	s += '<div class=r>'
 	s += '<span style="top:-10px; left:122px; transform:rotate( 90deg); color:#080f;">〈</span>';
-	s += '<span style="top:110px; left:253px; transform:rotate(180deg); color:#0808;">〈</span>';
-	s += '<span style="top:237px; left:127px; transform:rotate(270deg); color:#0888;">〈</span>';
-	s += '<span style="top:115px; left: 0px; color:#0808;">〈</span>';
+	s += '<span style="top:120px; left:257px; transform:rotate(180deg); color:#0808;">〈</span>';
+	s += '<span style="top:250px; left:128px; transform:rotate(270deg); color:#0888;">〈</span>';
+	s += '<span style="top:125px; left: -7px; color:#0808;">〈</span>';
 	s += '</div>';
 	s += '<div class=t>'
-	s += '<span style="top:-20px; left:135px; color:gray;">前進</span>';
-	s += '<span style="top:140px; left:300px; color:gray; writing-mode: vertical-rl;">右旋回</span>';
-	s += '<span style="top:302px; left:135px; color:gray;">後退</span>';
-	s += '<span style="top:140px; left:-20px; color:gray; writing-mode: vertical-rl;">左旋回</span>';
+	s += '<span style="top:-20px; left:137px; color:gray;">前進</span>';
+	s += '<span style="top:140px; left:299px; color:gray; writing-mode: vertical-rl;">右旋回</span>';
+	s += '<span style="top:301px; left:137px; color:gray;">後退</span>';
+	s += '<span style="top:140px; left:-22px; color:gray; writing-mode: vertical-rl;">左旋回</span>';
 	s += '</div>';
 	e.innerHTML = s;
 }

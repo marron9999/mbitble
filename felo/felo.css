@@ -1,5 +1,6 @@
 * {
 	user-select: none;
+	draggable: false;
 }
 
 #body {
@@ -52,7 +53,7 @@
 #log2 {
 	border: 1px solid gray;
 	padding: 2px 2px;
-	width:160px;
+	width:165px;
 	height:90px;
 	margin-top: 5px;
 	margin-left: 10px;
