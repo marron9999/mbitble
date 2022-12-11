@@ -53,6 +53,8 @@ function moveFELO(e) {
 		ex += e.x;
 		ey += e.y;
 	}
+	E("mark").style.left = (ex - 38) + "px";
+	E("mark").style.top = (ey - 38) + "px";
 	let x = ex * 2048 / 340;
 	let y = ey * 2048 / 340;
 	x = Math.round(x / 128) * 128;
@@ -78,6 +80,7 @@ function moveFELO(e) {
 }
 
 function stopFELO() {
+	E("mark").style.display = null;
 	//console.log("felo_stop");
 	if(online != null) {
 		OP("stop");
@@ -100,6 +103,7 @@ function pointerdown(event) {
 	event.preventDefault();
 	//console.log('pointerdown');
 	felo_mdown = [-9999,-9999];
+	E("mark").style.display = "inline-block";
 	moveFELO(event);
 }
 function pointermove(event) {
@@ -150,5 +154,6 @@ function initFELO() {
 	s += '<span style="top:301px; left:137px; color:gray;">後退</span>';
 	s += '<span style="top:140px; left:-22px; color:gray; writing-mode: vertical-rl;">左旋回</span>';
 	s += '</div>';
+	s += '<div id=mark></div>';
 	e.innerHTML = s;
 }
