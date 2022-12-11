@@ -26,8 +26,6 @@ function sensorFELO() {
 
 var base = [0, 0];
 var felo_mdown = null;
-var bleft_mdown = null;
-var bright_mdown = null;
 
 var _mouseFELO_ = null;
 async function mouseFELO(event) {
@@ -46,8 +44,15 @@ async function mouseFELO(event) {
 }
 
 function moveFELO(e) {
-	let ex = e.x - base[0];
-	let ey = e.y - base[1];
+	let ex = 0 - base[0];
+	let ey = 0 - base[1];
+	if(e.x == undefined) {
+		ex += e.touches[0].pageX;
+		ey += e.touches[0].pageY;
+	} else {
+		ex += e.x;
+		ey += e.y;
+	}
 	let x = ex * 2048 / 340;
 	let y = ey * 2048 / 340;
 	x = Math.round(x / 128) * 128;
@@ -90,26 +95,40 @@ function notifyFELO(text) {
 	}
 }
 
+function pointerdown(event) {
+	event.stopPropagation();
+	event.preventDefault();
+	//console.log('pointerdown');
+	felo_mdown = [-9999,-9999];
+	moveFELO(event);
+}
+function pointermove(event) {
+	event.stopPropagation();
+	event.preventDefault();
+	//console.log('pointermove');
+	mouseFELO(event);
+}
+function pointerup(event) {
+	event.stopPropagation();
+	event.preventDefault();
+	//console.log('pointerup');
+	if(felo_mdown != null) stopFELO();
+	felo_mdown = null;
+}
+
 function initFELO() {
 	MBIT_BLE.notify = notifyFELO;
 	let e = E("left");
 	base = [e.offsetLeft, e.offsetTop];
-	e.addEventListener('mousedown', function(event) {
-		felo_mdown = [-9999,-9999];
-		moveFELO(event);
-	});
-	e.addEventListener('mousemove', function(event) {
-		mouseFELO(event);
-	});
-	e.addEventListener('mouseup', function(event) {
-		if(felo_mdown != null) stopFELO();
-		felo_mdown = null;
-	});
+	e.addEventListener('mousedown', pointerdown, {passive: false});
+	e.addEventListener('mousemove', pointermove, {passive: false});
+	e.addEventListener('mouseup', pointerup, {passive: false});
+	e.addEventListener('touchstart', pointerdown, {passive: false});
+	e.addEventListener('touchmove', pointermove, {passive: false});
+	e.addEventListener('touchend', pointerup, {passive: false});
 	e = E("body");
-	e.addEventListener('mouseup', function(event) {
-		if(felo_mdown != null) stopFELO();
-		felo_mdown = null;
-	});
+	e.addEventListener('mouseup', pointerup, {passive: false});
+	e.addEventListener('touchend', pointerup, {passive: false});
 
 	e = E("felo");
 	let s = '';

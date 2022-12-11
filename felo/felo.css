@@ -1,6 +1,8 @@
 * {
 	user-select: none;
 	draggable: false;
+	-ms-touch-action : none ; /* for *IE10 */
+	touch-action : none ;
 }
 
 #body {
