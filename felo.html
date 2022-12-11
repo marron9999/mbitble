@@ -7,6 +7,8 @@
 <script src="version.js" type="text/javascript"></script>
 <link  href="webusb/reset.css" type="text/css" rel="stylesheet">
 <script src="webble/mbitble.js" type="text/javascript"></script>
+<link  href="webble/sound.css" type="text/css" rel="stylesheet">
+<script src="webble/sound.js" type="text/javascript"></script>
 <script src="webusb/webusb.js" type="text/javascript"></script>
 <script src="webble/webble.js" type="text/javascript"></script>
 <script src="felo/felo.js" type="text/javascript"></script>
@@ -17,6 +19,7 @@ window.onload = function() {
 	LOGMAX = 5;
 	initVER();
 	connected = connectFELO;
+	initSND();
 	initFELO();
 };
 </script>
@@ -32,15 +35,21 @@ window.onload = function() {
 </div>
 </div>
 <div id=left>
-<div id=felo></div>
-</div>
+<div id=felo></div
+><div id=keys><div id=key1></div><div id=key2></div></div
+></div>
 
 <!-- <div>
 <span style="border:1px solid gray;padding: 5px 10px;padding-top:10px;display:inline-block;" id=bleft><span id=tleft></span></span
 ><span style="border:1px solid gray;padding: 5px 16px;padding-top:10px;display:inline-block;margin-left:6px;" id=bright ><span id=tright></span></span>
 </div> -->
 
-<div id=logs><div id=log2></div><div id=log></div><div id=que></div></div>
+<div id=logs><div id=log2 onclick="sound()" ontouchend="sound()"></div
+><div id=sel onclick="sound()" ontouchend="sound()"
+ ><span onclick="keyset(0)" ontouchend="keyset(0)">ドレミ</span
+ ><span onclick="keyset(1)" ontouchend="keyset(1)">コード</span
+ ><div id=plaing></div><div id=play></div></div
+><div id=log></div><div id=que></div></div>
 </div>
 </body>
 </html>

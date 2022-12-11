@@ -134,8 +134,11 @@ function device_note1() {
 	let e2 = ["", "", ""];
 	for (let j = 0; j < SOUND.note1.length; j++) {
 		for (let i = 0; i < SOUND.note1[0].length; i++) {
-			v = "<span class='key' onclick='device_key1(this)' id=k"
-				+ j + i + "><b>" + SOUND.note1[j][i][0] + "</b></span>";
+			v = "<span class='key'"
+				+ " onclick='device_key1(this)'"
+				+ " ontouchend='device_key1(this)'"
+				+ " id=k" + j + i + "><b>"
+				+ SOUND.note1[j][i][0] + "</b></span>";
 			if (SOUND.note1[j][i][0].indexOf("#") >= 0) {
 				e2[j] += v.replace("#", "");
 			} else {
@@ -168,8 +171,11 @@ function device_note2() {
 				br += "<div><div class=key3>";
 			}
 		}
-		v += "<span class='key' onclick='device_key2(this)' id=k"
-			+ k + "><b>" + SOUND.note2[k][0] + "</b></span>";
+		v += "<span class='key'"
+			+ " onclick='device_key2(this)'"
+			+ " ontouchend='device_key2(this)'"
+			+ " id=k" + k + "><b>"
+			+ SOUND.note2[k][0] + "</b></span>";
 	}
 	v += "</div></div>";
 	E("key2").innerHTML = v;
@@ -178,8 +184,10 @@ function device_note2() {
 function device_note() {
 	let v = "";
 	for (let i=0; i<SOUND.playList.length; i++) {
-		v += ' <button class=push onclick="device_play(this)">'
-				+ SOUND.playList[i] + '</button>';
+		v += ' <button class=push'
+			+ ' onclick="device_play(this)"'
+			+ ' ontouchend="device_play(this)">'
+			+ SOUND.playList[i] + '</button>';
 	}
 //	v += "<span id=plaing></span>";
 //	v += "<span id=play2><br>";
@@ -193,6 +201,8 @@ function device_note() {
 }
 
 async function device_key1(e) {
+	event.stopPropagation();
+	event.preventDefault();
 	if(online == null) return;
 	e.style.background = "rgba(0,255,0,0.2)";
 	let j = parseInt(e.id.charAt(1));
@@ -205,6 +215,8 @@ async function device_key1(e) {
 	}, 500);
 }
 async function device_key2(e) {
+	event.stopPropagation();
+	event.preventDefault();
 	if(online == null) return;
 	e.style.background = "rgba(0,255,0,0.2)";
 	let j = parseInt(e.id.substr(1));
@@ -222,6 +234,8 @@ async function device_key2(e) {
 
 var _device_play = null;
 function device_play(e) {
+	event.stopPropagation();
+	event.preventDefault();
 	if(online == null) return;
 	//device_note1();
 	e = e.innerHTML;
@@ -270,6 +284,8 @@ function initSND() {
 	device_note2();
 }
 function keyset(k) {
+	event.stopPropagation();
+	event.preventDefault();
 	if(k) {
 		E("key1").style.display = "none";
 		E("key2").style.display = "inline-block";

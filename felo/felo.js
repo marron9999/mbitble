@@ -157,3 +157,19 @@ function initFELO() {
 	s += '<div id=mark></div>';
 	e.innerHTML = s;
 }
+
+var mode = false;
+function sound() {
+	mode = (mode)? false : true;
+	if(mode) {
+		E("felo").style.display = "none";
+		E("keys").style.display = "inline-block";
+		E("log2").style.display = "none";
+		E("sel").style.display = "inline-block";
+	} else {
+		E("keys").style.display = null;
+		E("felo").style.display = null;
+		E("sel").style.display = null;
+		E("log2").style.display = null;
+	}
+}

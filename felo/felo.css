@@ -53,7 +53,8 @@
 	font-size: 12px;
 }
 #log,
-#log2 {
+#log2,
+#sel {
 	border: 1px solid gray;
 	padding: 2px 2px;
 	width:165px;
@@ -63,6 +64,7 @@
 	display: inline-block;
 	float: left;
 }
+
 #que {
 	position: absolute;
 	top: 0;
@@ -193,5 +195,54 @@ border-left-color: transparent;
 	z-index: 1;
 	font-size: small;
 	vertical-align: bottom;
+}
+
+#sel span {
+	margin-left: 10px;
+	margin-right: 0px;
+	border-bottom: 1px solid gray;
+}
+
+#sel {
+	display: none;
+	font-size: 12px;
+}
+#plaing {
+ 	top: 2px;
+	right: 2px;
+}
+#key2 {
+	width: 325px;
+}
+.key {
+	width: 42px;
+	height: 40px;
+}
+.key1 {
+	margin-left: 22px;
+}
+.key3 .key {
+	width: 36px;
+	height: 34px;
+}
+#play {
+	width: calc(100% - 15px);
+	margin-left: 10px;
+	margin-top: 0px;
+}
+
+#keys {
+	margin-left:10px;
+	border:0;
+	display: none;
+	font-size: small;
+}
+
+#sel button {
+	background: white;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	margin-right: 20px;
 }
 
