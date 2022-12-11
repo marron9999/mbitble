@@ -52,6 +52,7 @@ function E(id) {
 }
 
 var logged = 0;
+var logged2 = 0;
 function LOG(s) {
 	let h = E("log");
 	h.innerHTML += "<div>" + s + "</div>";
@@ -62,8 +63,37 @@ function LOG(s) {
 		h.innerHTML = h.innerHTML.substr(i+6);
 	}
 }
+var LOG2 = LOG;
+function _LOG2(s) {
+	let h = E("log2");
+	h.innerHTML += "<div>" + s + "</div>";
+	logged2++;
+	if(logged2 > LOGMAX) {
+		logged2--;
+		let i = h.innerHTML.indexOf("</div>");
+		h.innerHTML = h.innerHTML.substr(i+6);
+	}
+}
 
-var connected = async function(msg) { };
+async function _connected(msg) {
+	if(online == null) {
+		//OP(msg);
+		return false;
+	}
+	let h = E("log2");
+	if(h == null) {
+		h = E("log");
+		logged = 0;
+	} else {
+		logged2 = 0;
+	}
+	h.innerHTML = "";
+	LOG2("Connected");
+	E("connect").style.display = "none";
+	E("disconnect").style.display = "inline-block";
+	return true;
+};
+var connected = _connected;
 
 var connect = async function () {
 	let h = E("log");
@@ -75,9 +105,10 @@ var connect = async function () {
 
 var disconnect = async function () {
 	if(online != null) {
-		LOG("Disconnected");
+		LOG2("Disconnected");
 		await close();
 	}
+	online = null;
 	E("connect").style.display = "inline-block";
 	E("disconnect").style.display = "none";
 };

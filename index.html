@@ -4,49 +4,37 @@
 <meta charset="UTF-8">
 <title>MBITBLE</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<style>
+H3, h4 {
+  margin:0;
+}
+h4 {
+  margin-top:10px;
+  display:inline-block;
+}
+body > div {
+  display:inline-block;
+  width:260px;
+}
+</style>
 </head>
 <body>
-<h3>micro:bitでneopixel(LED)をリモート制御</h3>
-<p>以下のHTMLを使い、Web Bluetoothを介してmicro:bitでneopixel 25個を制御します。</p>
-<p><a href=led25.html>https://marron9999.github.io/mbitble/led25.html</a></p>
+<h3>micro:bitでリモート制御</h3>
 
-<p>HTML5、Web Bluetoothがつかえるブラウザを利用してください。<br>
-Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで使えることは確認できています。</p>
+<div style="margin-right:20px;">
 
-<hr>
-<p>２台のmicro:bit V2を使います。</p>
-<li>それそれのP1、P2、3V、GNDを下図のように配線します</li>
-<li>どちらかのmicrobitに電源を供給してください。<br
->&nbsp;&nbsp;&nbsp;&nbsp;PC USBケーブルによる電源供給でもOKです。</li>
-<li>neopixelへの電源は、必ず個別に供給してください。<br
->&nbsp;&nbsp;&nbsp;&nbsp;micro:bitからの直接供給はできません。</li>
+<h4>neopixel(LED) 25個</h4><br>
+<a href=index_led25.html>index_led25.html</a><br>
 
-<p><img src=mbitble.png width=55% height=auto>
+<a href=index_led25.html><img src=led25.png width=250></a>
 
-<p>(1) neopixelを制御するmicro:bit</p>
-<li>P0 neopixelのDIへ信号を送信するためにつかいます</li>
-<li>P1 (2)から信号を受信するためにつかいます</li>
-<li>P2 (2)へ信号を送信するためにつかいます（予約）</li>
-<p>プログラム：<a href=microbit-COLOR5.hex>microbit-COLOR5.hex</a><br>
-<!-- <img src=microbit-COLOR5.png width=50% height=auto>
---></p>
-<p>(2) Bluetooth UARTで受信するmicro:bit</p>
-<li>P0 本体スピーカーを鳴らすためにつかいます</li>
-<li>P1 (1)へ信号を送信するためにつかいます</li>
-<li>P2 (1)から信号を受信するためにつかいます（予約）</li>
-<p>プログラム：<a href=microbit-BLE2.hex>microbit-BLE2.hex</a><br>
-<!-- <img src=microbit-BLE2.png width=50% height=auto>
---></p> 
-<p>(3) neopixel 識別番号と配線(例)</p>
-<p>neopixelは、上段から下段へ、左から右へ順に並ぶように配線してください。</p>
-<table border=0>
-<tr><td valign=top><table border=1>
-<tr align=center><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-<tr align=center><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
-<tr align=center><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
-<tr align=center><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
-<tr align=center><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
-</table></td><td> &nbsp; </td>
-<td><img src=neopixel.png width=80% height=auto></td></tr></table>
+</div><div>
+
+<h4>プログラミング・フォロ</h4><br>
+<a href=index_felo.html>index_felo.html</a><br>
+
+<a href=index_felo.html><img src=felo.png width=250></a>
+
+</div>
 </body>
 </html>

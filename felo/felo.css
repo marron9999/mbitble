@@ -1,0 +1,183 @@
+* {
+	user-select: none;
+}
+
+#body {
+	width: calc(100%);
+	height: calc(100%);
+	overflow: hidden;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#connect {
+	cursor: pointer;
+	border-bottom: 1px solid gray;
+	padding: 0px 2px;
+}
+#disconnect {
+	display: none;
+	cursor: pointer;
+	border-bottom: 1px solid gray;
+	padding: 0px 2px;
+}
+
+#left {
+	margin-top: 10px;
+	margin-left: 10px;
+	cursor: pointer;
+	border:1px solid gray;
+	display:inline-block;
+	width:340px;
+	height: 340px;
+}
+#right {
+	position: absolute;
+	top:0;
+	right:5px;
+	text-align: right;
+}
+#logs {
+	position: absolute;
+	top: 390px;
+	left: 0;
+	width: 360px;
+	height: 90px;
+	display:inline-block;
+	font-size: 12px;
+}
+#log,
+#log2 {
+	border: 1px solid gray;
+	padding: 2px 2px;
+	width:160px;
+	height:90px;
+	margin-top: 5px;
+	margin-left: 10px;
+	display: inline-block;
+	float: left;
+}
+#que {
+	position: absolute;
+	top: 0;
+	right: 8px;
+	z-index: 1;
+	color:gray;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+#disconnect {
+	display: none;
+}
+#felo {
+	margin-top: 20px;
+	margin-left: 20px;
+	position: relative;
+	width:300px;
+	height: 300px;
+}
+#felo > div.t > span {
+	position: absolute;
+	font-size:small;
+	z-index: 2;
+}
+#felo > div.t {
+	top: 0px;
+	left: 0px; 
+	position: absolute;
+	width: 340px;
+	height: 340px;
+}
+#felo > div.r > span {
+	position: absolute;
+	font-size: 50px;
+	font-weight: bold;
+	z-index: 2;
+}
+#felo > div.r {
+	top: 0px;
+	left: 0px; 
+	background-color: #FFF;
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	border-radius: 50%;
+	background-image: conic-gradient(
+		#80FF13   0deg  22deg, #FFFFFF  22deg  23deg,
+		#91D4E1  24deg  68deg, #FFFFFF  68deg  69deg,
+		#80FF13  69deg 113deg, #FFFFFF 113deg 114deg,
+		#91D4E1 114deg 159deg, #FFFFFF 159deg 160deg,
+		#80FF13 160deg 204deg, #FFFFFF 204deg 205deg,
+		#91D4E1 205deg 249deg, #FFFFFF 249deg 250deg,
+		#80FF13 250deg 294deg, #FFFFFF 294deg 295deg,
+		#91D4E1 295deg 339deg, #FFFFFF 239deg 340deg,
+		#80FF13 340deg 360deg);
+}
+
+
+#felo > div.r::after{
+	content: "";
+	position: absolute;
+	top: 114px;
+	left: 114px;
+	width: 74px;
+	height: 74px;
+	border-radius: 50%;
+	background: rgb(255,255,255);
+}
+#felo > div.c {
+	position: absolute;
+	border-radius: 50%;
+	border: 1px solid #ffffff77;
+	display:inline-block;
+	z-index: 1;
+}
+
+#bleft,
+#bright {
+	cursor: pointer;
+}
+#tleft,
+#tright {
+	display: inline-block;
+	position: relative;
+	width: 100px;
+	height: 25px;
+	border: 15px solid #91D4E1;
+	border-radius: 50%;
+	border-right-color: transparent;
+}
+
+#tleft::after,
+#tright::after {
+content: "";
+	position: absolute;
+	border: 30px solid #ffffff;
+	top: -18px;
+	left: 75px;
+	border-bottom-color: #91D4E1;
+	border-top-width: 0;
+	border-right-width: 0;
+border-left-color: transparent;
+}
+#tright {
+	transform: rotatey(180deg);
+}
+
+#vleft,
+#vright {
+	display: inline-block;
+	width: 40px;
+	text-align: right;
+}
+
+#sensor {
+	color: #bbb;
+	display: inline-block;
+	z-index: 1;
+	font-size: small;
+	vertical-align: bottom;
+}
+

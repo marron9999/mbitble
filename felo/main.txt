@@ -1,0 +1,96 @@
+function face (m: number, t: number) {
+    if (t > 0) {
+        custom.leds(1)
+        return
+    }
+    if (t < 0) {
+        custom.leds(2)
+        return
+    }
+    if (m < 0) {
+        custom.leds(3)
+        return
+    }
+    custom.leds(0)
+}
+bluetooth.onBluetoothConnected(function () {
+    face(0, 0)
+})
+bluetooth.onBluetoothDisconnected(function () {
+    custom.cls()
+})
+bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () {
+    d = bluetooth.uartReadUntil(serial.delimiters(Delimiters.NewLine))
+    que = "" + que + d
+})
+function parse () {
+    o = t.split(",")
+    if (o[0] == "stop") {
+        face(0, 0)
+        custom.folo_stop()
+        return
+    }
+    v1 = parseInt(o[1])
+    if (o[0] == "move") {
+        face(v1, 0)
+        custom.folo_move(v1)
+        return
+    }
+    if (o[0] == "move_as") {
+        v2 = parseInt(o[2])
+        face(v1, v2)
+        custom.folo_move_as(v1, v2)
+        return
+    }
+    if (o[0] == "trun_left") {
+        face(0, v1)
+        custom.folo_trun_left(v1)
+        return
+    }
+    if (o[0] == "trun_right") {
+        face(0, 0 - v1)
+        custom.folo_trun_right(v1)
+        return
+    }
+    if (o[0] == "sensor") {
+        sensor = v1
+        custom.folo_sensor(sensor)
+        return
+    }
+}
+let s_right = 0
+let s_left = 0
+let v = 0
+let v2 = 0
+let v1 = 0
+let t = ""
+let o: string[] = []
+let que = ""
+let d = ""
+let sensor = 0
+sensor = 0
+music.setBuiltInSpeakerEnabled(false)
+custom.folo_sensor(sensor)
+bluetooth.startUartService()
+basic.forever(function () {
+    if (sensor > 0) {
+        v = custom.folo_sensor_left_round(16)
+        if (s_left != v) {
+            s_left = v
+            bluetooth.uartWriteLine("left," + v + ";")
+        }
+        v = custom.folo_sensor_right_round(16)
+        if (s_right != v) {
+            s_right = v
+            bluetooth.uartWriteLine("right," + v + ";")
+        }
+    }
+    v = que.indexOf(";")
+    while (v >= 0) {
+        t = que.substr(0, v)
+        v += 1
+        que = que.substr(v, que.length - v)
+        parse()
+        v = que.indexOf(";")
+    }
+})

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>MBITBLE</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+</head>
+<body>
+<h3>micro:bitでプログラミング・フォロをリモート制御</h3>
+<p>以下のHTMLを使い、Web Bluetoothを介してmicro:bitでプログラミング・フォロを制御します。</p>
+<p><a href=felo.html>https://marron9999.github.io/mbitble/felo.html</a></p>
+
+<p>HTML5、Web Bluetoothがつかえるブラウザを利用してください。<br>
+Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで使えることは確認できています。</p>
+
+<hr>
+<p><img src=felo.png width=33% height=auto style="margin-right:20px;vertical-align:top;"><img src=felo/felo.jpg></p>
+
+
+<p>(1) フォロを制御するmicro:bit</p>
+
+<li>P0 ：スピーカー</li>
+<li>P1 ：フォロ右側の赤外線センサーの値を取得</li>
+<li>P2 ：フォロ左側の赤外線センサーの値を取得</li>
+<li>P12 ：フォロ搭載赤外線LEDの制御</li>
+<li>P13 ：足のモーターの制御（正転）</li>
+<li>P14 ：足のモーターの制御（逆転）</li>
+<li>P15 ：腰のモーターの制御（正転）</li>
+<li>P16 ：腰のモーターの制御（逆転）</li>
+
+<p>プログラム：<a href=microbit-FELO.hex>microbit-FELO.hex</a></p>
+</body>
+</html>

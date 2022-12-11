@@ -19,7 +19,7 @@ connect = async function() {
 }
 disconnect = async function () {
 	if(online != null) {
-		LOG("Disconnected");
+		LOG2("Disconnected");
 		await MBIT_BLE.disconnect();
 	}
 	online = null;

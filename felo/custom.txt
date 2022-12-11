@@ -1,0 +1,248 @@
+
+/**
+* このファイルを使って、独自の関数やブロックを定義してください。
+* 詳しくはこちらを参照してください：https://makecode.microbit.org/blocks/custom
+*/
+
+/**
+ * Custom blocks
+ */
+//% weight=100 color=#0fbc11 icon=""
+namespace custom {
+
+    // https://switch-education.com/products/5482/
+
+    /**
+     * フォロ（前進）アナログ
+     * @param speed -1023 to +1023
+     */
+    //% block
+    export function folo_move(speed: number): void {
+        pins.analogWritePin(AnalogPin.P15, 0)
+        pins.analogWritePin(AnalogPin.P16, 0)
+        if (speed >= 0) {
+            pins.analogWritePin(AnalogPin.P14, 0)
+            pins.analogWritePin(AnalogPin.P13, speed)
+        } else {
+            pins.analogWritePin(AnalogPin.P13, 0)
+            pins.analogWritePin(AnalogPin.P14, 0 - speed)
+        }
+    }
+
+    /**
+     * フォロ（前進）アナログ
+     * @param speed_move -1023 to +1023
+     * @param speed_trun -1023 to +1023
+     */
+    //% block
+    export function folo_move_as(speed_move: number, speed_trun: number): void {
+        if (speed_move >= 0) {
+            pins.analogWritePin(AnalogPin.P14, 0)
+            pins.analogWritePin(AnalogPin.P13, speed_move)
+        } else {
+            pins.analogWritePin(AnalogPin.P13, 0)
+            pins.analogWritePin(AnalogPin.P14, 0 - speed_move)
+        }
+        if (speed_trun >= 0) {
+            pins.analogWritePin(AnalogPin.P16, 0)
+            pins.analogWritePin(AnalogPin.P15, speed_trun)
+        } else {
+            pins.analogWritePin(AnalogPin.P15, 0)
+            pins.analogWritePin(AnalogPin.P16, 0 - speed_trun)
+        }
+    }
+
+    /**
+     * フォロ（停止）アナログ
+     */
+    //% block
+    export function folo_stop(): void {
+        pins.analogWritePin(AnalogPin.P13, 0)
+        pins.analogWritePin(AnalogPin.P14, 0)
+        pins.analogWritePin(AnalogPin.P15, 0)
+        pins.analogWritePin(AnalogPin.P16, 0)
+    }
+
+    /**
+     * フォロ（前進）アナログ
+     * @param speed 0 to 1023
+     */
+    //% block
+    export function folo_move_for(speed: number): void {
+        pins.analogWritePin(AnalogPin.P15, 0)
+        pins.analogWritePin(AnalogPin.P16, 0)
+        pins.analogWritePin(AnalogPin.P14, 0)
+        pins.analogWritePin(AnalogPin.P13, speed)
+    }
+
+    /**
+     * フォロ（左前進）アナログ
+     * @param speed 0 to 1023
+     */
+    //% block
+    export function folo_move_back(speed: number): void {
+        pins.analogWritePin(AnalogPin.P15, 0)
+        pins.analogWritePin(AnalogPin.P16, 0)
+        pins.analogWritePin(AnalogPin.P13, 0)
+        pins.analogWritePin(AnalogPin.P14, speed)
+    }
+
+    /**
+     * フォロ（回転）アナログ
+     * @param speed -1023 to 1023
+     */
+    //% block
+    export function folo_trun(speed: number): void {
+        pins.analogWritePin(AnalogPin.P13, 0)
+        pins.analogWritePin(AnalogPin.P14, 0)
+        if (speed >= 0) {
+            pins.analogWritePin(AnalogPin.P16, 0)
+            pins.analogWritePin(AnalogPin.P15, speed)
+        } else {
+            pins.analogWritePin(AnalogPin.P15, 0)
+            pins.analogWritePin(AnalogPin.P16, 0 - speed)
+        }
+    }
+
+    /**
+     * フォロ（右回転）アナログ
+     * @param speed 0 to 1023
+     */
+    //% block
+    export function folo_trun_left(speed: number): void {
+        pins.analogWritePin(AnalogPin.P13, 0)
+        pins.analogWritePin(AnalogPin.P14, 0)
+        pins.analogWritePin(AnalogPin.P16, 0)
+        pins.analogWritePin(AnalogPin.P15, speed)
+    }
+
+    /**
+     * フォロ（左回転）アナログ
+     * @param speed 0 to 1023
+     */
+    //% block
+    export function folo_trun_right(speed: number): void {
+        pins.analogWritePin(AnalogPin.P13, 0)
+        pins.analogWritePin(AnalogPin.P14, 0)
+        pins.analogWritePin(AnalogPin.P15, 0)
+        pins.analogWritePin(AnalogPin.P16, speed)
+    }
+
+    /**
+     * フォロ（センサー）
+     * @param enable 0 or 1
+     */
+    //% block
+    export function folo_sensor(enable: number) {
+        pins.digitalWritePin(DigitalPin.P12, enable)
+    }
+
+    /**
+     * フォロ（右センサー）アナログ (0 - 1023)
+     */
+    //% block
+    export function folo_sensor_left(): number {
+        return pins.analogReadPin(AnalogPin.P1)
+    }
+
+    /**
+     * フォロ（左センサー）アナログ (0 - 1023)
+     */
+    //% block
+    export function folo_sensor_right(): number {
+        return pins.analogReadPin(AnalogPin.P1)
+    }
+
+    /**
+     * フォロ（右センサー）アナログ:まるめ (0 - 1023)
+     * @param rounded 
+     */
+    //% block
+    export function folo_sensor_left_round(round: number): number {
+        let v = Math.round(pins.analogReadPin(AnalogPin.P2) / round) * round
+        return (v >= 1024) ? 1023 : v
+    }
+
+    /**
+     * フォロ（左センサー）アナログ:まるめ (0 - 1023)
+     * @param rounded
+     */
+    //% block
+    export function folo_sensor_right_round(round: number): number {
+        let v = Math.round(pins.analogReadPin(AnalogPin.P2) / round) * round
+        return (v >= 1024) ? 1023 : v
+    }
+
+    /**
+     * trim
+     * @param text
+     */
+    //% block
+    export function trim(text: string): string {
+        return text.trim()
+    }
+
+    /**
+     * leds
+     * @param y
+     * @param x
+     */
+    //% block
+    export function led_y(y: number, x: number) {
+        if(x == 0) {
+            led.unplot(0, y)
+            led.unplot(1, y)
+            led.unplot(2, y)
+            led.unplot(3, y)
+            led.unplot(4, y)
+            return
+        }
+        if ((x & 0x10) != 0)
+            led.plot(0, y)
+        else led.unplot(0, y)
+        if ((x & 0x08) != 0)
+            led.plot(1, y)
+        else led.unplot(1, y)
+        if ((x & 0x04) != 0)
+            led.plot(2, y)
+        else led.unplot(2, y)
+        if ((x & 0x02) != 0)
+            led.plot(3, y)
+        else led.unplot(3, y)
+        if ((x & 0x01) != 0)
+            led.plot(4, y)
+        else led.unplot(4, y)
+    }
+
+    /**
+     * cls
+     */
+    //% block
+    export function cls() {
+        for(let y=0; y<=4; y++)
+            led_y(y, 0)
+    }
+
+    let _leds = [
+        /*happy*/   [16 + 8 + 2 + 1, 16 + 8 + 2 + 1, 0, 16 + 1, 8 + 4 + 2],
+        /*l wink*/  [2 + 1, 16 + 8 + 2 + 1, 0, 16 + 1, 8 + 4 + 2],
+        /*r wink*/  [16 + 8, 16 + 8 + 2 + 1, 0, 16 + 1, 8 + 4 + 2],
+        /*anger*/   [16 + 8 + 2 + 1, 16 + 8 + 2 + 1, 0, 8 + 4 + 2, 16 + 1],
+        /*sound*/   [4, 4 + 2, 4 + 1, 16 + 8 + 4, 16 + 8 + 4],
+        ];
+
+    /**
+     * leds
+     * @param no
+     */
+    //% block
+    export function leds(no: number) {
+        if(no < 0
+        || no >= _leds.length) {
+            cls()
+            return;
+        }
+        for (let y = 0; y <= 4; y++)
+            led_y(y, _leds[no][y])
+    }
+}
