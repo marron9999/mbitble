@@ -206,6 +206,7 @@ border-left-color: transparent;
 #sel {
 	display: none;
 	font-size: 12px;
+	position: relative;
 }
 #plaing {
  	top: 2px;

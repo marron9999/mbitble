@@ -3,7 +3,7 @@ async function connectFELO(msg) {
 	if( ! _connected(msg)) {
 		return;
 	}
-	OP("sensor," + felo_sensor);
+	OP("+," + felo_sensor);
 }
 
 var felo_sensor = 0;
@@ -20,7 +20,7 @@ function sensorFELO() {
 		E("vright").innerHTML = "0";
 	}
 	if(online != null) {
-		OP("sensor," + felo_sensor);
+		OP("+," + felo_sensor);
 	}
 }
 
@@ -73,7 +73,7 @@ function moveFELO(e) {
 	if(felo_mdown[0] != x || felo_mdown[1] != y) {
 		console.log(ex + "," + ey + " => " + x + "," + y);
 		if(online != null) {
-			OP("move_as," + y + "," + x);
+			OP("M," + y + "," + x);
 		}
 	}
 	felo_mdown = [x, y];
@@ -83,7 +83,7 @@ function stopFELO() {
 	E("mark").style.display = null;
 	//console.log("felo_stop");
 	if(online != null) {
-		OP("stop");
+		OP("S");
 	}
 }
 
@@ -91,14 +91,15 @@ function notifyFELO(text) {
 	let v = text.split(";");
 	LOG2(v[0]);
 	v = v[0].split(",");
-	if(v[0] == "left") {
+	if(v[0] == "L") {
 		E("vleft").innerHTML = v[1];
-	} else if(v[0] == "right") {
+	} else if(v[0] == "R") {
 		E("vright").innerHTML = v[1];
 	}
 }
 
 function pointerdown(event) {
+	if(mode) return;
 	event.stopPropagation();
 	event.preventDefault();
 	//console.log('pointerdown');
@@ -107,12 +108,14 @@ function pointerdown(event) {
 	moveFELO(event);
 }
 function pointermove(event) {
+	if(mode) return;
 	event.stopPropagation();
 	event.preventDefault();
 	//console.log('pointermove');
 	mouseFELO(event);
 }
 function pointerup(event) {
+	if(mode) return;
 	event.stopPropagation();
 	event.preventDefault();
 	//console.log('pointerup');

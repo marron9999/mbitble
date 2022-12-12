@@ -1,0 +1,107 @@
+bluetooth.onBluetoothConnected(function () {
+    B = 1
+})
+bluetooth.onBluetoothDisconnected(function () {
+    B = 0
+    basic.clearScreen()
+})
+bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () {
+    D = bluetooth.uartReadUntil(serial.delimiters(Delimiters.NewLine))
+    VAL = "" + VAL + custom.TRIM(D)
+    Q += 1
+})
+let VL = 0
+let MS = 0
+let HZ = 0
+let OPs: string[] = []
+let S = ""
+let T2 = 0
+let OP = ""
+let Ip = 0
+let NX = 0
+let T1 = 0
+let SND: string[] = []
+let TN = 0
+let Q = 0
+let D = ""
+let VAL = ""
+let B = 0
+let C = ""
+serial.redirect(
+SerialPin.P1,
+SerialPin.P2,
+BaudRate.BaudRate9600
+)
+basic.clearScreen()
+bluetooth.startUartService()
+B = 0
+VAL = ""
+music.setBuiltInSpeakerEnabled(true)
+let VM = 255
+music.setVolume(VM)
+basic.forever(function () {
+    if (B > 0) {
+        if (TN > 0 || SND.length > 0) {
+            custom.SHOW_SOUND_TO_LED()
+        } else {
+            custom.SHOW_NO_TO_LED(Q)
+        }
+    }
+    T1 = control.millis()
+    if (NX < T1) {
+        NX = T1 + 50
+        Ip = VAL.indexOf(";")
+        if (Ip >= 0) {
+            OP = VAL.substr(0, Ip)
+            VAL = VAL.substr(Ip + 1, VAL.length - (Ip + 1))
+            C = OP.charAt(0)
+            if (C == "!") {
+                SND.push(OP.substr(2, OP.length - 2))
+                if (TN == 0) {
+                    TN = T1
+                }
+            } else if (C == "%") {
+                if (OP.charAt(2) == "1") {
+                    music.setBuiltInSpeakerEnabled(true)
+                } else {
+                    music.setBuiltInSpeakerEnabled(false)
+                }
+            } else {
+                serial.writeLine("" + OP + ";")
+            }
+            Q += -1
+        } else {
+            Q = 0
+        }
+    }
+})
+basic.forever(function () {
+    T2 = control.millis()
+    if (TN > 0 && TN < T2) {
+        if (SND.length > 0) {
+            S = SND[0]
+            SND.removeAt(0)
+            OPs = S.split(",")
+            HZ = parseInt(OPs[0])
+            if (OPs.length == 1) {
+                VM = HZ
+                TN = T2
+                MS = 0
+            } else {
+                MS = parseInt(OPs[1])
+                if (OPs.length >= 3) {
+                    VL = parseInt(OPs[2])
+                    music.setVolume(VL)
+                } else {
+                    music.setVolume(VM)
+                }
+                if (HZ > 0) {
+                    music.playTone(HZ, MS)
+                }
+            }
+            TN = T2 + MS
+        } else {
+            TN = 0
+        }
+    }
+})

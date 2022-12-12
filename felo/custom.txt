@@ -150,7 +150,7 @@ namespace custom {
      */
     //% block
     export function folo_sensor_right(): number {
-        return pins.analogReadPin(AnalogPin.P1)
+        return pins.analogReadPin(AnalogPin.P2)
     }
 
     /**
@@ -159,7 +159,7 @@ namespace custom {
      */
     //% block
     export function folo_sensor_left_round(round: number): number {
-        let v = Math.round(pins.analogReadPin(AnalogPin.P2) / round) * round
+        let v = Math.round(pins.analogReadPin(AnalogPin.P1) / round) * round
         return (v >= 1024) ? 1023 : v
     }
 

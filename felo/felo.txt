@@ -1,0 +1,172 @@
+function face (move: number, trun: number) {
+    if (T2_NEXT > 0 || SND.length > 0) {
+        custom.leds(4)
+        return
+    }
+    if (trun > 0) {
+        if (move < 0) {
+            custom.leds(1)
+        } else {
+            custom.leds(2)
+        }
+        return
+    }
+    if (trun < 0) {
+        if (move < 0) {
+            custom.leds(2)
+        } else {
+            custom.leds(1)
+        }
+        return
+    }
+    if (move < 0) {
+        custom.leds(3)
+        return
+    }
+    custom.leds(0)
+}
+bluetooth.onBluetoothConnected(function () {
+    BLE = 1
+    SENSOR = 0
+    S_LEFT = 0
+    S_RIGHT = 0
+    face(0, 0)
+})
+bluetooth.onBluetoothDisconnected(function () {
+    BLE = 0
+    SENSOR = 0
+    custom.cls()
+})
+bluetooth.onUartDataReceived(serial.delimiters(Delimiters.NewLine), function () {
+    DATA = bluetooth.uartReadUntil(serial.delimiters(Delimiters.NewLine))
+    QUE = "" + QUE + custom.trim(DATA)
+})
+function parse () {
+    OPs = OPE.split(",")
+    if (OPs[0] == "S") {
+        face(0, 0)
+        custom.folo_stop()
+        return
+    }
+    val1 = parseInt(OPs[1])
+    if (OPs[0] == "M") {
+        val2 = parseInt(OPs[2])
+        face(val1, val2)
+        custom.folo_move_as(val1, val2)
+        return
+    }
+    if (OPs[0] == "L") {
+        face(0, val1)
+        custom.folo_trun_left(val1)
+        return
+    }
+    if (OPs[0] == "R") {
+        face(0, 0 - val1)
+        custom.folo_trun_right(val1)
+        return
+    }
+    if (OPs[0] == "+") {
+        SENSOR = val1
+        custom.folo_sensor(SENSOR)
+        if (SENSOR == 0) {
+            S_LEFT = 0
+            S_RIGHT = 0
+        }
+        return
+    }
+}
+let LN = 0
+let MS = 0
+let HZ = 0
+let SDs: string[] = []
+let O2 = ""
+let T2 = 0
+let val = 0
+let val2 = 0
+let val1 = 0
+let OPE = ""
+let OPs: string[] = []
+let QUE = ""
+let DATA = ""
+let S_RIGHT = 0
+let S_LEFT = 0
+let SND: string[] = []
+let SENSOR = 0
+let T2_NEXT = 0
+let BLE = 0
+let O1 = ""
+let T1 = 0
+let NX = 0
+let I = 0
+BLE = 0
+T2_NEXT = 0
+let VM = 255
+SENSOR = 0
+music.setBuiltInSpeakerEnabled(false)
+music.setVolume(VM)
+custom.folo_sensor(SENSOR)
+bluetooth.startUartService()
+basic.forever(function () {
+    T1 = control.millis()
+    if (SENSOR > 0) {
+        val = custom.folo_sensor_left_round(16)
+        if (S_LEFT != val) {
+            S_LEFT = val
+            bluetooth.uartWriteLine("L," + val + ";")
+        }
+        val = custom.folo_sensor_right_round(16)
+        if (S_RIGHT != val) {
+            S_RIGHT = val
+            bluetooth.uartWriteLine("R," + val + ";")
+        }
+    }
+    val = QUE.indexOf(";")
+    if (val >= 0) {
+        OPE = QUE.substr(0, val)
+        val += 1
+        QUE = QUE.substr(val, QUE.length - val)
+        if (OPE.charAt(0) == "!") {
+            custom.leds(4)
+            SND.push(OPE.substr(2, OPE.length - 2))
+            T2_NEXT = T1
+        } else {
+            parse()
+        }
+    }
+})
+basic.forever(function () {
+    T2 = control.millis()
+    if (T2_NEXT > 0 && T2_NEXT < T2) {
+        if (SND.length > 0) {
+            O2 = SND[0]
+            SND.removeAt(0)
+            SDs = O2.split(",")
+            HZ = parseInt(SDs[0])
+            if (OPs.length == 1) {
+                VM = HZ
+                T2_NEXT = T2
+                MS = 0
+                music.setVolume(VM)
+            } else {
+                MS = parseInt(SDs[1])
+                if (OPs.length >= 3) {
+                    LN = parseInt(SDs[2])
+                    music.setVolume(LN)
+                } else {
+                    music.setVolume(VM)
+                }
+                if (HZ > 0) {
+                    music.playTone(HZ, MS)
+                }
+            }
+            T2_NEXT = T2 + MS
+        } else {
+            T2_NEXT = 0
+        }
+    }
+    if (BLE > 0) {
+        if (T2_NEXT <= 0) {
+            custom.leds(0)
+        }
+    }
+})

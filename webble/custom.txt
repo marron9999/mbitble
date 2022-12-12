@@ -1,0 +1,153 @@
+/**
+ * Custom blocks
+ */
+//% weight=100 color=#0fbc11 icon="" 
+namespace custom {
+    /**
+     * TRIM
+     * @param N string
+     */
+    //% block
+    export function TRIM(N: string): string {
+        return N.trim();
+    }
+    /**
+     * Show number to LED
+     * @param N number
+     */
+    //% block
+    export function SHOW_SOUND_TO_LED(): void {
+        basic.clearScreen()
+        led.plot(2, 0)
+        led.plot(2, 1)
+        led.plot(3, 1)
+        led.plot(2, 2)
+        led.plot(4, 2)
+        led.plot(0, 3)
+        led.plot(1, 3)
+        led.plot(2, 3)
+        led.plot(0, 4)
+        led.plot(1, 4)
+        led.plot(2, 4)
+    }
+    /**
+     * Show number to LED
+     * @param N number
+     */
+    //% block
+    export function SHOW_NO_TO_LED(N: number): void {
+        let V = N % 10
+        V = V * 5
+        let I = 0
+        for (let index = 0; index < 5; index++) {
+            if ((LED_PAT[V] & 0x01) != 0) {
+                led.plot(4, I)
+            } else {
+                led.unplot(4, I)
+            }
+            if ((LED_PAT[V] & 0x02) != 0) {
+                led.plot(3, I)
+            } else {
+                led.unplot(3, I)
+            }
+            if ((LED_PAT[V] & 0x04) != 0) {
+                led.plot(2, I)
+            } else {
+                led.unplot(2, I)
+            }
+            I += 1
+            V += 1
+        }
+        I = Math.trunc(N / 10)
+        if (I >= 1) {
+            led.plot(0, 4)
+        } else {
+            led.unplot(0, 4)
+        }
+        if (I >= 2) {
+            led.plot(0, 3)
+        } else {
+            led.unplot(0, 3)
+        }
+        if (I >= 3) {
+            led.plot(0, 2)
+        } else {
+            led.unplot(0, 2)
+        }
+        if (I >= 4) {
+            led.plot(0, 1)
+        } else {
+            led.unplot(0, 1)
+        }
+        if (I >= 5) {
+            led.plot(0, 0)
+        } else {
+            led.unplot(0, 0)
+        }
+        if (I >= 6) {
+            led.plot(1, 4)
+        } else {
+            led.unplot(1, 4)
+        }
+        if (I >= 7) {
+            led.plot(1, 3)
+        } else {
+            led.unplot(1, 3)
+        }
+        if (I >= 8) {
+            led.plot(1, 2)
+        } else {
+            led.unplot(1, 2)
+        }
+        if (I >= 9) {
+            led.plot(1, 1)
+        } else {
+            led.unplot(1, 1)
+        }
+        if (I >= 10) {
+            led.plot(1, 0)
+        } else {
+            led.unplot(1, 0)
+        }
+        if (I >= 11) {
+            led.unplot(0, 4)
+        }
+        if (I >= 12) {
+            led.unplot(0, 3)
+        }
+        if (I >= 13) {
+            led.unplot(0, 2)
+        }
+        if (I >= 14) {
+            led.unplot(0, 1)
+        }
+        if (I >= 15) {
+            led.unplot(0, 0)
+        }
+        if (I >= 16) {
+            led.unplot(1, 4)
+        }
+        if (I >= 17) {
+            led.unplot(1, 3)
+        }
+        if (I >= 18) {
+            led.unplot(1, 2)
+        }
+        if (I >= 19) {
+            led.unplot(1, 1)
+        }
+    }
+
+    let LED_PAT = [
+        7, 5, 5, 5, 7,
+        1, 1, 1, 1, 1,
+        7, 1, 7, 4, 7,
+        7, 1, 7, 1, 7,
+        5, 5, 7, 1, 1,
+        7, 4, 7, 1, 7,
+        7, 4, 7, 5, 7,
+        7, 5, 1, 1, 1,
+        7, 5, 7, 5, 7,
+        7, 5, 7, 1, 7
+    ]
+}
