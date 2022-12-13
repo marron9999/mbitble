@@ -72,11 +72,14 @@ var SOUND = {
 				"静かな湖畔", "さくらさくら",
 				//"パプリカ", "紅蓮華",
 			],
-	play2List: [["クスクス笑う", "giggle"], ["ハッピー", "happy"],
-				["ハロー", "hello"], ["神秘的", "mysterious"],
-				["寂しい", "sad"], ["スライド", "slide"],
-				["急上昇", "soaring"], ["春", "spring"],
-				["きらめく", "twinkle"], ["あくび", "yawn"],],
+
+	play2List: [["くすくす笑う"], ["ハッピー"], ["ハロー"], ["ミステリアス"], ["悲しい"],
+				["するする動く"], ["舞い上がる"], ["バネ"], ["キラキラ"], ["あくび"]],
+
+	play3List: ["ダダダム", "ジ・エンターテイナー", "プレリュード", "歓喜の歌", "ニャン・キャット",
+				"着信メロディ", "ファンク", "ブルース", "ハッピーバースデー", "ウェディング・マーチ",
+				"おそうしき", "ちゃんちゃん♪", "タッタラッタッター", "チェイス", "ピコーン！",
+				"ワワワワー", "ジャンプアップ", "ジャンプダウン", "パワーアップ", "パワーダウン" ],
 
 	values: function (data) {
 		let val = [], len = [], key = [];
@@ -189,14 +192,24 @@ function device_note() {
 			+ ' ontouchend="device_play(this)">'
 			+ SOUND.playList[i] + '</button>';
 	}
-//	v += "<span id=plaing></span>";
-//	v += "<span id=play2><br>";
-//	for (let i=0; i<SOUND.play2List.length; i++) {
-//		v += ' <button class=push onclick="device_play2(\''
-//				+ SOUND.play2List[i][1] + '\')">'
-//				+ SOUND.play2List[i][0] + '</button>';
+	E("play").innerHTML = v;
+}
+
+function device_notex() {
+	let v = E("play").innerHTML;
+	for (let i=0; i<SOUND.play2List.length; i++) {
+		v += ' <button class=push'
+			+ ' onclick="device_play2(' + i + ')"'
+			+ ' ontouchend="device_play2(' + i + ')">'
+			+ SOUND.play2List[i][0] + '</push>';
+	}
+//	v += "</div><div>";
+//	for (let i=0; i<SOUND.play3List.length; i++) {
+//		v += ' <span class=push'
+//			+ ' onclick="device_play3(' + i + ')"'
+//			+ ' ontouchend="device_play3(' + i + ')">'
+//			+ SOUND.play3List[i] + '</span>';
 //	}
-//	v += "</span>";
 	E("play").innerHTML = v;
 }
 
@@ -231,6 +244,30 @@ async function device_key2(e) {
 //async function device_play2(e) {
 //	await MAQUEEN.post({ express: e });
 //}
+
+function device_play2(i) {
+	event.stopPropagation();
+	event.preventDefault();
+	if(online == null) return;
+	E("plaing").innerHTML = "♪";
+	if(SOUND.play2List[i].length > 1) {
+		i = i + "," + SOUND.play2List[i][1];
+	}
+	OP("!,-1," + i);
+	setTimeout(function() {
+		E("plaing").innerHTML = "";
+	}, 1000);
+}
+function device_play3(i) {
+	event.stopPropagation();
+	event.preventDefault();
+	if(online == null) return;
+	E("plaing").innerHTML = "♪";
+	OP("!,-1," + 100+ i);
+	setTimeout(function() {
+		E("plaing").innerHTML = "";
+	}, 1000);
+}
 
 var _device_play = null;
 function device_play(e) {
@@ -283,7 +320,7 @@ function initSND() {
 	device_note1();
 	device_note2();
 }
-function keyset(k) {
+var keyset = function(k) {
 	event.stopPropagation();
 	event.preventDefault();
 	if(k) {

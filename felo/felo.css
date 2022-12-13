@@ -48,7 +48,7 @@
 	top: 390px;
 	left: 0;
 	width: 360px;
-	height:104px;
+	height:140px;
 	display:inline-block;
 	font-size: 12px;
 }
@@ -58,7 +58,7 @@
 	border: 1px solid gray;
 	padding: 2px 2px;
 	width:165px;
-	height:104px;
+	height:140px;
 	margin-top: 5px;
 	margin-left: 10px;
 	display: inline-block;
@@ -207,12 +207,14 @@ border-left-color: transparent;
 	display: none;
 	font-size: 12px;
 	position: relative;
+	width: 340px;
 }
 #plaing {
  	top: 2px;
 	right: 2px;
 }
-#key2 {
+#key2,
+#key3 {
 	width: 325px;
 }
 .key {

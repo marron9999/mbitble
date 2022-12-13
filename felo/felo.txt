@@ -1,6 +1,11 @@
 function face (move: number, trun: number) {
-    if (T2_NEXT > 0 || SND.length > 0) {
-        custom.leds(4)
+    if (T2_NEXT > 0) {
+        return
+    }
+    if (SND.length > 0) {
+        return
+    }
+    if (MLs.length > 0) {
         return
     }
     if (trun > 0) {
@@ -74,14 +79,23 @@ function parse () {
         }
         return
     }
+    if (OPs[0] == "@") {
+        custom.ledx(OPs[1])
+        return
+    }
 }
+music.onEvent(MusicEvent.BackgroundMelodyEnded, function () {
+    T2_NEXT = control.millis()
+})
 let LN = 0
 let MS = 0
 let HZ = 0
 let SDs: string[] = []
 let O2 = ""
 let T2 = 0
+let val3 = 0
 let val = 0
+let T1 = 0
 let val2 = 0
 let val1 = 0
 let OPE = ""
@@ -90,14 +104,14 @@ let QUE = ""
 let DATA = ""
 let S_RIGHT = 0
 let S_LEFT = 0
+let MLs: number[] = []
 let SND: string[] = []
 let SENSOR = 0
 let T2_NEXT = 0
 let BLE = 0
-let O1 = ""
-let T1 = 0
-let NX = 0
 let I = 0
+let NX = 0
+let O1 = ""
 BLE = 0
 T2_NEXT = 0
 let VM = 255
@@ -135,6 +149,23 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
+    if (MLs.length > 0) {
+        val3 = MLs[0]
+        MLs.shift()
+        // music.startMelody(music.builtInMelody(val3), MelodyOptions.OnceInBackground)
+        if (val3 < 100) {
+            music.playSoundEffect(custom.sounds(val3), SoundExpressionPlayMode.UntilDone)
+            if (MLs.length > 0) {
+                T2_NEXT = control.millis() + 999999
+            } else {
+                T2_NEXT = control.millis()
+            }
+        } else {
+        	
+        }
+    }
+})
+basic.forever(function () {
     T2 = control.millis()
     if (T2_NEXT > 0 && T2_NEXT < T2) {
         if (SND.length > 0) {
@@ -150,13 +181,21 @@ basic.forever(function () {
             } else {
                 MS = parseInt(SDs[1])
                 if (OPs.length >= 3) {
-                    LN = parseInt(SDs[2])
-                    music.setVolume(LN)
+                    if (HZ >= 0) {
+                        LN = parseInt(SDs[2])
+                        music.setVolume(LN)
+                        custom.leds(4)
+                    } else {
+                        custom.ledx(SDs[2])
+                    }
                 } else {
                     music.setVolume(VM)
                 }
                 if (HZ > 0) {
                     music.playTone(HZ, MS)
+                } else if (HZ < 0) {
+                    MLs.push(MS)
+                    MS = 999999
                 }
             }
             T2_NEXT = T2 + MS

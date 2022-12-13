@@ -245,4 +245,17 @@ namespace custom {
         for (let y = 0; y <= 4; y++)
             led_y(y, _leds[no][y])
     }
+
+    let _sounds = [
+        "giggle", "happy", "hello", "mysterious", "sad",
+        "slide", "soaring", "spring", "twinkle", "yawn"]
+
+    /**
+     * sound
+     * @param no
+     */
+    //% block
+    export function sounds(n: number): string {
+        return _sounds[n];
+    }
 }
