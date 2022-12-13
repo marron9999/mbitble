@@ -93,9 +93,9 @@ let HZ = 0
 let SDs: string[] = []
 let O2 = ""
 let T2 = 0
-let val3 = 0
 let val = 0
 let T1 = 0
+let val3 = 0
 let val2 = 0
 let val1 = 0
 let OPE = ""
@@ -109,9 +109,9 @@ let SND: string[] = []
 let SENSOR = 0
 let T2_NEXT = 0
 let BLE = 0
-let I = 0
-let NX = 0
 let O1 = ""
+let NX = 0
+let I = 0
 BLE = 0
 T2_NEXT = 0
 let VM = 255
@@ -120,6 +120,23 @@ music.setBuiltInSpeakerEnabled(false)
 music.setVolume(VM)
 custom.folo_sensor(SENSOR)
 bluetooth.startUartService()
+basic.forever(function () {
+    if (MLs.length > 0) {
+        val3 = MLs[0]
+        MLs.shift()
+        // music.startMelody(music.builtInMelody(val3), MelodyOptions.OnceInBackground)
+        if (val3 < 100) {
+            music.playSoundEffect(custom.sounds(val3), SoundExpressionPlayMode.UntilDone)
+            if (MLs.length > 0) {
+                T2_NEXT = control.millis() + 999999
+            } else {
+                T2_NEXT = control.millis()
+            }
+        } else {
+        	
+        }
+    }
+})
 basic.forever(function () {
     T1 = control.millis()
     if (SENSOR > 0) {
@@ -149,23 +166,6 @@ basic.forever(function () {
     }
 })
 basic.forever(function () {
-    if (MLs.length > 0) {
-        val3 = MLs[0]
-        MLs.shift()
-        // music.startMelody(music.builtInMelody(val3), MelodyOptions.OnceInBackground)
-        if (val3 < 100) {
-            music.playSoundEffect(custom.sounds(val3), SoundExpressionPlayMode.UntilDone)
-            if (MLs.length > 0) {
-                T2_NEXT = control.millis() + 999999
-            } else {
-                T2_NEXT = control.millis()
-            }
-        } else {
-        	
-        }
-    }
-})
-basic.forever(function () {
     T2 = control.millis()
     if (T2_NEXT > 0 && T2_NEXT < T2) {
         if (SND.length > 0) {
@@ -173,14 +173,14 @@ basic.forever(function () {
             SND.removeAt(0)
             SDs = O2.split(",")
             HZ = parseInt(SDs[0])
-            if (OPs.length == 1) {
+            if (SDs.length == 1) {
                 VM = HZ
                 T2_NEXT = T2
                 MS = 0
                 music.setVolume(VM)
             } else {
                 MS = parseInt(SDs[1])
-                if (OPs.length >= 3) {
+                if (SDs.length >= 3) {
                     if (HZ >= 0) {
                         LN = parseInt(SDs[2])
                         music.setVolume(LN)
@@ -201,10 +201,6 @@ basic.forever(function () {
             T2_NEXT = T2 + MS
         } else {
             T2_NEXT = 0
-        }
-    }
-    if (BLE > 0) {
-        if (T2_NEXT <= 0) {
             custom.leds(0)
         }
     }
