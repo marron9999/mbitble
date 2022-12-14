@@ -3,10 +3,12 @@
 }
 #ico0 {
 	position: absolute;
-	top: 266px;
-	left:5px;
-	width:170px;
+	left: 5px;
+	width: 170px;
+	bottom: 8px;
+	display: inline-block;
 }
+
 #icon {
 	width: 130px;
 }
