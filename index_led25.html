@@ -13,6 +13,8 @@
 <p>HTML5、Web Bluetoothがつかえるブラウザを利用してください。<br>
 Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで使えることは確認できています。</p>
 
+<p><img src=led25/test.png></p>
+
 <hr>
 <p>２台のmicro:bit V2を使います。</p>
 <li>それそれのP1、P2、3V、GNDを下図のように配線します</li>
@@ -21,21 +23,21 @@ Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで�
 <li>neopixelへの電源は、必ず個別に供給してください。<br
 >&nbsp;&nbsp;&nbsp;&nbsp;micro:bitからの直接供給はできません。</li>
 
-<p><img src=mbitble.png width=300 height=auto>
+<p><img src=led25/mbitble.png width=300 height=auto>
 
 <p>(1) neopixelを制御するmicro:bit</p>
 <li>P0 neopixelのDIへ信号を送信するためにつかいます</li>
 <li>P1 (2)から信号を受信するためにつかいます</li>
 <li>P2 (2)へ信号を送信するためにつかいます（予約）</li>
-<p>プログラム：<a href=microbit-COLOR5.hex>microbit-COLOR5.hex</a><br>
-<!-- <img src=microbit-COLOR5.png width=50% height=auto>
+<p>プログラム：<a href=led25/microbit-COLOR5.hex>microbit-COLOR5.hex</a><br>
+<!-- <img src=led25/microbit-COLOR5.png width=50% height=auto>
 --></p>
 <p>(2) Bluetooth UARTで受信するmicro:bit</p>
 <li>P0 本体スピーカーを鳴らすためにつかいます</li>
 <li>P1 (1)へ信号を送信するためにつかいます</li>
 <li>P2 (1)から信号を受信するためにつかいます（予約）</li>
-<p>プログラム：<a href=microbit-BLE2.hex>microbit-BLE2.hex</a><br>
-<!-- <img src=microbit-BLE2.png width=50% height=auto>
+<p>プログラム：<a href=led25/microbit-BLE2.hex>microbit-BLE2.hex</a><br>
+<!-- <img src=led25/microbit-BLE2.png width=50% height=auto>
 --></p> 
 <p>(3) neopixel 識別番号と配線(例)</p>
 <p>neopixelは、上段から下段へ、左から右へ順に並ぶように配線してください。</p>
@@ -47,6 +49,6 @@ Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで�
 <tr align=center><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
 <tr align=center><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
 </table></td><td> &nbsp; </td>
-<td><img src=neopixel.png width=240 height=auto></td></tr></table>
+<td><img src=led25/neopixel.png width=240 height=auto></td></tr></table>
 </body>
 </html>
