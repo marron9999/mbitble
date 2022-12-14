@@ -77,32 +77,32 @@
 #disconnect {
 	display: none;
 }
-#felo {
+#folo {
 	margin-top: 20px;
 	margin-left: 20px;
 	position: relative;
 	width:300px;
 	height: 300px;
 }
-#felo > div.t > span {
+#folo > div.t > span {
 	position: absolute;
 	font-size:small;
 	z-index: 2;
 }
-#felo > div.t {
+#folo > div.t {
 	top: 0px;
 	left: 0px; 
 	position: absolute;
 	width: 340px;
 	height: 340px;
 }
-#felo > div.r > span {
+#folo > div.r > span {
 	position: absolute;
 	font-size: 50px;
 	font-weight: bold;
 	z-index: 2;
 }
-#felo > div.r {
+#folo > div.r {
 	top: 0px;
 	left: 0px; 
 	background-color: #FFF;
@@ -123,7 +123,7 @@
 }
 
 
-#felo > div.r::after{
+#folo > div.r::after{
 	content: "";
 	position: absolute;
 	top: 114px;
@@ -133,7 +133,7 @@
 	border-radius: 50%;
 	background: rgb(255,255,255);
 }
-#felo > div.c {
+#folo > div.c {
 	position: absolute;
 	border-radius: 50%;
 	border: 1px solid #ffffff77;

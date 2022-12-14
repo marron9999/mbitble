@@ -1,52 +1,52 @@
 
-async function connectFELO(msg) {
+async function connectFOLO(msg) {
 	if( ! _connected(msg)) {
 		return;
 	}
-	OP("+," + felo_sensor);
+	OP("+," + folo_sensor);
 	if(mode == 2) {
 		fireICON();
 	}
 }
 
-var felo_sensor = 0;
+var folo_sensor = 0;
 
-function sensorFELO() {
+function sensorFOLO() {
 	let e = E("sensor")
-	if(felo_sensor == 0) {
-		felo_sensor = 1;
+	if(folo_sensor == 0) {
+		folo_sensor = 1;
 		e.style.color = "black";
 	} else {
-		felo_sensor = 0;
+		folo_sensor = 0;
 		e.style.color = null;
 		E("vleft").innerHTML = "0";
 		E("vright").innerHTML = "0";
 	}
 	if(online != null) {
-		OP("+," + felo_sensor);
+		OP("+," + folo_sensor);
 	}
 }
 
 var base = [0, 0];
-var felo_mdown = null;
+var folo_mdown = null;
 
-var _mouseFELO_ = null;
-async function mouseFELO(event) {
-	if(_mouseFELO_ != null) return;
-	if(felo_mdown == null) return;
-	_mouseFELO_ = setTimeout(function() {
-		_mouseFELO_ = null;
-		if(felo_mdown == null) return;
+var _mousefolo_ = null;
+async function mouseFOLO(event) {
+	if(_mousefolo_ != null) return;
+	if(folo_mdown == null) return;
+	_mousefolo_ = setTimeout(function() {
+		_mousefolo_ = null;
+		if(folo_mdown == null) return;
 		if(event.buttons == 0) {
-			stopFELO();
-			felo_mdown = null;
+			stopFOLO();
+			folo_mdown = null;
 			return;
 		}
-		moveFELO(event);
+		moveFOLO(event);
 	}, 100);
 }
 
-function moveFELO(e) {
+function moveFOLO(e) {
 	let ex = 0 - base[0];
 	let ey = 0 - base[1];
 	if(e.x == undefined) {
@@ -73,24 +73,24 @@ function moveFELO(e) {
 	if(0 <= y) { if(y < 256) y = 0;
 	} else { if(-256 < y) y = 0; }
 	y = 0 - y;
-	if(felo_mdown[0] != x || felo_mdown[1] != y) {
+	if(folo_mdown[0] != x || folo_mdown[1] != y) {
 		console.log(ex + "," + ey + " => " + x + "," + y);
 		if(online != null) {
 			OP("M," + y + "," + x);
 		}
 	}
-	felo_mdown = [x, y];
+	folo_mdown = [x, y];
 }
 
-function stopFELO() {
+function stopFOLO() {
 	E("mark").style.display = null;
-	//console.log("felo_stop");
+	//console.log("folo_stop");
 	if(online != null) {
 		OP("S");
 	}
 }
 
-function notifyFELO(text) {
+function notifyFOLO(text) {
 	let v = text.split(";");
 	LOG2(v[0]);
 	v = v[0].split(",");
@@ -106,28 +106,28 @@ function pointerdown(event) {
 	event.stopPropagation();
 	event.preventDefault();
 	//console.log('pointerdown');
-	felo_mdown = [-9999,-9999];
+	folo_mdown = [-9999,-9999];
 	E("mark").style.display = "inline-block";
-	moveFELO(event);
+	moveFOLO(event);
 }
 function pointermove(event) {
 	if(mode != 0) return;
 	event.stopPropagation();
 	event.preventDefault();
 	//console.log('pointermove');
-	mouseFELO(event);
+	mouseFOLO(event);
 }
 function pointerup(event) {
 	if(mode != 0) return;
 	event.stopPropagation();
 	event.preventDefault();
 	//console.log('pointerup');
-	if(felo_mdown != null) stopFELO();
-	felo_mdown = null;
+	if(folo_mdown != null) stopFOLO();
+	folo_mdown = null;
 }
 
-function initFELO() {
-	MBIT_BLE.notify = notifyFELO;
+function initFOLO() {
+	MBIT_BLE.notify = notifyfolo;
 	let e = E("left");
 	base = [e.offsetLeft, e.offsetTop];
 	e.addEventListener('mousedown', pointerdown, {passive: false});
@@ -140,7 +140,7 @@ function initFELO() {
 	e.addEventListener('mouseup', pointerup, {passive: false});
 	e.addEventListener('touchend', pointerup, {passive: false});
 
-	e = E("felo");
+	e = E("folo");
 	let s = '';
 	let x = 0;
 	for(let n=128; n<1024-256; n+=128) {
@@ -170,13 +170,13 @@ function sound() {
 	event.preventDefault();
 	mode = (mode != 0)? 0 : 1;
 	if(mode == 1) {
-		E("felo").style.display = "none";
+		E("folo").style.display = "none";
 		E("keys").style.display = "inline-block";
 		E("log2").style.display = "none";
 		E("sel").style.display = "inline-block";
 	} else {
 		E("keys").style.display = null;
-		E("felo").style.display = null;
+		E("folo").style.display = null;
 		E("sel").style.display = null;
 		E("log2").style.display = null;
 	}

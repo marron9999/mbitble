@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>FELO</title>
+<title>folo</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <script src="version.js" type="text/javascript"></script>
 <link  href="webusb/reset.css" type="text/css" rel="stylesheet">
@@ -11,26 +11,26 @@
 <script src="webble/sound.js" type="text/javascript"></script>
 <script src="webusb/webusb.js" type="text/javascript"></script>
 <script src="webble/webble.js" type="text/javascript"></script>
-<script src="felo/icon.js" type="text/javascript"></script>
-<link  href="felo/icon.css" type="text/css" rel="stylesheet">
-<script src="felo/felo.js" type="text/javascript"></script>
-<link  href="felo/felo.css" type="text/css" rel="stylesheet">
+<script src="folo/icon.js" type="text/javascript"></script>
+<link  href="folo/icon.css" type="text/css" rel="stylesheet">
+<script src="folo/folo.js" type="text/javascript"></script>
+<link  href="folo/folo.css" type="text/css" rel="stylesheet">
 <script>
 window.onload = function() {
 	LOG2 = _LOG2;
 	LOGMAX = 5;
 	initVER();
-	connected = connectFELO;
+	connected = connectfolo;
 	initSND();
 	initICON();
-	initFELO();
+	initFOLO();
 };
 </script>
 </head>
 <body>
 <div id=body>
 <div style="position:relative; margin-top:10px;margin-left:10px;width:340px;">
-<div id=sensor><span onclick="sensorFELO()" ontouchend="sensorFELO()" style="cursor:pointer;margin-left:5px;">Sensor</span><span>:</span
+<div id=sensor><span onclick="sensorFOLO()" ontouchend="sensorFOLO()" style="cursor:pointer;margin-left:5px;">Sensor</span><span>:</span
 ><span id=vleft>0</span><span>,</span><span id=vright>0</span></div>
 <div id=right>
 <span id=connect onclick="connect()" ontouchend="connect()">micro:bitへ接続</span>
@@ -38,7 +38,7 @@ window.onload = function() {
 </div>
 </div>
 <div id=left>
-<div id=felo></div
+<div id=folo></div
 ><div id=keys><div id=key1></div><div id=key2></div><div id=key3></div></div
 ></div>
 
