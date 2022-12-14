@@ -29,7 +29,7 @@
 	padding-top: 3px;
 	padding-left: 1px;
 }
-#icon > div > span {
+#icon > div > div {
 	display: inline-block;
 	width: 3px;
 	height: 3px;
@@ -37,11 +37,10 @@
 	margin-top: 1px;
 	margin-left: 1px;
 }
-#icon > div > span.C0 {
+#icon > div > div.C0 {
 	background: #white;
 }
-#ico0 > div > span.C1,
-#icon > div > span.C1 {
+#icon > div > div.C1 {
 	background: black;
 }
 

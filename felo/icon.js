@@ -225,7 +225,7 @@ function initICON() {
 		h += "<div onclick='clickICON(" + i + ")' ontouchend='clickICON(" + i + ")'>";
 		for(let y=0; y<5; y++) {
 			for(let x=0; x<5; x++) {
-				h += "<span class=C" + _icon[i][y][x] + "></span>";
+				h += "<div class=C" + _icon[i][y][x] + "></div>";
 			}
 		}
 		h += "</div>";
