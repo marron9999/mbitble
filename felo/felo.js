@@ -172,19 +172,13 @@ function sound() {
 	if(mode == 1) {
 		E("felo").style.display = "none";
 		E("keys").style.display = "inline-block";
-		E("log").style.display = "none";
 		E("log2").style.display = "none";
 		E("sel").style.display = "inline-block";
-		E("icon").style.display = "none";
-		E("play").style.display = "inline-block";
 	} else {
 		E("keys").style.display = null;
 		E("felo").style.display = null;
 		E("sel").style.display = null;
-		E("log").style.display = null;
 		E("log2").style.display = null;
-		E("icon").style.display = "none";
-		E("play").style.display = "none";
 	}
 }
 
@@ -196,24 +190,13 @@ keyset = function(k) {
 		E("key1").style.display = "none";
 		E("key3").style.display = "none";
 		E("key2").style.display = "inline-block";
-		E("icon").style.display = "none";
-		E("play").style.display = "inline-block";
-		device_note();
-		device_notex();
 	} else if(k == 2) {
 		E("key1").style.display = "none";
 		E("key2").style.display = "none";
 		E("key3").style.display = "inline-block";
-		E("play").style.display = "none";
-		E("icon").style.display = "inline-block";
-		initICON();
 	} else {
 		E("key2").style.display = "none";
 		E("key3").style.display = "none";
 		E("key1").style.display = "inline-block";
-		E("icon").style.display = "none";
-		E("play").style.display = "inline-block";
-		device_note();
-		device_notex();
 	}
 }
