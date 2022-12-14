@@ -226,6 +226,12 @@ function initICON() {
 		h += "<br>";
 	}
 	E("key3").innerHTML = h;
+	for(let y=0; y<5; y++) {
+		for(let x=0; x<5; x++) {
+			if(LED[y][x])
+				E("" + y + x).style.background =  "gray";
+		}
+	}
 }
 
 function arrayICON(icon) {
