@@ -232,10 +232,16 @@ function initICON() {
 	}
 	E("icon").innerHTML = h;
 	h = "";
+	h += "<div onclick='clickICOX(10)' ontouchend='clickICOX(10)'>▔</div>";
+	h += "<div onclick='clickICOX(11)' ontouchend='clickICOX(11)'>▕</div>";
+	h += "<div onclick='clickICOX(12)' ontouchend='clickICOX(12)' style='transform: rotate(180deg);'>▔</div>";
+	h += "<div onclick='clickICOX(13)' ontouchend='clickICOX(13)' style='transform: rotate(180deg);'>▕</div>";
+	h += "<br>";
 	h += "<div onclick='clickICOX(0)' ontouchend='clickICOX(0)'>⇅</div>";
 	h += "<div onclick='clickICOX(1)' ontouchend='clickICOX(1)'>⇆</div>";
 	h += "<div onclick='clickICOX(2)' ontouchend='clickICOX(2)' style='transform: rotate(-90deg);'>⤴</div>";
 	h += "<div onclick='clickICOX(3)' ontouchend='clickICOX(3)' style='transform: rotate(-90deg);'>⤵</div>";
+	h += "<div onclick='clickICOX(9)' ontouchend='clickICOX(9)'>消</div>";
 	E("ico0").innerHTML = h;
 }
 function arrayICON(icon) {
@@ -259,19 +265,33 @@ async function clickICOX(i) {
 	event.stopPropagation();
 	event.preventDefault();
 	let xy = LED;
-	LED = [];
+	if(i < 10) {
+		LED = [];
+		for(let y=0; y<5; y++) {
+			LED[y] = [0,0,0,0];
+		}
+	}
 	for(let y=0; y<5; y++) {
-		LED[y] = [];
-		for(let x=0; x<5; x++) {
-			if(i == 0) {
-				LED[y][x] = xy[4 - y][x];
-			} else if(i == 1) {
-				LED[y][x] = xy[y][4 - x];
-			} else if(i == 2) {
-				LED[y][x] = xy[x][4 - y];
-			} else {
-				LED[y][x] = xy[4 - x][y];
+		if(i < 10) {
+			for(let x=0; x<5; x++) {
+				if(i == 0) {
+					LED[y][x] = xy[4 - y][x];
+				} else if(i == 1) {
+					LED[y][x] = xy[y][4 - x];
+				} else if(i == 2) {
+					LED[y][x] = xy[x][4 - y];
+				} else if(i == 3) {
+					LED[y][x] = xy[4 - x][y];
+				}
 			}
+		} else if(i == 10) {
+			LED[0][y] = 1;
+		} else if(i == 11) {
+			LED[y][4] = 1;
+		} else if(i == 12) {
+			LED[4][y] = 1;
+		} else if(i == 13) {
+			LED[y][0] = 1;
 		}
 	}
 	for(let y=0; y<5; y++) {
