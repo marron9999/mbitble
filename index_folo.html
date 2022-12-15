@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>MBITBLE</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<style>
+ul { margin-left: -1em; }
+</style>
 </head>
 <body>
 <h3>micro:bitでプログラミング・フォロをリモート制御</h3>
@@ -14,13 +17,17 @@
 Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで使えることは確認できています。</p>
 
 <hr>
-<p><img src=folo/folo.png width=320 height=auto style="margin-right:20px;vertical-align:top;"><img src=folo/folo.jpg></p>
+<p><img src=folo/folo.png width=320 height=auto style="margin-right:20px;vertical-align:top;">
+<span style="display:inline-block;"><img src=folo/folo.jpg><br>幅15cm×奥行15cm×高さ17.5cm</p>
 
+<ul>
 <li>右上の「Sensor」をクリックすると（16単位で丸めた値が変化したタイミングで）赤外線センサーの値を受信することができます。</li>
 <li>円の中を押しながら動かすと前進、後進、右旋回、左旋回することができます。中心から離れるほどモーターの回転数が上がります。</li>
+</ul>
 
 <p>(1) フォロを制御するmicro:bit</p>
 
+<ul>
 <li>P0 ：スピーカー</li>
 <li>P1 ：フォロ右側の赤外線センサーの値を取得</li>
 <li>P2 ：フォロ左側の赤外線センサーの値を取得</li>
@@ -29,6 +36,7 @@ Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで�
 <li>P14 ：足のモーターの制御（逆転）</li>
 <li>P15 ：腰のモーターの制御（正転）</li>
 <li>P16 ：腰のモーターの制御（逆転）</li>
+</ul>
 
 <p>プログラム：<a href=folo/microbit-folo2.hex>microbit-folo2.hex</a></p>
 
@@ -59,20 +67,24 @@ Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで�
 </table>
 <br>
 <hr>
+<ul>
 <li>右下のブロック（V1.2.0が表示されている箇所）をクリックすると、サウンドを鳴らすモードに切り替わります。</li>
 <li>さらに「アイコン」をクリックするとLED 25個を光らせるモードに切り替わります。</li>
+</ul>
 
 <p><img src=folo/folo_s.png width=320 height=auto style="margin-right:20px;vertical-align:top;"
 ><img src=folo/folo_l.png width=320 height=auto style="vertical-align:top;"></p>
 
 <hr>
-<p>使ったフォロ</p>
+<h4>使ったフォロ</h4>
 
-<p>エレキット プログラミング・フォロ forPaletteIDE MR-9110</p>
+<p>エレキット プログラミング・フォロ forPaletteIDE MR-9110<br>
+<a href=https://www.elekit.co.jp/product/MR-9110>https://www.elekit.co.jp/product/MR-9110</a></p>
 
 <p><img src=folo/20221211_100925.JPG width=320 height=auto></p>
 
-<p>CPUは、micro:bitと互換で作られたのかもしれません。大きさ、ピン配置、ボタン位置、そっくりでした。</p>
+<p>CPUは、micro:bitと互換で作られたのかもしれません。<br>
+大きさ、ピン配置、ボタン位置、そっくりでした。</p>
 
 <p><img src=folo/20221211_100402.JPG width=320 height=auto></p>
 

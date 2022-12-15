@@ -4,6 +4,7 @@
 #folo {
 	-ms-touch-action : none ; /* for *IE10 */
 	touch-action : none ;
+	cursor: pointer;
 }
 
 #body {
@@ -31,7 +32,6 @@
 #left {
 	margin-top: 10px;
 	margin-left: 10px;
-	cursor: pointer;
 	border:1px solid gray;
 	display:inline-block;
 	width:340px;
@@ -201,6 +201,7 @@ border-left-color: transparent;
 	margin-left: 10px;
 	margin-right: 0px;
 	border-bottom: 1px solid gray;
+	cursor: pointer;
 }
 
 #sel {

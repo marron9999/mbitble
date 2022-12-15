@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>MBITBLE</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<style>
+ul { margin-left: -1em; }
+</style>
 </head>
 <body>
 <h3>micro:bitでneopixel(LED)をリモート制御</h3>
@@ -17,25 +20,32 @@ Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで�
 
 <hr>
 <p>２台のmicro:bit V2を使います。</p>
+<ul>
 <li>それそれのP1、P2、3V、GNDを下図のように配線します</li>
-<li>どちらかのmicrobitに電源を供給してください。<br
->&nbsp;&nbsp;&nbsp;&nbsp;PC USBケーブルによる電源供給でもOKです。</li>
-<li>neopixelへの電源は、必ず個別に供給してください。<br
->&nbsp;&nbsp;&nbsp;&nbsp;micro:bitからの直接供給はできません。</li>
-
+<li>どちらかのmicrobitに電源を供給してください。<br>
+PC USBケーブルによる電源供給でもOKです。</li>
+<li>neopixelへの電源は、必ず個別に供給してください。<br>
+micro:bitからの直接供給はできません。</li>
+</ul>
 <p><img src=led25/mbitble.png width=320 height=auto>
 
 <p>(1) neopixelを制御するmicro:bit</p>
+<ul>
 <li>P0 neopixelのDIへ信号を送信するためにつかいます</li>
 <li>P1 (2)から信号を受信するためにつかいます</li>
 <li>P2 (2)へ信号を送信するためにつかいます（予約）</li>
+</ul>
+
 <p>プログラム：<a href=led25/microbit-COLOR5.hex>microbit-COLOR5.hex</a><br>
 <!-- <img src=led25/microbit-COLOR5.png width=320 height=auto>
 --></p>
 <p>(2) Bluetooth UARTで受信するmicro:bit</p>
+<ul>
 <li>P0 本体スピーカーを鳴らすためにつかいます</li>
 <li>P1 (1)へ信号を送信するためにつかいます</li>
 <li>P2 (1)から信号を受信するためにつかいます（予約）</li>
+</ul>
+
 <p>プログラム：<a href=led25/microbit-BLE2.hex>microbit-BLE2.hex</a><br>
 <!-- <img src=led25/microbit-BLE2.png width=320 height=auto>
 --></p> 
