@@ -56,8 +56,8 @@ function moveFOLO(e) {
 		ex += e.x;
 		ey += e.y;
 	}
-	E("mark").style.left = (ex - 38) + "px";
-	E("mark").style.top = (ey - 38) + "px";
+	E("mark").style.left = (ex - 18) + "px";
+	E("mark").style.top = (ey - 18) + "px";
 	let x = ex * 2048 / 340;
 	let y = ey * 2048 / 340;
 	x = Math.round(x / 128) * 128;
@@ -145,16 +145,16 @@ function initFOLO() {
 	let x = 0;
 	for(let n=128; n<1024-256; n+=128) {
 		x = Math.round(n * 150 / 1024);
-		s += '<div class=c style="left:' + x + 'px;top:' + x + 'px;'
+		s += '<div class=c style="left:' + (x+20) + 'px;top:' + (x+20) + 'px;'
 			+ 'width:' + (300 - x - x) + 'px;height:' + (300 - x - x) + 'px;"></div>';
 	}
-	s += '<div class=r>'
+	s += '<div class=r style="margin-left:20px;margin-top:20px;">'
 	s += '<span style="top:-10px; left:122px; transform:rotate( 90deg); color:#080f;">〈</span>';
 	s += '<span style="top:120px; left:257px; transform:rotate(180deg); color:#0808;">〈</span>';
 	s += '<span style="top:250px; left:128px; transform:rotate(270deg); color:#0888;">〈</span>';
 	s += '<span style="top:125px; left: -7px; color:#0808;">〈</span>';
 	s += '</div>';
-	s += '<div class=t>'
+	s += '<div class=t style="margin-left:20px;margin-top:20px;">'
 	s += '<span style="top:-20px; left:137px; color:gray;">前進</span>';
 	s += '<span style="top:140px; left:299px; color:gray; writing-mode: vertical-rl;">右旋回</span>';
 	s += '<span style="top:301px; left:137px; color:gray;">後退</span>';
