@@ -14,7 +14,7 @@
 Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで使えることは確認できています。</p>
 
 <hr>
-<p><img src=folo/folo.png width=220 height=auto style="margin-right:20px;vertical-align:top;"><img src=folo/folo.jpg></p>
+<p><img src=folo/folo.png width=320 height=auto style="margin-right:20px;vertical-align:top;"><img src=folo/folo.jpg></p>
 
 <li>右上の「Sensor」をクリックすると（16単位で丸めた値が変化したタイミングで）赤外線センサーの値を受信することができます。</li>
 <li>円の中を押しながら動かすと前進、後進、右旋回、左旋回することができます。中心から離れるほどモーターの回転数が上がります。</li>
@@ -38,47 +38,47 @@ Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで�
 <p>(2) micro:bitへ送信する指示一覧</p>
 
 <table border=1>
-<tr><td>+,0</td><td>センサーを無効にします</td></tr>
-<tr><td>+,1</td><td>センサーを有効にします</td></tr>
-<tr><td>M,足速度,腰速度</td><td>足と腰のモーターを回転します<br>
+<tr><td nowrap>+,0</td><td>センサーを無効にします</td></tr>
+<tr><td nowrap>+,1</td><td>センサーを有効にします</td></tr>
+<tr><td nowrap>M,足速度,腰速度</td><td>足と腰のモーターを回転します<br>
 速度は -1023 ～ 0 ～ 1023 の値で指定します。</td></tr>
-<tr><td>S</td><td>足と腰のモーターを停止します<br>「M,0,0」と同じ動作となります</td></tr>
-<tr><td>@,パターン</td><td>micro:bit本体のLED 25個を指定したパターン(10文字の16進数)で光らせます<br>
+<tr><td nowrap>S</td><td>足と腰のモーターを停止します<br>「M,0,0」と同じ動作となります</td></tr>
+<tr><td nowrap>@,パターン</td><td>micro:bit本体のLED 25個を指定したパターン(10文字の16進数)で光らせます<br>
 2文字単位で、0行目（一番上の行）から4行目（一番下の行）を指定します<br>
 2文字は00～1Fで指定し、下位5ビットが0列目～4列目の値となります<br>0で消灯、1で点灯です</td></tr>
-<tr><td>!,周波数,長さ</td><td>指定した周波数（Hz）、長さ（ミリ秒）でスピーカーを鳴らします</td></tr>
-<tr><td>!,-1,音種</td><td>組み込み音種をスピーカーに鳴らします<br>
+<tr><td nowrap>!,周波数,長さ</td><td>指定した周波数（Hz）、長さ（ミリ秒）でスピーカーを鳴らします</td></tr>
+<tr><td nowrap>!,-1,音種</td><td>組み込み音種をスピーカーに鳴らします<br>
 組み込み音種は、くすくす笑う、ハッピー、ハロー等のサウンドです</td></tr>
 </table>
 
 <p>(3) micro:bitから受信する内容一覧</p>
 
 <table border=1>
-<tr><td>L,値</td><td>フォロ左側の赤外線センサーの値です（0～1023）</td></tr>
-<tr><td>R,値</td><td>フォロ右側の赤外線センサーの値です（0～1023）</td></tr>
+<tr><td nowrap>L,値</td><td>フォロ左側の赤外線センサーの値です（0～1023）</td></tr>
+<tr><td nowrap>R,値</td><td>フォロ右側の赤外線センサーの値です（0～1023）</td></tr>
 </table>
 <br>
 <hr>
 <li>右下のブロック（V1.2.0が表示されている箇所）をクリックすると、サウンドを鳴らすモードに切り替わります。</li>
 <li>さらに「アイコン」をクリックするとLED 25個を光らせるモードに切り替わります。</li>
 
-<p><img src=folo/folo_s.png width=220 height=auto style="margin-right:20px;vertical-align:top;"
-><img src=folo/folo_l.png width=220 height=auto style="vertical-align:top;"></p>
+<p><img src=folo/folo_s.png width=320 height=auto style="margin-right:20px;vertical-align:top;"
+><img src=folo/folo_l.png width=320 height=auto style="vertical-align:top;"></p>
 
 <hr>
 <p>使ったフォロ</p>
 
 <p>エレキット プログラミング・フォロ forPaletteIDE MR-9110</p>
 
-<p><img src=folo/20221211_100925.JPG width=460 height=auto></p>
+<p><img src=folo/20221211_100925.JPG width=320 height=auto></p>
 
 <p>CPUは、micro:bitと互換で作られたのかもしれません。大きさ、ピン配置、ボタン位置、そっくりでした。</p>
 
-<p><img src=folo/20221211_100402.JPG width=460 height=auto></p>
+<p><img src=folo/20221211_100402.JPG width=320 height=auto></p>
 
 <p>以下はフォロ基板にmicro:bitを差し、モーターをつけて接続試験した様子です。</p>
 
-<p><img src=folo/20221211_234309.JPG width=460 height=auto></p>
+<p><img src=folo/20221211_234309.JPG width=320 height=auto></p>
 
 </body>
 </html>
