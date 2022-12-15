@@ -127,7 +127,7 @@ function pointerup(event) {
 }
 
 function initFOLO() {
-	MBIT_BLE.notify = notifyfolo;
+	MBIT_BLE.notify = notifyFOLO;
 	let e = E("left");
 	base = [e.offsetLeft, e.offsetTop];
 	e.addEventListener('mousedown', pointerdown, {passive: false});
