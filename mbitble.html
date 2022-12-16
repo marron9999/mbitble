@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>MBITBLE</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<script>
+function E(id) {
+	return document.getElementById(id);
+}
+function led() { E("src").innerHTML = E("frame").src = "mbitble/led.html"; }
+function button() { E("src").innerHTML = E("frame").src = "mbitble/button.html"; }
+function temperature() { E("src").innerHTML = E("frame").src = "mbitble/temperature.html"; }
+function magnetometer() { E("src").innerHTML = E("frame").src = "mbitble/magnetometer.html"; }
+function accelerometer() { E("src").innerHTML = E("frame").src = "mbitble/accelerometer.html"; }
+</script>
+</head>
+<body>
+<div><span>Demo:</span>
+&nbsp;<span onclick="led()">LED</span>
+&nbsp;<span onclick="button()">BUTTON</span>
+&nbsp;<span onclick="temperature()">TEMPERATURE</span><br>
+&nbsp;<span onclick="magnetometer()">MAGNETOMETER</span>
+&nbsp;<span onclick="accelerometer()">ACCELEROMETER</span>
+
+
+</div>
+<hr>
+<div id=src>&nbsp;</div>
+<iframe id=frame width=340 height=600 style="border:1px solid gray;"
+ src=mbitble/index.html></iframe>
+</body>
+</html>
