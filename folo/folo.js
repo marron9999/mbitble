@@ -140,10 +140,9 @@ function stopFOLO() {
 }
 
 function notifyFOLO(event) {
-	let text = MBITBLE.text(event);
-	let v = text.split(";");
-	LOG2(v[0]);
-	v = v[0].split(",");
+	let text = MBITBLE.text(event).trim();
+	LOG2(text);
+	let v = text.split(",");
 	if(v[0] == "L") {
 		E("vleft").innerHTML = v[1];
 	} else if(v[0] == "R") {
