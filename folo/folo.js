@@ -37,7 +37,7 @@ async function _OP() {
 			await MBITBLE.write_text("RX", n + ";");
 		}
 		if(OPs.length > 0) {
-			setTimeout(_OP, 21);
+			setTimeout(_OP, 50);
 		}
 		return;
 	}

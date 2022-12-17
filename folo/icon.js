@@ -323,7 +323,7 @@ async function clickLED(n) {
 	fireICON();
 }
 async function fireICON() {
-	if(online == null) return;
+	if(MBITBLE._device == null) return;
 	let h = "";
 	for(let y=0; y<5; y++) {
 		let n = 0;
