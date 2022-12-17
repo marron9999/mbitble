@@ -34,7 +34,7 @@ async function _OP() {
 	if(MBITBLE._device != null) {
 		if(n != undefined) {
 			LOG(n);
-			await MBITBLE.write_text("RX", n + ";");
+			await MBITBLE.write_text("RX", n + "\n");
 		}
 		if(OPs.length > 0) {
 			setTimeout(_OP, 50);
