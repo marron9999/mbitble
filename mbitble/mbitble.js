@@ -3,6 +3,7 @@ function E(id) {
 }
 var LOGMAX = 11;
 var logged = 0;
+var LOG2 = LOG;
 function LOG(s) {
 	let e = E("log");
 	if(e == null) return;
@@ -13,14 +14,18 @@ function LOG(s) {
 		let i = e.innerHTML.indexOf("</div>");
 		e.innerHTML = e.innerHTML.substr(i+6);
 	}
+	e.scroll(0, 9999);
 }
 
 var MBITBLE = {
 	log: function (text) { LOG(text); },
+	log2: function (text) { LOG2(text); },
 	error: function (text) { LOG("Error:" + text); },
 	connected: function () { },
 	disconnected: function () { },
 	notify: {},
+
+	verbose: true,
 
 	connect: async function (service) {
 		this._function = {};
@@ -38,9 +43,11 @@ var MBITBLE = {
 				this._primary = await this._server.getPrimaryService(MBITUUID[service].UUID);
 				this._device_name = this._device.name;
 				this._service_name = service;
-				this.log("Connected: " + this._device_name);
-				this.log("Primary: " + this._service_name + " Service");
-				this.log(MBITUUID[this._service_name].UUID);
+				this.log2("Connected: " + this._device_name);
+				if(this.verbose) {
+					this.log("Primary: " + this._service_name + " Service");
+					this.log(MBITUUID[this._service_name].UUID);
+				}
 			} catch (error) {
 				this.init();
 				this.error(error);
@@ -58,11 +65,17 @@ var MBITBLE = {
 					&& callback != null) {
 						characteristic.addEventListener("characteristicvaluechanged", callback);
 						characteristic.startNotifications();
-						MBITBLE.log("Characteristic: " + desc + " + listener");
+						if(MBITBLE.verbose) {
+							MBITBLE.log("Characteristic: " + desc + " + listener");
+						}
 					} else {
-						MBITBLE.log("Characteristic: " + desc);
+						if(MBITBLE.verbose) {
+							MBITBLE.log("Characteristic: " + desc);
+						}
 					}
-					MBITBLE.log(uuid);
+					if(MBITBLE.verbose) {
+						MBITBLE.log(uuid);
+					}
 					return characteristic;
 				} catch (error) {
 					MBITBLE.error(error);
@@ -75,7 +88,7 @@ var MBITBLE = {
 					(this.notify[name] == undefined)? null : this.notify[name]);
 			}
 			this._device.ongattserverdisconnected = function() {
-				MBITBLE.log("Disconnected"); 
+				MBITBLE.log2("Disconnected"); 
 				MBITBLE.init();
 				MBITBLE.disconnected();
 			};
@@ -172,11 +185,13 @@ var disconnectBLE = async function () {
 	await MBITBLE.disconnect();
 }
 
-var connectBLE = async function () {
-	initBLE();
-};
+var connectBLE = null;
+// = async function () {
+//	initBLE();
+//	await MBITBLE.connect( service name );
+//};
 var initBLE = async function () {
 	logged = 0;
 	let e = E("log");
-	if(h != null) e.innerHTML = "";
+	if(e != null) e.innerHTML = "";
 };

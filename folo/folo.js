@@ -1,12 +1,61 @@
+var logged2 = 0;
+LOG2 = function (s) {
+	let e = E("log2");
+	e.innerHTML += "<div>" + s + "</div>";
+	logged2++;
+	if(logged2 > LOGMAX) {
+		logged2--;
+		let i = e.innerHTML.indexOf("</div>");
+		e.innerHTML = e.innerHTML.substr(i+6);
+	}
+	e.scrollBy(0, 9999);
+}
 
-async function connectFOLO(msg) {
-	if( ! _connected(msg)) {
+var OPs = [];
+function OP(op) {
+	OPs.push(op);
+	if(OPs.length == 1) {
+		setTimeout(_OP,1);
+	}
+	if(OPs.length > 0) {
+		E("que").innerHTML = OPs.length;
+	} else {
+		E("que").innerHTML = "";
+	}
+}
+async function _OP() {
+	let n = OPs[0];
+	OPs.shift();
+	if(OPs.length > 0) {
+		E("que").innerHTML = OPs.length;
+	} else {
+		E("que").innerHTML = "";
+	}
+	if(MBITBLE._device != null) {
+		if(n != undefined) {
+			LOG(n);
+			await MBITBLE.write_text("RX", n + ";");
+		}
+		if(OPs.length > 0) {
+			setTimeout(_OP, 21);
+		}
 		return;
 	}
+	OPs = [];
+}
+
+async function connectFOLO() {
+	E("connect").style.display = "none";
+	E("disconnect").style.display = "inline-block";
 	OP("+," + folo_sensor);
 	if(mode == 2) {
 		fireICON();
 	}
+}
+
+async function disconnectFOLO() {
+	E("disconnect").style.display = "none";
+	E("connect").style.display = "inline-block";
 }
 
 var folo_sensor = 0;
@@ -22,7 +71,7 @@ function sensorFOLO() {
 		E("vleft").innerHTML = "0";
 		E("vright").innerHTML = "0";
 	}
-	if(online != null) {
+	if(MBITBLE._device != null) {
 		OP("+," + folo_sensor);
 	}
 }
@@ -74,8 +123,8 @@ function moveFOLO(e) {
 	} else { if(-256 < y) y = 0; }
 	y = 0 - y;
 	if(folo_mdown[0] != x || folo_mdown[1] != y) {
-		console.log(ex + "," + ey + " => " + x + "," + y);
-		if(online != null) {
+		//console.log(ex + "," + ey + " => " + x + "," + y);
+		if(MBITBLE._device != null) {
 			OP("M," + y + "," + x);
 		}
 	}
@@ -85,12 +134,13 @@ function moveFOLO(e) {
 function stopFOLO() {
 	E("mark").style.display = null;
 	//console.log("folo_stop");
-	if(online != null) {
+	if(MBITBLE._device != null) {
 		OP("S");
 	}
 }
 
-function notifyFOLO(text) {
+function notifyFOLO(event) {
+	let text = MBITBLE.text(event);
 	let v = text.split(";");
 	LOG2(v[0]);
 	v = v[0].split(",");
@@ -127,7 +177,14 @@ function pointerup(event) {
 }
 
 function initFOLO() {
-	MBIT_BLE.notify = notifyFOLO;
+	MBITBLE.verbose = false;
+	MBITBLE.connected = connectFOLO;
+	MBITBLE.disconnected = disconnectFOLO;
+	MBITBLE.notify["TX"] = notifyFOLO;
+	connectBLE = async function () {
+		initBLE();
+		await MBITBLE.connect("UART");
+	};
 	let e = E("folo");
 	base = [e.offsetLeft, e.offsetTop];
 	e.addEventListener('mousedown', pointerdown, {passive: false});

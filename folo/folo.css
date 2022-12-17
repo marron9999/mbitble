@@ -48,7 +48,7 @@
 	top: 390px;
 	left: 0;
 	width: 360px;
-	height:110px;
+	height:112px;
 	display:inline-block;
 	font-size: 12px;
 }
@@ -58,11 +58,12 @@
 	border: 1px solid gray;
 	padding: 2px 2px;
 	width:165px;
-	height:105px;
+	height:107px;
 	margin-top: 5px;
 	margin-left: 10px;
 	display: inline-block;
 	float: left;
+	overflow-y: auto;
 }
 
 #que {
