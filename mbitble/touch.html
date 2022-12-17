@@ -12,8 +12,9 @@
 </style>
 <script>
 connectBLE = async function () {
-	MBITBLE.notify["LOGO"] = function(button) {
-		LOG("Notify: LOGO:" + button.target.value.getUint8(0));
+	initBLE();
+	MBITBLE.notify["LOGO"] = function(event) {
+		LOG("Notify: LOGO:" + MBITBLE.uint8(event, 0));
 	};
 	LOG('MBITBLE.connect("TOUCH");');
 	await MBITBLE.connect("TOUCH");

@@ -13,6 +13,7 @@ input { width: 4em; }
 </style>
 <script>
 connectBLE = async function () {
+	initBLE();
 	/* MBITBLE.notify["DATA"] = function(event) {
 		LOG("Notify: DATA:"
 			+ event.target.value.getInt16(0) + ","
@@ -33,19 +34,22 @@ connectBLE = async function () {
 };
 async function data(e) {
 	LOG('MBITBLE.read_data("DATA");');
-	let rc = await MBITBLE.read_data("DATA");
+	let array = await MBITBLE.read_data("DATA");
 	let p = e.innerHTML.indexOf(":");
-	if(rc == null)
+	if(array == null)
 		e.innerHTML = e.innerHTML.substr(0, p+2) + "null";
-	else e.innerHTML = e.innerHTML.substr(0, p+2) + rc.getInt16(0) + "," + rc.getInt16(1) + "," + rc.getInt16(2);
+	else e.innerHTML = e.innerHTML.substr(0, p+2)
+		+ array.getInt16(0) + ","
+		+ array.getInt16(1) + ","
+		+ array.getInt16(2);
 }
 async function bearing(e) {
 	LOG('MBITBLE.read_data("BEARING");');
-	let rc = await MBITBLE.read_data("BEARING");
+	let array = await MBITBLE.read_data("BEARING");
 	let p = e.innerHTML.indexOf(":");
-	if(rc == null)
+	if(array == null)
 		e.innerHTML = e.innerHTML.substr(0, p+2) + "null";
-	else e.innerHTML = e.innerHTML.substr(0, p+2) + rc.getUint16(0);
+	else e.innerHTML = e.innerHTML.substr(0, p+2) + array.getUint16(0);
 }
 async function calibration(e) {
 	LOG('MBITBLE.write_data("CALIBRATION", Uint8Array(1));');

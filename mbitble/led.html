@@ -30,6 +30,7 @@ window.onload = function() {
 
 };
 connectBLE = async function () {
+	initBLE();
 	LOG('MBITBLE.connect("LED");');
 	await MBITBLE.connect("LED");
 };
