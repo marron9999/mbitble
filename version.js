@@ -1,3 +1,3 @@
 function initVER() {
-	LOG2("Ver 1.2.1");
+	LOG2("Ver 1.2.2");
 }

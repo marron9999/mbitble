@@ -52,9 +52,8 @@
 	display:inline-block;
 	font-size: 12px;
 }
-#log,
-#log2,
-#sel {
+#log, #log2,
+#sel, #sel2 {
 	border: 1px solid gray;
 	padding: 2px 2px;
 	width:165px;
@@ -122,7 +121,6 @@
 		#91D4E1 295deg 339deg, #FFFFFF 239deg 340deg,
 		#80FF13 340deg 360deg);
 }
-
 
 #folo > div.r::after{
 	content: "";
@@ -198,14 +196,15 @@ border-left-color: transparent;
 	vertical-align: bottom;
 }
 
-#sel span {
+#sel span,
+#sel2 span {
 	margin-left: 10px;
 	margin-right: 0px;
 	border-bottom: 1px solid gray;
 	cursor: pointer;
 }
 
-#sel {
+#sel, #sel2 {
 	display: none;
 	font-size: 12px;
 	position: relative;
@@ -231,7 +230,8 @@ border-left-color: transparent;
 	width: 36px;
 	height: 34px;
 }
-#play {
+#play,
+#play2 {
 	width: calc(100% - 15px);
 	margin-left: 10px;
 	margin-top: 5px;
@@ -245,11 +245,12 @@ border-left-color: transparent;
 	font-size: small;
 }
 
-#sel button {
+#sel button,
+#sel2 button {
 	background: white;
 	border: 0;
 	margin: 0;
 	padding: 0;
-	margin-right: 20px;
+	margin-right: 12px;
 }
 

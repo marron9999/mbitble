@@ -268,7 +268,7 @@ async function clickICOX(i) {
 	if(i < 10) {
 		LED = [];
 		for(let y=0; y<5; y++) {
-			LED[y] = [0,0,0,0];
+			LED[y] = [0,0,0,0,0];
 		}
 	}
 	for(let y=0; y<5; y++) {

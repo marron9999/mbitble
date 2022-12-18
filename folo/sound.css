@@ -79,18 +79,18 @@
 	margin-left: 2px;
 }
 
-#play {
-	margin-top: 10px;
+#play,
+#play2 {
 	white-space: normal;
 	padding: 0;
+}
+#play {
+	margin-top: 10px;
 }
 #play > button,
 #play2 > button  {
 	margin-bottom: 5px;
 	cursor: pointer;
-}
-#play2 {
-	/*display: none;*/
 }
 
 #plaing {

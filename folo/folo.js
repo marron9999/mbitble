@@ -111,7 +111,7 @@ function moveFOLO(e) {
 	let y = ey * 2048 / 340;
 	x = Math.round(x / 128) * 128;
 	y = Math.round(y / 128) * 128;
-	x -= 1024;
+	x = 0 - (x - 1024);
 	y -= 1024;
 	if(x >= 1024) x = 1023;
 	else if(x <= -1024) x = -1023;
@@ -228,12 +228,16 @@ function sound() {
 	if(mode == 1) {
 		E("folo").style.display = "none";
 		E("keys").style.display = "inline-block";
+		E("log").style.display = "none";
 		E("log2").style.display = "none";
 		E("sel").style.display = "inline-block";
+		E("sel2").style.display = "inline-block";
 	} else {
 		E("keys").style.display = null;
 		E("folo").style.display = null;
 		E("sel").style.display = null;
+		E("sel2").style.display = null;
+		E("log").style.display = null;
 		E("log2").style.display = null;
 	}
 }

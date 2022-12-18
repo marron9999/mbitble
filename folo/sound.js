@@ -196,7 +196,7 @@ function device_note() {
 }
 
 function device_notex() {
-	let v = E("play").innerHTML;
+	let v = "";
 	for (let i=0; i<SOUND.play2List.length; i++) {
 		v += ' <button class=push'
 			+ ' onclick="device_play2(' + i + ')"'
@@ -210,7 +210,7 @@ function device_notex() {
 //			+ ' ontouchend="device_play3(' + i + ')">'
 //			+ SOUND.play3List[i] + '</span>';
 //	}
-	E("play").innerHTML = v;
+	E("play2").innerHTML = v;
 }
 
 async function device_key1(e) {
@@ -317,6 +317,7 @@ async function device_play_() {
 
 function initSND() {
 	device_note();
+	device_notex();
 	device_note1();
 	device_note2();
 }
