@@ -111,7 +111,7 @@ function moveFOLO(e) {
 	let y = ey * 2048 / 340;
 	x = Math.round(x / 128) * 128;
 	y = Math.round(y / 128) * 128;
-	x = 0 - (x - 1024);
+	x -= 1024;
 	y -= 1024;
 	if(x >= 1024) x = 1023;
 	else if(x <= -1024) x = -1023;
