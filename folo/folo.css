@@ -125,10 +125,10 @@
 #folo > div.r::after{
 	content: "";
 	position: absolute;
-	top: 114px;
-	left: 114px;
-	width: 74px;
-	height: 74px;
+	top: 120px;
+	left: 120px;
+	width: 60px;
+	height: 60px;
 	border-radius: 50%;
 	background: rgb(255,255,255);
 }

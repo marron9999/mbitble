@@ -96,8 +96,8 @@ async function mouseFOLO(event) {
 }
 
 function moveFOLO(e) {
-	let ex = 0 - base[0];
-	let ey = 0 - base[1];
+	let ex = 0 - base[0] - 20;
+	let ey = 0 - base[1] - 20;
 	if(e.x == undefined) {
 		ex += e.touches[0].pageX;
 		ey += e.touches[0].pageY;
@@ -105,25 +105,31 @@ function moveFOLO(e) {
 		ex += e.x;
 		ey += e.y;
 	}
-	E("mark").style.left = (ex - 18) + "px";
-	E("mark").style.top = (ey - 18) + "px";
-	let x = ex * 2048 / 340;
-	let y = ey * 2048 / 340;
+	E("mark").style.left = (ex + 20 - 16) + "px";
+	E("mark").style.top = (ey + 20 - 16) + "px";
+	let x = ex * (2048 + 256) / 300;
+	let y = ey * (2048 + 256) / 300;
 	x = Math.round(x / 128) * 128;
 	y = Math.round(y / 128) * 128;
-	x -= 1024;
-	y -= 1024;
-	if(x >= 1024) x = 1023;
-	else if(x <= -1024) x = -1023;
-	if(y >= 1024) y = 1023;
-	else if(y <= -1024) y = -1023;
-	if(0 <= x) { if(x < 256) x = 0;
-	} else { if(-256 < x) x = 0; }
-	if(0 <= y) { if(y < 256) y = 0;
-	} else { if(-256 < y) y = 0; }
+	x -= (2048 + 256) / 2;
+	y -= (2048 + 256) / 2;
 	y = 0 - y;
+	if(x > 1023) x = 1023;
+	else if(x < -1023) x = -1023;
+	if(y > 1023) y = 1023;
+	else if(y < -1023) y = -1023;
+	if(0 <= x) {
+		if(x < 256) x = 0;
+	} else {
+		if(-256 < x) x = 0;
+	}
+	if(0 <= y) {
+		if(y < 256) y = 0;
+	} else {
+		if(-256 < y) y = 0;
+	}
 	if(folo_mdown[0] != x || folo_mdown[1] != y) {
-		//console.log(ex + "," + ey + " => " + x + "," + y);
+		console.log(ex + "," + ey + " => " + x + "," + y);
 		if(MBITBLE._device != null) {
 			OP("M," + y + "," + x);
 		}
@@ -199,8 +205,8 @@ function initFOLO() {
 	e = E("folo");
 	let s = '';
 	let x = 0;
-	for(let n=128; n<1024-256; n+=128) {
-		x = Math.round(n * 150 / 1024);
+	for(let n=256; n<1024; n+=256) {
+		x = Math.round(n * 120 / 1024);
 		s += '<div class=c style="left:' + (x+20) + 'px;top:' + (x+20) + 'px;'
 			+ 'width:' + (300 - x - x) + 'px;height:' + (300 - x - x) + 'px;"></div>';
 	}
