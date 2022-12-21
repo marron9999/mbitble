@@ -31,7 +31,7 @@ connectBLE = async function () {
 			+ MAGNETOMETER.uint8(event, 0));
 	};
 	LOG('MBITBLE.connect("MAGNETOMETER", MAGNETOMETER);');
-	MAGNETOMETER = await MBITBLE.connect("MAGNETOMETER", MAGNETOMETER);
+	await MBITBLE.connect("MAGNETOMETER", MAGNETOMETER);
 };
 async function data(e) {
 	LOG('MAGNETOMETER.read_data("DATA");');

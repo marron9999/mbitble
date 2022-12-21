@@ -21,7 +21,7 @@ connectBLE = async function () {
 			+ ACCELEROMETER.int16(event, 2));
 	};
 	LOG('MBITBLE.connect("ACCELEROMETER", ACCELEROMETER);');
-	ACCELEROMETER = await MBITBLE.connect("ACCELEROMETER", ACCELEROMETER);
+	await MBITBLE.connect("ACCELEROMETER", ACCELEROMETER);
 };
 async function data(e) {
 	LOG('ACCELEROMETER.read_data("DATA");');

@@ -8,20 +8,20 @@
 function E(id) {
 	return document.getElementById(id);
 }
-function led() { E("src").innerHTML = E("frame").src = "mbitble/led.html"; }
-function button() { E("src").innerHTML = E("frame").src = "mbitble/button.html"; }
+function led() { E("src").innerHTML = E("frame").src = "mbitble/led+button.html"; }
 function temperature() { E("src").innerHTML = E("frame").src = "mbitble/temperature.html"; }
 function magnetometer() { E("src").innerHTML = E("frame").src = "mbitble/magnetometer.html"; }
 function accelerometer() { E("src").innerHTML = E("frame").src = "mbitble/accelerometer.html"; }
+function iopin() { E("src").innerHTML = E("frame").src = "mbitble/io-pin.html"; }
 </script>
 </head>
 <body>
-<div><span>Demo:</span>
-&nbsp;<span onclick="led()">LED</span>
-&nbsp;<span onclick="button()">BUTTON</span>
+<div><span>Service:</span>
+&nbsp;<span onclick="led()">LED+BUTTON</span>
 &nbsp;<span onclick="temperature()">TEMPERATURE</span><br>
 &nbsp;<span onclick="magnetometer()">MAGNETOMETER</span>
 &nbsp;<span onclick="accelerometer()">ACCELEROMETER</span>
+&nbsp;<span onclick="iopin()">IO-PIN</span>
 
 
 </div>

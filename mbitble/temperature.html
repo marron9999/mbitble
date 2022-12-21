@@ -18,7 +18,7 @@ connectBLE = async function () {
 		LOG("Notify: VALUE:" + TEMPERATURE.uint8(event, 0));
 	};
 	LOG('MBITBLE.connect("TEMPERATURE", TEMPERATURE);');
-	TEMPERATURE = await MBITBLE.connect("TEMPERATURE", TEMPERATURE);
+	await MBITBLE.connect("TEMPERATURE", TEMPERATURE);
 };
 async function value_(e) {
 	LOG('TEMPERATURE.read_data("VALUE");');

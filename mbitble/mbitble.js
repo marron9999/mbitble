@@ -23,16 +23,25 @@ var MBITBLE = {
 	error: function (text) { LOG("Error:" + text); },
 	connected: function () { },
 	disconnected: function () { },
-	notify: {},
 
 	verbose: true,
 
-	connect: async function (name, target) {
+	connect: async function (names, targets) {
+		this._targets = {};
+		if( ! Array.isArray(names)) {
+			names = [names];
+			targets = [targets];
+		}
 		try {
+			let services = [];
+			for(let i=0; i<names.length; i++) {
+				services[i] = MBITUUID[names[i]].UUID;
+				this._targets[names[i]] = targets[i];
+			}
 			let option = {
 				acceptAllDevices: false,
 				filters: [
-					{ services: [MBITUUID[name].UUID] }, // <- 重要
+					{ services: services}, // <- 重要
 					{ namePrefix: this._device_type },
 				]
 			};
@@ -41,17 +50,21 @@ var MBITBLE = {
 			this._device_name = this._device.name;
 			this._device.ongattserverdisconnected = function() {
 				MBITBLE.log2("Disconnected"); 
+				for(let name in MBITBLE._targets) {
+					MBITBLE._targets[name].primary = null;
+				}
 				MBITBLE.init();
 				MBITBLE.disconnected();
 			};
-			target = this.service(name, target);
+			for(let i=0; i<names.length; i++) {
+				this.service(names[i], targets[i]);
+			}
 			this.log2("Connected: " + this._device_name);
 			this.connected();
 		} catch (error) {
 			this.init();
 			this.error(error);
 		}
-		return target;
 	},
 	disconnect: function () {
 		if (this._device == null) {
@@ -65,11 +78,13 @@ var MBITBLE = {
 		this._device = null;
 		this._server = null;
 		this._device_name = null;
+		this._targets = {};
 	},
 	_device_type: "BBC micro:bit",
 	_device_name: null,
 	_device: null,
 	_server: null,
+	_targets: {},
 	_encoder: new TextEncoder('utf-8'),
 	_decoder: new TextDecoder('utf-8'),
 
@@ -87,7 +102,7 @@ var MBITBLE = {
 			}
 			if (primary == null) {
 				MBITBLE.error("characteristic: " + "primary is null");
-				return target;
+				return;
 			}
 			let characteristic = async function (primary, uuid, desc, callback) {
 				try {
@@ -112,7 +127,7 @@ var MBITBLE = {
 				} catch (error) {
 					MBITBLE.error(error);
 				}
-				return null;
+				return;
 			};
 			for(let func in MBITUUID[name].SERVICE) {
 				target._[func] = await characteristic(
@@ -161,7 +176,7 @@ var MBITBLE = {
 				} catch(error) {
 					this._mbitble.error(error);
 				}
-				return null;
+				return;
 			};
 			target.read_text = async function (name) {
 				let event = await this.read_data(name);
@@ -172,7 +187,6 @@ var MBITBLE = {
 		} catch (error) {
 			this.error(error);
 		}
-		return target;
 	}
 };
 
