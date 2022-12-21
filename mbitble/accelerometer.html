@@ -11,19 +11,23 @@
 <style>
 </style>
 <script>
+var ACCELEROMETER = {};
 connectBLE = async function () {
 	initBLE();
-	MBITBLE.notify["DATA"] = function(event) {
-		LOG("Notify: DATA:" + MBITBLE.int16(event, 0) + "," + MBITBLE.int16(event, 1) + "," + MBITBLE.int16(event, 2));
+	ACCELEROMETER["DATA"] = function(event) {
+		LOG("Notify: DATA:"
+			+ ACCELEROMETER.int16(event, 0) + ","
+			+ ACCELEROMETER.int16(event, 1) + ","
+			+ ACCELEROMETER.int16(event, 2));
 	};
-	LOG('MBITBLE.connect("ACCELEROMETER");');
-	await MBITBLE.connect("ACCELEROMETER");
+	LOG('MBITBLE.connect("ACCELEROMETER", ACCELEROMETER);');
+	ACCELEROMETER = await MBITBLE.connect("ACCELEROMETER", ACCELEROMETER);
 };
 async function data(e) {
-	LOG('MBITBLE.read_data("DATA");');
-	let array = await MBITBLE.read_data("DATA");
+	LOG('ACCELEROMETER.read_data("DATA");');
+	let array = await ACCELEROMETER.read_data("DATA");
 	let p = e.innerHTML.indexOf(":");
-	if(array == null)
+	if(array == null || array.length <= 0)
 		e.innerHTML = e.innerHTML.substr(0, p+2) + "null";
 	else {
 		e.innerHTML = e.innerHTML.substr(0, p+2)
@@ -33,10 +37,10 @@ async function data(e) {
 	}
 }
 async function period(e) {
-	LOG('MBITBLE.write_data("PERIOD", Uint16Array(1));');
+	LOG('ACCELEROMETER.write_data("PERIOD", Uint16Array(1));');
 	let data = new Uint16Array(1);
 	data[0] = parseInt(E("period").value);
-	await MBITBLE.write_data("PERIOD", data);
+	await ACCELEROMETER.write_data("PERIOD", data);
 }
 </script>
 </head>

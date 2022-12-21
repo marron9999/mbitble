@@ -29,18 +29,19 @@ window.onload = function() {
 	E("matrix").innerHTML = h;
 
 };
+var LED = {};
 connectBLE = async function () {
 	initBLE();
-	LOG('MBITBLE.connect("LED");');
-	await MBITBLE.connect("LED");
+	LOG('MBITBLE.connect("LED", LED);');
+	LED = await MBITBLE.connect("LED", LED);
 };
 function text() {
 	let v = E("text").value;
-	LOG('MBITBLE.write_text("TEXT", "' + v + '");');
-	MBITBLE.write_text("TEXT", v);
+	LOG('LED.write_text("TEXT", "' + v + '");');
+	LED.write_text("TEXT", v);
 }
 function matrix() {
-	LOG('MBITBLE.write_data("MATRIX", Uint8Array(5));');
+	LOG('LED.write_data("MATRIX", Uint8Array(5));');
 	let leds = new Uint8Array(5);
 	let e = E("matrix");
 	let n = 0;
@@ -55,7 +56,7 @@ function matrix() {
 			if(e.children[n].tagName == "BR") n++;
 		}
 	}
-	MBITBLE.write_data("MATRIX", leds);
+	LED.write_data("MATRIX", leds);
 }
 function led(e) {
 	if(e.style.background == "black") {

@@ -55,11 +55,27 @@ Windows 10：Chrome、Chromebook：Chrome、SONYスマ-トフォン：Chromeで�
 2文字単位で、0行目（一番上の行）から4行目（一番下の行）を指定します<br>
 2文字は00～1Fで指定し、下位5ビットが0列目～4列目の値となります<br>0で消灯、1で点灯です</td></tr>
 <tr><td nowrap>!,周波数,長さ</td><td>指定した周波数（Hz）、長さ（ミリ秒）でスピーカーを鳴らします</td></tr>
+<tr><td nowrap>!,周波数,長さ,高さ</td><td>指定した周波数（Hz）、長さ（ミリ秒）、高さ（0～255）でスピーカーを鳴らします</td></tr>
+<tr><td nowrap>!,音の高さ</td><td>デフォルトの音の高さ（0～255）を設定します</td></tr>
 <tr><td nowrap>!,-1,音種</td><td>組み込み音種をスピーカーに鳴らします<br>
 組み込み音種は、くすくす笑う、ハッピー、ハロー等のサウンドです</td></tr>
 </table>
 
-<p>(3) micro:bitから受信する内容一覧</p>
+<p>(3) 組み込み音種一覧</p>
+
+<table border=1>
+<tr><td nowrap align=center>&nbsp;0&nbsp;</td><td>すくす笑う</td></tr>
+<tr><td nowrap align=center>1</td><td>ハッピー</td></tr>
+<tr><td nowrap align=center>2</td><td>ハロー</td></tr>
+<tr><td nowrap align=center>3</td><td>ミステリアス</td></tr>
+<tr><td nowrap align=center>4</td><td>悲しい</td></tr>
+<tr><td nowrap align=center>5</td><td>するする動く</td></tr>
+<tr><td nowrap align=center>6</td><td>舞い上がる</td></tr>
+<tr><td nowrap align=center>7</td><td>バネ</td></tr>
+<tr><td nowrap align=center>8</td><td>キラキラ</td></tr>
+<tr><td nowrap align=center>9</td><td>あくび</td></tr>
+</table>
+<p>(4) micro:bitから受信する内容一覧</p>
 
 <table border=1>
 <tr><td nowrap>L,値</td><td>フォロ左側の赤外線センサーの値です（0～1023）</td></tr>

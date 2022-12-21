@@ -11,27 +11,28 @@
 <style>
 </style>
 <script>
+var TEMPERATURE = {};
 connectBLE = async function () {
 	initBLE();
-	MBITBLE.notify["VALUE"] = function(event) {
-		LOG("Notify: VALUE:" + MBITBLE.uint8(event, 0));
+	TEMPERATURE["VALUE"] = function(event) {
+		LOG("Notify: VALUE:" + TEMPERATURE.uint8(event, 0));
 	};
-	LOG('MBITBLE.connect("TEMPERATURE");');
-	await MBITBLE.connect("TEMPERATURE");
+	LOG('MBITBLE.connect("TEMPERATURE", TEMPERATURE);');
+	TEMPERATURE = await MBITBLE.connect("TEMPERATURE", TEMPERATURE);
 };
 async function value_(e) {
-	LOG('MBITBLE.read_data("VALUE");');
-	let array = await MBITBLE.read_data("VALUE");
+	LOG('TEMPERATURE.read_data("VALUE");');
+	let array = await TEMPERATURE.read_data("VALUE");
 	let p = e.innerHTML.indexOf(":");
-	if(array == null)
+	if(array == null || array.length <= 0)
 		e.innerHTML = e.innerHTML.substr(0, p+2) + "null";
 	else e.innerHTML = e.innerHTML.substr(0, p+2) + array.getInt8(0);
 }
 async function period(e) {
-	LOG('MBITBLE.write_data("PERIOD", Uint16Array(1));');
+	LOG('TEMPERATURE.write_data("PERIOD", Uint16Array(1));');
 	let data = new Uint16Array(1);
 	data[0] = parseInt(E("period").value);
-	let rc = await MBITBLE.write_data("PERIOD", data);
+	let rc = await TEMPERATURE.write_data("PERIOD", data);
 }
 </script>
 </head>

@@ -11,22 +11,23 @@
 <style>
 </style>
 <script>
+var BUTTON = {};
 connectBLE = async function () {
 	initBLE();
-	MBITBLE.notify["A"] = function(event) {
-		LOG("Notify: BUTTON A:" + MBITBLE.uint8(event, 0));
+	BUTTON["A"] = function(event) {
+		LOG("Notify: BUTTON A:" + BUTTON.uint8(event, 0));
 	};
-	MBITBLE.notify["B"] = function(event) {
-		LOG("Notify: BUTTON B:" + MBITBLE.uint8(event, 0));
+	BUTTON["B"] = function(event) {
+		LOG("Notify: BUTTON B:" + BUTTON.uint8(event, 0));
 	};
-	LOG('MBITBLE.connect("BUTTON");');
-	await MBITBLE.connect("BUTTON");
+	LOG('MBITBLE.connect("BUTTON", BUTTON);');
+	BUTTON = await MBITBLE.connect("BUTTON", BUTTON);
 };
 async function button(a, e) {
-	LOG('MBITBLE.read_data("' + a + '");');
-	let array = await MBITBLE.read_data(a);
+	LOG('BUTTON.read_data("' + a + '");');
+	let array = await BUTTON.read_data(a);
 	let p = e.innerHTML.indexOf(":");
-	if(array == null)
+	if(array == null || array.length <= 0)
 		e.innerHTML = e.innerHTML.substr(0, p+2) + "null";
 	else e.innerHTML = e.innerHTML.substr(0, p+2) + array.getUint8(0);
 }

@@ -27,39 +27,71 @@ var MBITBLE = {
 
 	verbose: true,
 
-	connect: async function (service) {
-		this._function = {};
+	connect: async function (name, target) {
 		try {
 			let option = {
 				acceptAllDevices: false,
 				filters: [
-					{ services: [MBITUUID[service].UUID] }, // <- 重要
+					{ services: [MBITUUID[name].UUID] }, // <- 重要
 					{ namePrefix: this._device_type },
 				]
 			};
-			try {
-				this._device = await navigator.bluetooth.requestDevice(option);
-				this._server = await this._device.gatt.connect();
-				this._primary = await this._server.getPrimaryService(MBITUUID[service].UUID);
-				this._device_name = this._device.name;
-				this._service_name = service;
-				this.log2("Connected: " + this._device_name);
-				if(this.verbose) {
-					this.log("Primary: " + this._service_name + " Service");
-					this.log(MBITUUID[this._service_name].UUID);
-				}
-			} catch (error) {
-				this.init();
-				this.error(error);
-				return;
+			this._device = await navigator.bluetooth.requestDevice(option);
+			this._server = await this._device.gatt.connect();
+			this._device_name = this._device.name;
+			this._device.ongattserverdisconnected = function() {
+				MBITBLE.log2("Disconnected"); 
+				MBITBLE.init();
+				MBITBLE.disconnected();
+			};
+			target = this.service(name, target);
+			this.log2("Connected: " + this._device_name);
+			this.connected();
+		} catch (error) {
+			this.init();
+			this.error(error);
+		}
+		return target;
+	},
+	disconnect: function () {
+		if (this._device == null) {
+			this.error("disconnect: " + "device is null");
+			return;
+		}
+		this._device.gatt.disconnect();
+		this.init();
+	},
+	init: function () {
+		this._device = null;
+		this._server = null;
+		this._device_name = null;
+	},
+	_device_type: "BBC micro:bit",
+	_device_name: null,
+	_device: null,
+	_server: null,
+	_encoder: new TextEncoder('utf-8'),
+	_decoder: new TextDecoder('utf-8'),
+
+	service: async function (name, target) {
+		if(target == undefined
+		|| target == null) target = {};
+		target.primary = null;
+		target._ = {};
+
+		try {
+			let primary = await this._server.getPrimaryService(MBITUUID[name].UUID);
+			if(this.verbose) {
+				this.log("Primary: " + name + " Service");
+				this.log(MBITUUID[name].UUID);
 			}
-			let characteristic = async function (uuid, desc, callback) {
-				if (MBITBLE._primary == null) {
-					MBITBLE.error("characteristic: " + "primary is null");
-					return null;
-				}
+			if (primary == null) {
+				MBITBLE.error("characteristic: " + "primary is null");
+				return target;
+			}
+			let characteristic = async function (primary, uuid, desc, callback) {
 				try {
-					let characteristic = await MBITBLE._primary.getCharacteristic(uuid);
+					let characteristic = await primary.getCharacteristic(uuid);
 					if (characteristic != null
 					&& callback != undefined
 					&& callback != null) {
@@ -82,102 +114,62 @@ var MBITBLE = {
 				}
 				return null;
 			};
-			for(let name in MBITUUID[service].SERVICE) {
-				this._function[name] = await characteristic(
-					MBITUUID[service].SERVICE[name], name,
-					(this.notify[name] == undefined)? null : this.notify[name]);
+			for(let func in MBITUUID[name].SERVICE) {
+				target._[func] = await characteristic(
+					primary, MBITUUID[name].SERVICE[func], func,
+					(target[func] == undefined)? null : target[func]);
 			}
-			this._device.ongattserverdisconnected = function() {
-				MBITBLE.log2("Disconnected"); 
-				MBITBLE.init();
-				MBITBLE.disconnected();
+
+			target._mbitble = this;
+			target.text = function (event) {
+				return this._mbitble._decoder.decode(event.target.value);
 			};
-			this.connected();
-		} catch (error) {
-			this.init();
-			this.error(error);
-		}
-	},
-	disconnect: function () {
-		if (this._device == null) {
-			this.error("disconnect: " + "device is null");
-			return;
-		}
-		this._device.gatt.disconnect();
-		this.init();
-	},
-
-	init: function () {
-		this._device = null;
-		this._server = null;
-		this._primary = null;
-		this._device_name = null;
-		this._service_name = null;
-		this._function = {};
-	},
-
-	_device_type: "BBC micro:bit",
-	_device_name: null,
-	_device: null,
-	_service: null,
-	_server: null,
-	_primary: null,
-	_encoder: new TextEncoder('utf-8'),
-	_decoder: new TextDecoder('utf-8'),
-
-	read_data: async function (name) {
-		if (this._device == null) {
-			this.error("read_data: " + "device is null");
-			return null;
-		}
-		if (this._function[name] == null) {
-			this.error("read_data: " + name + " is ?");
-			return null;
-		}
-		try {
-			return await this._function[name].readValue();
+			target.int8 = function (event, n) {
+				return event.target.value.getInt8(n);
+			};
+			target.uint8 = function (event, n) {
+				return event.target.value.getUint8(n);
+			};
+			target.int16 = function (event, n) {
+				return event.target.value.getInt16(n);
+			};
+			target.uint16 = function (event, n) {
+				return event.target.value.getUint16(n);
+			};
+			target.write_data = async function(name, data) {
+				try {
+					await this._[name].writeValue(data);
+				} catch (error) {
+					this._mbitble.error(error);
+				}
+			};
+			target.write_text = async function (name, text) {
+				let buffer = this._mbitble._encoder.encode(text);
+				this.write_data(name, buffer);
+			};
+			target.read_data = async function (name) {
+				try {
+					let array = await this._[name].readValue();
+					if(array != null) {
+						if(array.length == undefined)
+							array.length = array.byteLength;
+					}
+					return array;
+				} catch(error) {
+					this._mbitble.error(error);
+				}
+				return null;
+			};
+			target.read_text = async function (name) {
+				let event = await this.read_data(name);
+				if(event == null) return null;
+				return this.text(event);
+			};
+			target.primary = primary;
 		} catch (error) {
 			this.error(error);
 		}
-		return null;
-	},
-	read_text: async function (name) {
-		let event = this.read_data(name);
-		return this.text(event);
-	},
-	write_data: async function (name, data) {
-		if (this._device == null) {
-			this.error("write_data: " + "device is null");
-			return;
-		}
-		if (this._function[name] == null) {
-			this.error("write_data: " + name + " is ?");
-			return;
-		}
-		try {
-			await this._function[name].writeValue(data);
-		} catch (error) {
-			this.error(error);
-		}
-	},
-	write_text: async function (name, text) {
-		let buffer = this._encoder.encode(text);
-		this.write_data(name, buffer);
-	},
-	text: function (event) {
-		return this._decoder.decode(event.target.value);
-	},
-	int8: function (event, n) {
-		return event.target.value.getInt8(n);
-	},
-	uint8: function (event, n) {
-		return event.target.value.getUint8(n);
-	},
-	int16: function (event, n) {
-		return event.target.value.getInt16(n);
-	},
-	uint16: function (event, n) {
-		return event.target.value.getUint16(n);
+		return target;
 	}
 };
 

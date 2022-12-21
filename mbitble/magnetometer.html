@@ -12,31 +12,32 @@
 input { width: 4em; }
 </style>
 <script>
+var MAGNETOMETER = {};
 connectBLE = async function () {
 	initBLE();
-	/* MBITBLE.notify["DATA"] = function(event) {
+	/* MAGNETOMETER["DATA"] = function(event) {
 		LOG("Notify: DATA:"
-			+ event.target.value.getInt16(0) + ","
-			+ event.target.value.getInt16(1) + ","
-			+ event.target.value.getInt16(2)
+			+ MAGNETOMETER.int16(event, 0) + ","
+			+ MAGNETOMETER.int16(event, 1) + ","
+			+ MAGNETOMETER.int16(event, 2)
 		);
 	}; */
-	/* MBITBLE.notify["BEARING"] = function(event) {
+	/* MAGNETOMETER["BEARING"] = function(event) {
 		LOG("Notify: BEARING:"
-			+ event.target.value.getUint16(0));
+			+ MAGNETOMETER.uint16(event, 0));
 	};*/
-	MBITBLE.notify["CALIBRATION"] = function(event) {
+	MAGNETOMETER["CALIBRATION"] = function(event) {
 		LOG("Notify: CALIBRATION:"
-			+ event.target.value.getUint8(0));
+			+ MAGNETOMETER.uint8(event, 0));
 	};
-	LOG('MBITBLE.connect("MAGNETOMETER");');
-	await MBITBLE.connect("MAGNETOMETER");
+	LOG('MBITBLE.connect("MAGNETOMETER", MAGNETOMETER);');
+	MAGNETOMETER = await MBITBLE.connect("MAGNETOMETER", MAGNETOMETER);
 };
 async function data(e) {
-	LOG('MBITBLE.read_data("DATA");');
-	let array = await MBITBLE.read_data("DATA");
+	LOG('MAGNETOMETER.read_data("DATA");');
+	let array = await MAGNETOMETER.read_data("DATA");
 	let p = e.innerHTML.indexOf(":");
-	if(array == null)
+	if(array == null || array.length <= 0)
 		e.innerHTML = e.innerHTML.substr(0, p+2) + "null";
 	else e.innerHTML = e.innerHTML.substr(0, p+2)
 		+ array.getInt16(0) + ","
@@ -44,24 +45,24 @@ async function data(e) {
 		+ array.getInt16(2);
 }
 async function bearing(e) {
-	LOG('MBITBLE.read_data("BEARING");');
-	let array = await MBITBLE.read_data("BEARING");
+	LOG('MAGNETOMETER.read_data("BEARING");');
+	let array = await MAGNETOMETER.read_data("BEARING");
 	let p = e.innerHTML.indexOf(":");
-	if(array == null)
+	if(array == null || array.length <= 0)
 		e.innerHTML = e.innerHTML.substr(0, p+2) + "null";
 	else e.innerHTML = e.innerHTML.substr(0, p+2) + array.getUint16(0);
 }
 async function calibration(e) {
-	LOG('MBITBLE.write_data("CALIBRATION", Uint8Array(1));');
+	LOG('MAGNETOMETER.write_data("CALIBRATION", Uint8Array(1));');
 	let data = new Uint8Array(1);
 	data[0] = parseInt(E("calibration").value);
-	let rc = await MBITBLE.write_data("CALIBRATION", data);
+	let rc = await MAGNETOMETER.write_data("CALIBRATION", data);
 }
 async function period(e) {
-	LOG('MBITBLE.write_data("PERIOD", Uint16Array(1));');
+	LOG('MAGNETOMETER.write_data("PERIOD", Uint16Array(1));');
 	let data = new Uint16Array(1);
 	data[0] = parseInt(E("period").value);
-	let rc = await MBITBLE.write_data("PERIOD", data);
+	let rc = await MAGNETOMETER.write_data("PERIOD", data);
 }
 </script>
 </head>

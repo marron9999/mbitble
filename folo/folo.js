@@ -24,24 +24,22 @@ function OP(op) {
 	}
 }
 async function _OP() {
-	let n = OPs[0];
-	OPs.shift();
-	if(OPs.length > 0) {
-		E("que").innerHTML = OPs.length;
-	} else {
-		E("que").innerHTML = "";
-	}
-	if(MBITBLE._device != null) {
+	if(UART.primary != null) {
+		let n = OPs[0];
+		OPs.shift();
+		if(OPs.length > 0) {
+			E("que").innerHTML = OPs.length;
+		} else {
+			E("que").innerHTML = "";
+		}
 		if(n != undefined) {
 			LOG(n);
-			await MBITBLE.write_text("RX", n + "\n");
+			await UART.write_text("RX", n + "\n");
 		}
-		if(OPs.length > 0) {
-			setTimeout(_OP, 50);
-		}
-		return;
 	}
-	OPs = [];
+	if(OPs.length > 0) {
+		setTimeout(_OP, 80);
+	}
 }
 
 async function connectFOLO() {
@@ -146,7 +144,7 @@ function stopFOLO() {
 }
 
 function notifyFOLO(event) {
-	let text = MBITBLE.text(event).trim();
+	let text = UART.text(event).trim();
 	LOG2(text);
 	let v = text.split(",");
 	if(v[0] == "L") {
@@ -181,14 +179,15 @@ function pointerup(event) {
 	folo_mdown = null;
 }
 
+var UART = {};
 function initFOLO() {
 	MBITBLE.verbose = false;
 	MBITBLE.connected = connectFOLO;
 	MBITBLE.disconnected = disconnectFOLO;
-	MBITBLE.notify["TX"] = notifyFOLO;
+	UART["TX"] = notifyFOLO;
 	connectBLE = async function () {
 		initBLE();
-		await MBITBLE.connect("UART");
+		UART = await MBITBLE.connect("UART", UART);
 	};
 	let e = E("folo");
 	base = [e.offsetLeft, e.offsetTop];
