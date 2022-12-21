@@ -124,6 +124,9 @@ var MBITBLE = {
 			target.text = function (event) {
 				return this._mbitble._decoder.decode(event.target.value);
 			};
+			target.value = function (event) {
+				return event.target.value;
+			};
 			target.int8 = function (event, n) {
 				return event.target.value.getInt8(n);
 			};

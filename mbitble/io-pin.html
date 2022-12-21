@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>MBITBLE - BUTTON</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<link  href="reset.css" type="text/css" rel="stylesheet">
+<script src="mbituuid.js" type="text/javascript"></script>
+<script src="mbitble.js" type="text/javascript"></script>
+<link  href="mbitble.css" type="text/css" rel="stylesheet">
+<style>
+td { padding : 0px 8px; }
+</style>
+<script>
+var IO_PIN = {};
+var P12 = 0;
+connectBLE = async function () {
+	initBLE();
+	//MBITBLE.verbose = false;
+	IO_PIN["DATA"] = function(event) {
+		if(P12 == 0) return;
+		let value = IO_PIN.value(event);
+		if(value.byteLength >= 2) {
+			let pin = value.getUint8(0);
+			let val = value.getUint8(1);
+			E("p" + pin).innerHTML = "" + val;
+		}
+		if(value.byteLength >= 4) {
+			let pin = value.getUint8(2);
+			let val = value.getUint8(3);
+			E("p" + pin).innerHTML = "" + val;
+		}
+	};
+	LOG('MBITBLE.connect("IO_PIN", IO_PIN);');
+	IO_PIN = await MBITBLE.connect("IO_PIN", IO_PIN);
+	let v = (1<<1) + (1<<2) + (1<<13) + (1<<14) + (1<<15) + (1<<16);
+	LOG('Setting analog pins');
+	LOG('IO_PIN.write_data("AD_CONF", ' + bool24(v) + ');');
+	await IO_PIN.write_data("AD_CONF", uint24(v));
+	v = (1<<1) + (1<<2);
+	LOG('Setting notify pins');
+	LOG('IO_PIN.write_data("IO_CONF", ' + bool24(v) + ');');
+	await IO_PIN.write_data("IO_CONF", uint24(v));
+};
+async function PIN12(e) {
+	let B12 = P12;
+	P12 = (P12 == 0)? 1 : 0;
+	LOG('IO_PIN.write_data("DATA", {' + 12 + ',' + P12 + '}");');
+	let data = new Uint8Array(2);
+	data[0] = 12;
+	data[1] = P12;
+	await IO_PIN.write_data("DATA", data);
+	let p = e.innerHTML.indexOf(":");
+	e.innerHTML = e.innerHTML.substr(0, p+2) + B12;
+}
+function bool24(v) {
+	v = "000000000000000000000000" + v.toString(2);
+	v = v.substr(v.length - 24);
+	return v.substr(0,8) + " " + v.substr(8,8) + " " + v.substr(16,8);
+}
+function uint24(v) {
+	let data = new Uint8Array(3);
+	data[0] = (v      ) & 0x00ff;
+	data[1] = (v >>  8) & 0x00ff;
+	data[2] = (v >> 16) & 0x00ff;
+	return data;
+}
+function pwm(p, v) {
+	let data = new Uint8Array(7);
+	data[0] = p;
+	data[1] = (v     ) & 0x00ff;
+	data[2] = (v >> 8) & 0x00ff;
+	data[3] = 0;
+	data[4] = 0;
+	data[5] = 0;
+	data[6] = 0;
+	return data;
+}
+async function PIN(e, p0, p1) {
+	let data = pwm(p0, 0);
+	LOG('IO_PIN.write_data("DATA", ' + p0 + ':0);');
+	await IO_PIN.write_data("DATA", data);
+	data = pwm(p1, 1023);
+	LOG('IO_PIN.write_data("DATA", ' + p0 + ':1023);');
+	await IO_PIN.write_data("DATA", data);
+}
+async function STOP() {
+	let data = pwm(13, 0);
+	LOG('IO_PIN.write_data("DATA", {' + '13:0' + ');');
+	await IO_PIN.write_data("DATA", data);
+	data = pwm(14, 0);
+	LOG('IO_PIN.write_data("DATA", {' + '14:0' + ');');
+	await IO_PIN.write_data("DATA", data);
+	data = pwm(15, 0);
+	LOG('IO_PIN.write_data("DATA", {' + '15:0' + ');');
+	await IO_PIN.write_data("DATA", data);
+	data = pwm(16, 0);
+	LOG('IO_PIN.write_data("DATA", {' + '16:0' + ');');
+	await IO_PIN.write_data("DATA", data);
+}
+</script>
+</head>
+<body>
+<div id=body>
+<div><button onclick="connectBLE()">Connect</button>
+&nbsp;<button onclick="disconnectBLE()">Disconnect</button></div>
+<hr>
+<table border=0>
+<tr><td>P1</td><td>右側センサー</td><td><span id=p1>0</span></td></tr>
+<tr><td>P2</td><td>左側センサー</td><td><span id=p2>0</span></td></tr>
+<tr><td>P12</td><td>センサー制御</td><td><button onclick="PIN12(this)">SEND : 1</button></td></tr>
+<tr><td>P13</td><td>足（正転）</td><td><button onclick="PIN(this, 14, 13)">SEND 1023</button></td></tr>
+<tr><td>P14</td><td>足（逆転）</td><td><button onclick="PIN(this, 13, 14)">SEND 1023</button></td></tr>
+<tr><td>P15</td><td>腰（正転）</td><td><button onclick="PIN(this, 16, 15)">SEND 1023</button></td></tr>
+<tr><td>P16</td><td>腰（逆転）</td><td><button onclick="PIN(this, 15, 16)">SEND 1023</button></td></tr>
+<tr><td>&nbsp;</td><td>STOP</td><td><button onclick="STOP()">SEND : STOP</button></td></tr>
+</table>
+</div>
+<hr>
+<div id=log></div>
+</body>
+</html>
