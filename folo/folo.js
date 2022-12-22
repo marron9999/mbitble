@@ -187,7 +187,7 @@ function initFOLO() {
 	UART["TX"] = notifyFOLO;
 	connectBLE = async function () {
 		initBLE();
-		UART = await MBITBLE.connect("UART", UART);
+		await MBITBLE.connect("UART", UART);
 	};
 	let e = E("folo");
 	base = [e.offsetLeft, e.offsetTop];
