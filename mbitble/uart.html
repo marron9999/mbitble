@@ -41,6 +41,11 @@ connectBLE = async function () {
 			else E("y").style.transform = "rotate(0deg)";
 			return;
 		}
+		if(d[0] == "Z") {
+			d[1] = parseInt(parseFloat(d[1]) * 100) / 100;
+			LOG0(d);
+			return;
+		}
 		if(d[0] == "A") {
 			LOG0(d);
 			if(d[1] == "1") E("r").style.transform = "rotate(-45deg)";
@@ -105,6 +110,7 @@ connectBLE = async function () {
 <div id=B>B</div>
 <div id=X>X</div>
 <div id=Y>Y</div>
+<div id=Z>Z</div>
 </div><div id=log></div></td>
 </tr>
 <tr valign=top>
