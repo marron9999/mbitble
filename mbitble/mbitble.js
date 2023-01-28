@@ -57,7 +57,7 @@ var MBITBLE = {
 				MBITBLE.disconnected();
 			};
 			for(let i=0; i<names.length; i++) {
-				this.service(names[i], targets[i]);
+				await this.service(names[i], targets[i]);
 			}
 			this.log2("Connected: " + this._device_name);
 			this.connected();
