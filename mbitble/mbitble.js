@@ -1,26 +1,31 @@
 function E(id) {
 	return document.getElementById(id);
 }
-var LOGMAX = 11;
-var logged = 0;
-var LOG2 = LOG;
 function LOG(s) {
-	let e = E("log");
-	if(e == null) return;
-	e.innerHTML += "<div>" + s + "</div>";
-	logged++;
-	if(logged > LOGMAX) {
-		logged--;
-		let i = e.innerHTML.indexOf("</div>");
-		e.innerHTML = e.innerHTML.substr(i+6);
-	}
-	e.scroll(0, 9999);
+	MBITBLE.LOG(s);
 }
 
-var MBITBLE = {
-	log: function (text) { LOG(text); },
-	log2: function (text) { LOG2(text); },
-	error: function (text) { LOG("Error:" + text); },
+function _MBITBLE() {
+let ble = {
+	LOGMAX : 11,
+	logged : 0,
+	LOG: function (s) {
+		let e = E("log");
+		if(e == null) return;
+		e.innerHTML += "<div>" + s + "</div>";
+		this.logged++;
+		if(this.logged > this.LOGMAX) {
+			this.logged--;
+			let i = e.innerHTML.indexOf("</div>");
+			e.innerHTML = e.innerHTML.substr(i+6);
+		}
+		e.scroll(0, 9999);
+	},
+	LOG2 : this.LOG,
+
+	log: function (text) { this.LOG(text); },
+	log2: function (text) { this.LOG2(text); },
+	error: function (text) { this.LOG("Error:" + text); },
 	connected: function () { },
 	disconnected: function () { },
 
@@ -48,13 +53,14 @@ var MBITBLE = {
 			this._device = await navigator.bluetooth.requestDevice(option);
 			this._server = await this._device.gatt.connect();
 			this._device_name = this._device.name;
+			this._device.MBITBLE = this;
 			this._device.ongattserverdisconnected = function() {
-				MBITBLE.log2("Disconnected"); 
+				this.MBITBLE.log2("Disconnected"); 
 				for(let name in MBITBLE._targets) {
-					MBITBLE._targets[name].primary = null;
+					this.MBITBLE._targets[name].primary = null;
 				}
-				MBITBLE.init();
-				MBITBLE.disconnected();
+				this.MBITBLE.init();
+				this.MBITBLE.disconnected();
 			};
 			for(let i=0; i<names.length; i++) {
 				await this.service(names[i], targets[i]);
@@ -104,6 +110,7 @@ var MBITBLE = {
 				MBITBLE.error("characteristic: " + "primary is null");
 				return;
 			}
+			primary.MBITBLE = this;
 			let characteristic = async function (primary, uuid, desc, callback) {
 				try {
 					let characteristic = await primary.getCharacteristic(uuid);
@@ -112,20 +119,20 @@ var MBITBLE = {
 					&& callback != null) {
 						characteristic.addEventListener("characteristicvaluechanged", callback);
 						characteristic.startNotifications();
-						if(MBITBLE.verbose) {
-							MBITBLE.log("Characteristic: " + desc + " + listener");
+						if(primary.MBITBLE.verbose) {
+							primary.MBITBLE.log("Characteristic: " + desc + " + listener");
 						}
 					} else {
-						if(MBITBLE.verbose) {
-							MBITBLE.log("Characteristic: " + desc);
+						if(primary.MBITBLE.verbose) {
+							primary.MBITBLE.log("Characteristic: " + desc);
 						}
 					}
-					if(MBITBLE.verbose) {
-						MBITBLE.log(uuid);
+					if(primary.MBITBLE.verbose) {
+						primary.MBITBLE.log(uuid);
 					}
 					return characteristic;
 				} catch (error) {
-					MBITBLE.error(error);
+					primary.MBITBLE.error(error);
 				}
 				return;
 			};
@@ -149,10 +156,10 @@ var MBITBLE = {
 				return event.target.value.getUint8(n);
 			};
 			target.int16 = function (event, n) {
-				return event.target.value.getInt16(n);
+				return event.target.value.getInt16(n, true);
 			};
 			target.uint16 = function (event, n) {
-				return event.target.value.getUint16(n);
+				return event.target.value.getUint16(n, true);
 			};
 			target.write_data = async function(name, data) {
 				try {
@@ -188,19 +195,30 @@ var MBITBLE = {
 			this.error(error);
 		}
 	}
+	//disconnectBLE : async function () {
+	//	await MBITBLE.disconnect();
+	//},
+	//connectBLE : null
 };
+ble.LOG2 = ble.LOG;
+return ble;
+}
 
-var disconnectBLE = async function () {
+var connectBLE = async function() {
+	await MBITBLE.connect();
+}
+var disconnectBLE = async function() {
 	await MBITBLE.disconnect();
 }
 
-var connectBLE = null;
-// = async function () {
-//	initBLE();
-//	await MBITBLE.connect( service name );
-//};
+var MBITBLE = _MBITBLE();
 var initBLE = async function () {
-	logged = 0;
+	MBITBLE.logged = 0;
 	let e = E("log");
 	if(e != null) e.innerHTML = "";
+};
+var newBLE = function () {
+	let ble = _MBITBLE();
+	ble.logged = 0;
+	return ble;
 };
