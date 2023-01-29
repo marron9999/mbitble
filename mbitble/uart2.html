@@ -11,41 +11,105 @@
 <style>
 </style>
 <script>
-var MBIT1 = MBITBLE;
-var MBIT2 = null;
+var MBIT1 = null;
 var UART1 = {};
+var MBIT2 = null;
 var UART2 = {};
 var px = 0, py = 0; 
 var pm = 0;
+
+var SOUND = {
+	hz1: [
+		[["ド", 131], ["ド#", 139], ["レ", 147], ["レ#", 156],
+			["ミ", 165], ["ファ", 175], ["ファ#", 185], ["ソ", 196],
+			["ソ#", 208], ["ラ", 220], ["ラ#", 233], ["シ", 247]],
+		[["ド", 262], ["ド#", 277], ["レ", 294], ["レ#", 311],
+			["ミ", 330], ["ファ", 349], ["ファ#", 370], ["ソ", 392],
+			["ソ#", 415], ["ラ", 440], ["ラ#", 466], ["シ", 498]],
+		[["ド", 523], ["ド#", 554], ["レ", 587], ["レ#", 622],
+			["ミ", 659], ["ファ", 698], ["ファ#", 740], ["ソ", 784],
+			["ソ#", 831], ["ラ", 880], ["ラ#", 932], ["シ", 988]],
+	],
+	hz2: [
+		["A", 440], ["A3", 220], ["A4", 440], ["A5", 880],
+		["B", 494], ["Bb", 466], ["B3", 247], ["Bb3", 233], 
+			["B4", 494], ["Bb4", 466], ["B5", 988], ["Bb5", 932],
+		["C", 262], ["C#", 277], ["C3", 131], ["C#3", 139],
+			["C4", 262], ["C#4", 277], ["C5", 523], ["C#5", 555],
+		["D", 294], ["D3", 147], ["D4", 294], ["D5", 587],
+		["E", 330],	["Eb", 311], ["E3", 165], ["Eb3", 156],
+			["E4", 330],["Eb4", 311], ["E5", 659], ["Eb5", 622],
+		["F", 349], ["F#", 370], ["F3", 175], ["F#3", 185],
+			["F4", 349], ["F#4", 370], ["F5", 698], ["F#5", 740],
+		["G", 392], ["G#", 415], ["G3", 196], ["G#3", 208],
+			["G4", 392], ["G#4", 415], ["G5", 784], ["G#5", 831],
+	],
+};
+
+async function sleep(ms) {
+	await new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
+}
+
+var _sound = SOUND.hz1[0][0][1];
+var _low = -0.25;
+var _high = 0.25;
+var _alpha = 0.3;
+var _float = 2;
+var _pm = 0;
+var _x = 0;
+var _y = 0;
+var _z = 0;
+
 function LOG0(s) {
 	let e = E(s[0]);
 	e.innerHTML = s[0] + " " + s[1];
 }
-let initBLE1 = function () {
+
+function fx() {
+	if(_x <= _low) {
+		E("x").style.transform = "translate(-25px, 0px)";
+	} else if(_x >= _high) {
+		E("x").style.transform = "translate(25px, 0px)";
+	} else {
+		E("x").style.transform = "translate(0px, 0px)";
+	}
+}
+function fy() {
+	if(_y <= _low) {
+		E("y").style.transform = "rotate(-30deg)";
+	} else if(_y >= _high) {
+		E("y").style.transform = "rotate(30deg)";
+	} else {
+		E("y").style.transform = "rotate(0deg)";
+	}
+}
+
+let callback = function() {};
+let initBLE1 = async function () {
+	MBIT1 = newBLE();
 	UART1["TX"] = function(event) {
 		let raw = UART1.text(event);
 		raw = raw.replace(/\r/g, "");
 		raw = raw.replace(/\n/g, "");
+		if(raw == "") return;
 		let d = raw.split(" ");
 		if(d[0] == "X") {
-			d[1] = parseInt(parseFloat(d[1]) * 100) / 100;
 			LOG0(d);
-			if(d[1] <= -0.25) E("x").style.transform = "translate(-25px, 0px)";
-			else if(d[1] >= 0.25) E("x").style.transform = "translate(25px, 0px)";
-			else E("x").style.transform = "translate(0px, 0px)";
+			_x = parseInt(parseFloat(d[1]) * 100) / 100
+			fx();
 			return;
 		}
 		if(d[0] == "Y") {
-			d[1] = parseInt(parseFloat(d[1]) * 100) / 100;
 			LOG0(d);
-			if(d[1] <= -0.25) E("y").style.transform = "rotate(-30deg)";
-			else if(d[1] >= 0.25) E("y").style.transform = "rotate(30deg)";
-			else E("y").style.transform = "rotate(0deg)";
+			_y = parseInt(parseFloat(d[1]) * 100) / 100;
+			fy();
 			return;
 		}
 		if(d[0] == "Z") {
-			d[1] = parseInt(parseFloat(d[1]) * 100) / 100;
 			LOG0(d);
+			//let z = parseInt(parseFloat(d[3]) * 100) / 100;
 			return;
 		}
 		if(d[0] == "A") {
@@ -72,6 +136,10 @@ let initBLE1 = function () {
 			pm != d[1];
 			return;
 		}
+		if(d[0] == "P0") {
+			LOG0(d);
+			return;
+		}
 		if(d[0] == "P1") {
 			LOG0(d);
 			if(d[1] == "1") E("z").style.transform = "translate(0px, -25px)";
@@ -84,8 +152,46 @@ let initBLE1 = function () {
 			else E("z").style.transform = "translate(0px, 0px)";
 			return;
 		}
+		if(d[0] == "sound") {
+			if(d[1] == "0") {
+				E("hz").innerHTML = "Sound Off";
+				E("hz1").style.display = "none";
+				E("hz2").style.display = "none";
+				return;
+			}
+			E("hz").innerHTML = "Sound " + d[1] + "Hz";
+			E("hz1").style.display = "inline-block";
+			E("hz2").style.display = "inline-block";
+			E("P0").innerHTML = "P0";
+			setTimeout(callback, 100);
+			return;
+		}
+		if(d[0] == "alpha") {
+			E("alp").innerHTML = "Alpha " + d[1];
+			E("alp1").style.display = "inline-block";
+			E("alp2").style.display = "inline-block";
+			setTimeout(callback, 100);
+			return;
+		}
+		if(d[0] == "value") {
+			E("val").innerHTML = "Value " + d[1];
+			E("val1").style.display = "inline-block";
+			E("val2").style.display = "inline-block";
+			setTimeout(callback, 100);
+			return;
+		}
+		if(d[0] == "float") {
+			E("flt").innerHTML = "Float " + d[1];
+			E("flt1").style.display = "inline-block";
+			E("flt2").style.display = "inline-block";
+			setTimeout(callback, 100);
+			return;
+		}
+		//if(d.length > 1)
+			LOG(raw)
 	};
 }
+
 initBLE2 = function () {
 	MBIT2 = newBLE();
 	UART2["TX"] = function(event) {
@@ -157,28 +263,80 @@ initBLE2 = function () {
 }
 connectBLE1 = async function () {
 	initBLE1();
-	initBLE2();
-	MBIT1.LOG('MBIT1.connect("UART", UART1)');
+	LOG('MBIT1.connect("UART", UART1)');
 	await MBIT1.connect("UART", UART1);
+	await sleep(100);
+	callback = async function() {
+	 callback = async function() {
+	  callback = async function() {
+	   callback = function() { };
+	   await UART1.write_text("RX", "float " + _float + "\n");
+	  };
+	  UART1.write_text("RX", "alpha " + _alpha + "\n");
+	 };
+	 UART1.write_text("RX", "value " + _high + "\n");
+	};
+	UART1.write_text("RX", "sound " + _sound + "\n");
 };
+
 connectBLE2 = async function () {
-	if(MBIT2 == null) {
-		initBLE2();
-	}
-	MBIT1.LOG('MBIT2.connect("UART", UART2)');
+	initBLE2();
+	LOG('MBIT2.connect("UART", UART2)');
 	await MBIT2.connect("UART", UART2);
 };
+
 async function disconnectBLE() {
 	MBIT1.disconnect();
-	MBIT2.disconnect();
+	if(MBIT2 != null)
+		MBIT2.disconnect();
 	MBIT2 = null;
+}
+
+async function snd(e) {
+	if(_sound == 0) {
+		_sound = SOUND.hz1[0][0][1];
+	} else {
+		_sound = 0;
+	}
+	await UART.write_text("RX", "sound " + _sound + "\n");
+	await sleep(200);
+}
+async function _hz_(v) {
+	if(v>0) _sound += 10;
+	else 	_sound -= 10;
+	if(_sound < 10) _sound = 10;
+	await UART.write_text("RX", "sound " + _sound + "\n");
+	await sleep(200);
+}
+async function _alpha_(v) {
+	if(v>0) _alpha += 0.05;
+	else 	_alpha -= 0.05;
+	if(_alpha < 0.05) _float = 0.05;
+	await UART.write_text("RX", "alpha " + _alpha + "\n");
+	await sleep(200);
+}
+async function _value_(v) {
+	if(v>0) _high += 0.05;
+	else 	_high -= 0.05;
+	if(_high < 0.05) _high = 0.05;
+	_low = 0 - _high;
+	await UART.write_text("RX", "value " + _high + "\n");
+	await sleep(200);
+}
+async function _float_(v) {
+	if(v>0) _float += 1;
+	else 	_float -= 1;
+	if(_float < 0) _float = 0;
+	await UART.write_text("RX", "float " + _float + "\n");
+	await sleep(200);
 }
 </script>
 </head>
 <body>
 <div id=body style="height:auto">
-<div><button onclick="connectBLE1()">Connect1</button><button onclick="connectBLE2()">Connect2</button>
-&nbsp;<button onclick="disconnectBLE()">Disconnect</button>
+<div><button onclick="connectBLE1()">Connect1</button
+><button onclick="connectBLE2()">Connect2</button
+>&nbsp;<button onclick="disconnectBLE()">Disconnect</button>
 &nbsp;&nbsp;<a href="microbit-joymbit.hex">microbit-joymbit.hex</a></button>
 </div>
 
@@ -187,49 +345,54 @@ async function disconnectBLE() {
 <div>
 <table border=0 style="font-size:small;">
 <tr valign=top>
-<td align=center>P1 上下 P2</td>
+<td align=center style="height:1em;">P1 上下 P2</td>
 <td align=center>A 回転 B</td>
-<td rowspan=7 valign=top style="padding-left:10px"><div id=log0>
-<div id=LOGO>LOGO</div>
-<div id=P1>P1</div>
-<div id=P2>P2</div>
-<div id=A>A</div>
-<div id=B>B</div>
-<div id=X>X</div>
-<div id=Y>Y</div>
-<div id=Z>Z</div>
+<td rowspan=6 valign=top style="padding-left:10px"><div id=log0>
+<table border=0>
+<tr><td width=80 id=LOGO>LOGO</td><td width=80 id=P0>P0</td></tr>
+<tr><td id=P1>P1</td><td id=P2>P2</td></tr>
+<tr><td id=A>A</td><td id=B>B</td></tr>
+<tr><td id=X>X</td><td id=Y>Y</td></tr>
+<tr><td id=Z>Z</td><td>&nbsp;</td></tr>
+<tr><td colspan=2><span onclick="snd(this)" id=hz>Sound</span>&nbsp;&nbsp;<span id=hz1 style="display:none;" onclick="_hz_(1)" "> ▲ </span><span id=hz2 style="display:none;" onclick="_hz_(-1)"> ▼ </span></td></tr>
+<tr><td colspan=2><span id=alp>Alpha</span>&nbsp;&nbsp;<span id=alp1 style="display:none;" onclick="_alpha_(1)"> ▲ </span><span id=alp2 style="display:none;" onclick="_alpha_(-1)"> ▼ </span></td></tr>
+<tr><td colspan=2><span id=val>Value</span>&nbsp;&nbsp;<span id=val1 style="display:none;" onclick="_value_(1)"> ▲ </span><span id=val2 style="display:none;" onclick="_value_(-1)"> ▼ </span></td></tr>
+<tr><td colspan=2><span id=flt>Float</span>&nbsp;&nbsp;<span id=flt1 style="display:none;" onclick="_float_(1)"> ▲ </span><span id=flt2 style="display:none;" onclick="_float_(-1)"> ▼ </span></td></tr>
+</table>
 </div><div id=log></div></td>
 </tr>
 <tr valign=top>
-<td><div id=zz><div id=z></div><div class=z0></div><div class=z1></div></div></td>
+<td style="height:1em;"><div id=zz><div id=z></div><div class=z0></div><div class=z1></div></div></td>
 <td><div id=rr><div id=r></div><div class=z0></div><div class=z1></div></div></td>
 </tr>
 <tr valign=top>
-<td><div id=xx><div id=x></div><div class=z0></div><div class=z1></div></div></td>
+<td style="height:1em;"><div id=xx><div id=x></div><div class=z0></div><div class=z1></div></div></td>
 <td><div id=yy><div id=y></div><div class=z0></div><div class=z1></div></div></td>
 </tr>
 <tr valign=top>
-<td align=center>左右</td>
+<td align=center style="height:1em;">左右</td>
 <td align=center>前後</td>
 </tr>
 <tr valign=top>
-<td align=center colspan=2>LOGO&nbsp;<div id=m>モーター オフ</div
+<td align=center colspan=2 style="height:1em;">LOGO&nbsp;<div id=m>モーター オフ</div
 >&nbsp;<div id=qq><div id=q></div></div></td>
-</tr>
-<tr valign=top>
-<td align=center colspan=2>&nbsp;</td>
 </tr>
 <tr valign=top>
 <td align=center colspan=2>&nbsp;</td>
 </tr>
 </tale>
 <style>
+* {
+	user-select: none;
+}
 #log0 {
 	margin-bottom: 5px;
 }
 #log {
 	height: 100px;
 	display: inline-block;
+	font-size: 9px;
+	font-family: monospace;
 }
 #m {
 	display: inline-block;
