@@ -57,6 +57,7 @@ var _low = -0.25;
 var _high = 0.25;
 var _alpha = 0.3;
 var _float = 2;
+var _button = 1;
 var _pm = 0;
 var _x = 0;
 var _y = 0;
@@ -187,6 +188,18 @@ let initBLE1 = async function () {
 			setTimeout(callback, 100);
 			return;
 		}
+		if(d[0] == "button") {
+			if(d[1] == "0") {
+				E("A").innerHTML = "A";
+				E("B").innerHTML = "B";
+				E("P0").innerHTML = "P0";
+				E("P1").innerHTML = "P1";
+				E("P2").innerHTML = "P2";
+			}
+			E("bx").innerHTML = "Button " + d[1];
+			setTimeout(callback, 100);
+			return;
+		}
 		//if(d.length > 1)
 			LOG(raw)
 	};
@@ -269,20 +282,17 @@ connectBLE1 = async function () {
 	callback = async function() {
 	 callback = async function() {
 	  callback = async function() {
-	   callback = function() { };
+	   callback = async function() {
+	    callback = async function() { };
+	    await UART1.write_text("RX", "button " + _button + "\n");
+	   };
 	   await UART1.write_text("RX", "float " + _float + "\n");
 	  };
-	  UART1.write_text("RX", "alpha " + _alpha + "\n");
+	  await UART1.write_text("RX", "alpha " + _alpha + "\n");
 	 };
-	 UART1.write_text("RX", "value " + _high + "\n");
+	 await UART1.write_text("RX", "value " + _high + "\n");
 	};
-	UART1.write_text("RX", "sound " + _sound + "\n");
-};
-
-connectBLE2 = async function () {
-	initBLE2();
-	LOG('MBIT2.connect("UART", UART2)');
-	await MBIT2.connect("UART", UART2);
+	await UART1.write_text("RX", "sound " + _sound + "\n");
 };
 
 async function disconnectBLE() {
@@ -298,21 +308,30 @@ async function snd(e) {
 	} else {
 		_sound = 0;
 	}
-	await UART.write_text("RX", "sound " + _sound + "\n");
+	await UART1.write_text("RX", "sound " + _sound + "\n");
+	await sleep(200);
+}
+async function btn(e) {
+	if(_button == 0) {
+		_button = 1;
+	} else {
+		_button = 0;
+	}
+	await UART1.write_text("RX", "button " + _button + "\n");
 	await sleep(200);
 }
 async function _hz_(v) {
 	if(v>0) _sound += 10;
 	else 	_sound -= 10;
 	if(_sound < 10) _sound = 10;
-	await UART.write_text("RX", "sound " + _sound + "\n");
+	await UART1.write_text("RX", "sound " + _sound + "\n");
 	await sleep(200);
 }
 async function _alpha_(v) {
 	if(v>0) _alpha += 0.05;
 	else 	_alpha -= 0.05;
 	if(_alpha < 0.05) _float = 0.05;
-	await UART.write_text("RX", "alpha " + _alpha + "\n");
+	await UART1.write_text("RX", "alpha " + _alpha + "\n");
 	await sleep(200);
 }
 async function _value_(v) {
@@ -320,14 +339,14 @@ async function _value_(v) {
 	else 	_high -= 0.05;
 	if(_high < 0.05) _high = 0.05;
 	_low = 0 - _high;
-	await UART.write_text("RX", "value " + _high + "\n");
+	await UART1.write_text("RX", "value " + _high + "\n");
 	await sleep(200);
 }
 async function _float_(v) {
 	if(v>0) _float += 1;
 	else 	_float -= 1;
 	if(_float < 0) _float = 0;
-	await UART.write_text("RX", "float " + _float + "\n");
+	await UART1.write_text("RX", "float " + _float + "\n");
 	await sleep(200);
 }
 </script>
@@ -354,6 +373,7 @@ async function _float_(v) {
 <tr><td id=A>A</td><td id=B>B</td></tr>
 <tr><td id=X>X</td><td id=Y>Y</td></tr>
 <tr><td id=Z>Z</td><td>&nbsp;</td></tr>
+<tr><td colspan=2><span onclick="btn(this)" id=bx>Button</span></td></tr>
 <tr><td colspan=2><span onclick="snd(this)" id=hz>Sound</span>&nbsp;&nbsp;<span id=hz1 style="display:none;" onclick="_hz_(1)" "> ▲ </span><span id=hz2 style="display:none;" onclick="_hz_(-1)"> ▼ </span></td></tr>
 <tr><td colspan=2><span id=alp>Alpha</span>&nbsp;&nbsp;<span id=alp1 style="display:none;" onclick="_alpha_(1)"> ▲ </span><span id=alp2 style="display:none;" onclick="_alpha_(-1)"> ▼ </span></td></tr>
 <tr><td colspan=2><span id=val>Value</span>&nbsp;&nbsp;<span id=val1 style="display:none;" onclick="_value_(1)"> ▲ </span><span id=val2 style="display:none;" onclick="_value_(-1)"> ▼ </span></td></tr>
