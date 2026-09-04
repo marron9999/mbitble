@@ -1,0 +1,6 @@
+Set R value:	001. .... (赤色 / 8)
+Set G value:	011. .... (緑色 / 8)
+Set B value:	101. .... (青色 / 8)
+
+LED Max:   	110. .... (LED数)
+LED位置:   	111. .... (LED位置)
