@@ -7,7 +7,7 @@ function log_clear() {
 }
 	
 function log1(t) {
-	if(ROW1 > 99) {
+	if(ROW1 > 49) {
 		let div = LOG1.firstElementChild;
 		if (div) {
 		   div.remove();
@@ -24,7 +24,7 @@ function log1(t) {
 }
 
 function log2(t) {
-	if(ROW2 > 19) {
+	if(ROW2 > 49) {
 		let div = LOG2.firstElementChild;
 		if (div) {
 		   div.remove();
