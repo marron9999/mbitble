@@ -1,0 +1,91 @@
+@charset "UTF-8";
+* {
+	font-size:18px;
+	font-family: monospace;
+}
+body {
+	width: calc(100%);
+	height: calc(100%);
+	padding: 0;
+	margin: 0;
+	background: #eee;
+}
+.body {
+	position: absolute;
+	overflow: hidden;
+	width: calc(100% - 6px);
+	height: calc(100% - 6px);
+	padding: 2px 2px;
+}
+.input {
+	position: absolute;
+	bottom: 2px;
+	width: calc(100% - 6px);
+	height:1.4em;
+	border-top: 1px solid gray;	
+	padding-top: 4px;	
+	padding-left: 4px;
+}
+.input input {
+	border: 0;
+	width: calc(100% - 1.4em);
+}
+#m0 button {
+	width: 7em;
+}
+#ctl {
+	position: absolute;
+	border-top: 1px solid gray;	
+	height: 5em;
+	bottom: 5em;
+	width: calc(100% - 0.1em);
+	display: none;
+}
+#ctl button {
+	margin-top: 0.4em;
+	margin-left: 0.4em;
+	width: 7em;
+}
+.led {
+	position: relative;
+	display: inline-block;
+	width: 10.1em;
+	height: calc(100%);
+	vertical-align: top;
+}
+.led table {
+	width: calc(100%);
+}
+.led input {
+	width: calc(100%);
+	height: 2em;
+	border: 0;
+	padding: 0;
+}
+.log {
+	border-left: 1px solid gray;
+	display: inline-block;
+	width: calc(100% - 10.2em);
+	height: calc(100% - 1.8em);
+}
+#log1 {
+	width: calc(100% - 0.1em);
+	height: calc(30%);
+	margin-left: 0.1em;
+	overflow: auto; 
+}
+#log2 {
+	border-top: 1px solid gray;
+	width: calc(100% - 0.1em);
+	height: calc(70% - 0.1em);
+	margin-left: 0.1em;
+	overflow: hidden;
+}
+#m0 {
+	display: inline-block;
+	width: calc(100%);
+}
+#m1 {
+	display: none;
+	width: calc(100%);
+}
