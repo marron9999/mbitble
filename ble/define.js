@@ -8,4 +8,5 @@ var define = [
 	{name:"背2",		led:[3,4],		rgb:"FF0" },
 	{name:"ガン",		led:[9],		rgb:"F00" },
 	{name:"照準",	led:[10],		rgb:"FFF" },
+	{name:"-",		led:[13],		rgb:"000" },
 ];
