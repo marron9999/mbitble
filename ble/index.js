@@ -133,7 +133,7 @@ async function connect() {
 		for(let i=0; i<define.length; i++) {
 			document.getElementById('a' + i).innerHTML = "<span class=ani1 />";
 		}
-		await set_max(max_no);
+		await set_max(max_no + 1);
 		for(let i=0; i<define.length; i++) { await led_rgb(i); }
 		await set_show(1);
 	}
