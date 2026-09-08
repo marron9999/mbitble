@@ -117,7 +117,7 @@ async function anime(a) {
 		await set_show(15);
 	} else {
 		for(let i=0; i<define.length; i++) {
-			document.getElementById('a' + i).innerHTML = "<span class=ani" + (a + 1) + " />";
+			document.getElementById('a' + i).innerHTML = "<span class=ani" + a + " />";
 		}
 		await set_show(1);
 		for(let i=0; i<define.length; i++) {
