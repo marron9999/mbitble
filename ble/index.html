@@ -7,19 +7,26 @@
 <script src="mbituuid.js" type="text/javascript"></script>
 <script src="mbitble.js" type="text/javascript"></script>
 <script src="ctrlble.js" type="text/javascript"></script>
-<link rel="stylesheet" href="index.css">
 <script src="define.js" type="text/javascript"></script>
 <script src="index.js" type="text/javascript"></script>
+<link href="icon.css" rel="stylesheet">
+<link href="index.css" rel="stylesheet" >
 <title>BLE</title>
 </head>
 <body><div class=body
 	><div class=led
 		><div id=led></div
 		><div id=ctl
-			><button onclick="high_light()">High Light</button
-			><button onclick="off_light()">Off Light</button
-			><button onclick="low_high()">Low to High</button
-			><button onclick="disconnect()">Disconnect</button
+			><div class=ctl0
+			><button class=b0 onclick="anime(2)"><span class=ani2></span></button
+			><button class=b0 onclick="anime(3)"><span class=ani3></span></button
+			><button class=b0 onclick="anime(4)"><span class=ani4></span></button
+			><button class=b0 onclick="anime(5)"><span class=ani5></span></button
+			></div
+			><div class=ctl1
+			><button class=b0 onclick="anime(1)"><span class=ani1></span></button
+			><button class=b0 onclick="anime(0)"><span class=ani0></span></button
+			></div
 		></div
 	></div
 	><div class=log
@@ -27,8 +34,10 @@
 		><div id=log2></div
 	></div
 	><div class=input
-		><div id=m0><button onclick="connect()">Connect</button></div
-		><div id=m1><span>＞</span><input id=in></div
+		><div id=m0><button onclick="connect()">接続</button></div
+		><div id=m1><span>＞</span><input id=in
+		><button class=b1 onclick="disconnect()">切断</button
+		></div
 	></div
 ></div></body>
 </html>

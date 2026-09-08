@@ -28,7 +28,11 @@ body {
 }
 .input input {
 	border: 0;
-	width: calc(100% - 1.4em);
+	width: calc(100% - 6.6em);
+}
+.input button {
+	margin-left: 0.2em;
+	width: 5em;
 }
 #m0 button {
 	width: 7em;
@@ -36,22 +40,34 @@ body {
 #ctl {
 	position: absolute;
 	border-top: 1px solid gray;	
-	height: 5em;
-	bottom: 5em;
+	height: 7.5em;
+	bottom: 0.4em;
 	width: calc(100% - 0.1em);
 	display: none;
 }
-#ctl button {
+.ctl0, .ctl1 {
+	width: calc(100%);
+}
+.ctl1 {
+	border-top: 1px solid gray;
 	margin-top: 0.4em;
-	margin-left: 0.4em;
-	width: 7em;
+}
+#ctl button.b0 {
+	margin-top: 0.4em;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+	/*width: 7em;*/
 }
 .led {
 	position: relative;
 	display: inline-block;
-	width: 10.1em;
-	height: calc(100%);
+	width: 7.1em;
+	height: calc(100% - 1.4em);
 	vertical-align: top;
+}
+#led {
+	overflow: hidden auto;
+	height: calc(100% - 8em);
 }
 .led table {
 	width: calc(100%);
@@ -65,14 +81,15 @@ body {
 .log {
 	border-left: 1px solid gray;
 	display: inline-block;
-	width: calc(100% - 10.2em);
+	width: calc(100% - 7.2em);
 	height: calc(100% - 1.8em);
 }
 #log1 {
 	width: calc(100% - 0.1em);
 	height: calc(30%);
 	margin-left: 0.1em;
-	overflow: auto; 
+	overflow: hidden auto; 
+	padding-bottom: 0.1em;
 }
 #log2 {
 	border-top: 1px solid gray;
@@ -80,6 +97,7 @@ body {
 	height: calc(70% - 0.1em);
 	margin-left: 0.1em;
 	overflow: hidden;
+	padding-bottom: 0.1em;
 }
 #m0 {
 	display: inline-block;
