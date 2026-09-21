@@ -1,0 +1,56 @@
+/**
+* このファイルを使って、独自の関数やブロックを定義してください。
+* 詳しくはこちらを参照してください：https://makecode.microbit.org/blocks/custom
+*/
+
+/**
+ * Custom blocks
+ */
+//% weight=100 color=#0fbc11 icon=""
+namespace LEDHEX {
+    let PAT: number[][] = [
+        [0x00, 0x00, 0x11, 0x11, 0x11], // 0
+        [0x01, 0x01, 0x01, 0x01, 0x01], // 1
+        [0x11, 0x01, 0x11, 0x10, 0x11], // 2
+        [0x11, 0x01, 0x11, 0x01, 0x11], // 3
+        [0x11, 0x11, 0x11, 0x01, 0x01], // 4
+        [0x11, 0x10, 0x11, 0x01, 0x11], // 5
+        [0x11, 0x10, 0x11, 0x11, 0x11], // 6
+        [0x11, 0x01, 0x01, 0x01, 0x01], // 7
+        [0x11, 0x11, 0x11, 0x11, 0x11], // 8
+        [0x11, 0x11, 0x11, 0x01, 0x11], // 9
+        [0x11, 0x01, 0x11, 0x11, 0x11], // a
+        [0x10, 0x10, 0x11, 0x11, 0x11], // b
+        [0x00, 0x00, 0x11, 0x10, 0x11], // c
+        [0x01, 0x01, 0x11, 0x11, 0x11], // d
+        [0x11, 0x10, 0x11, 0x10, 0x11], // e
+        [0x11, 0x10, 0x11, 0x10, 0x10]  // f
+    ]
+
+    /**
+     * TODO: describe your function here
+     * @param n describe parameter here, eg: 5
+     */
+    //% block
+    export function HEX(n: number): void {
+        let n1 = Math.idiv(n, 16)
+        let n2 = n % 16
+        for (let x = 0; x < 5; x++) {
+            SHOW(PAT[n1][x], 0, x);
+            SHOW(PAT[n2][x], 3, x);
+        }
+    }
+
+    function SHOW(p: number, x: number, y: number) {
+        if (Math.idiv(p, 16) > 0) {
+            led.plot(x + 0, y);
+        } else {
+            led.unplot(x + 0, y);
+        }
+        if (p % 16 > 0) {
+            led.plot(x + 1, y);
+        } else {
+            led.unplot(x + 1, y);
+        }
+    }
+}

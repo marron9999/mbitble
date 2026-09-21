@@ -40,7 +40,7 @@ body {
 #ctl {
 	position: absolute;
 	border-top: 1px solid gray;	
-	height: 7.5em;
+	height: 11.5em;
 	bottom: 0.4em;
 	width: calc(100% - 0.1em);
 	display: none;
@@ -55,19 +55,19 @@ body {
 #ctl button.b0 {
 	margin-top: 0.4em;
 	margin-left: 0.2em;
-	margin-right: 0.2em;
+	/*margin-right: 0.1em;*/
 	/*width: 7em;*/
 }
 .led {
 	position: relative;
 	display: inline-block;
-	width: 7.1em;
+	width: 10.1em;
 	height: calc(100% - 1.4em);
 	vertical-align: top;
 }
 #led {
 	overflow: hidden auto;
-	height: calc(100% - 8em);
+	height: calc(100% - 11em);
 }
 .led table {
 	width: calc(100%);
@@ -81,7 +81,7 @@ body {
 .log {
 	border-left: 1px solid gray;
 	display: inline-block;
-	width: calc(100% - 7.2em);
+	width: calc(100% - 10.2em);
 	height: calc(100% - 1.8em);
 }
 #log1 {
@@ -106,4 +106,9 @@ body {
 #m1 {
 	display: none;
 	width: calc(100%);
+}
+#c0 {
+	font-size:12px;
+	font-style: italic;
+	vertical-align: middle;
 }

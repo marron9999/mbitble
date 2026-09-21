@@ -1,8 +1,14 @@
 var IN;
 var max_no = 0;
-var R = 0, G = 0, B = 0;
+var R = -1, G = -1, B = -1;
 var C = 0, A = 0;
 var T0 = T1 = 0;
+var RGB = [
+	"#000000", "#000088", "#0000FF", "#008800",
+	"#008888", "#00FF00", "#00FFFF", "#880000",
+	"#880088", "#888800", "#888888", "#CCCCCC",
+	"#FF0000", "#FF00FF", "#FFFF00", "#FFFFFF"
+];
   
 document.addEventListener("DOMContentLoaded", () => {
 	IN = document.getElementById('in');
@@ -40,7 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	let t = "<table border=0>";
 	for(let i=0; i<define.length; i++) {
 		let e = define[i];
-		let rr = e.rgb.charAt(0); rr = rr + rr; 
+		e.org = e.rgb;
+		let rr = e.rgb.charAt(0); rr = rr + rr;
 		let gg = e.rgb.charAt(1); gg = gg + gg;
 		let bb = e.rgb.charAt(2); bb = bb + bb;
 		t += "<tr><td nowrap width='1%'>" + e.name + "</td>";
@@ -52,6 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 	t += "</table>";
 	document.getElementById('led').innerHTML = t;
+	for(let i=1; i<16; i++) {
+		let e = document.getElementById('c' + i);
+		e.style.background = RGB[i];
+	}
 });
 
 function hex(n) {
@@ -124,6 +135,38 @@ async function anime(a) {
 			await led_ani(i, a);
 		}
 		await set_show(15);
+	}
+}
+async function color(a) {
+	if(C < 0) return;
+	if(a != 0) {
+		await RX(0x40 + a, "RGB " + a);
+		for(let i=0; i<define.length; i++) {
+			let e = document.getElementById('e' + i);
+			e.value = RGB[a];
+			e = define[i];
+			for(let j=0; j<e.led.length; j++) {
+				if(C < 0) return;
+				await RX(0xe0 + e.led[j], e.name);
+			}
+		}
+	} else {
+		R = -1, G = -1, B = -1;
+		for(let i=0; i<define.length; i++) {
+			let e = define[i];
+			e.rgb = e.org;
+			let rr = e.rgb.charAt(0); rr = rr + rr;
+			let gg = e.rgb.charAt(1); gg = gg + gg;
+			let bb = e.rgb.charAt(2); bb = bb + bb;
+			e = document.getElementById('e' + i);
+			e.value = "#" + rr + gg + bb;
+			e = define[i];
+			await set_rgb(e.rgb);
+			for(let j=0; j<e.led.length; j++) {
+				if(C < 0) return;
+				await RX(0xe0 + e.led[j], e.name);
+			}
+		}
 	}
 }
 async function connect() {
